@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI术数工程化 · 可视化</title>
+
+    <!-- Fontshare & Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME: Dark Botanical)
+           =========================================== */
+        :root {
+            /* Colors */
+            --bg-primary: #0f0f0f;
+            --text-primary: #e8e4df;
+            --text-secondary: #9a9590;
+            --accent-warm: #d4a574;
+            --accent-pink: #e8b4b8;
+            --accent-gold: #c9b896;
+            --accent-qimen: #e89a4f;
+            --accent-ziwei: #8b8bff;
+
+            /* Typography */
+            --font-display: 'Cormorant', serif;
+            --font-body: 'IBM Plex Sans', sans-serif;
+            --title-size: clamp(2.5rem, 6vw, 4.5rem);
+            --subtitle-size: clamp(1rem, 2vw, 1.5rem);
+            --body-size: clamp(0.875rem, 1.2vw, 1.125rem);
+
+            /* Spacing */
+            --slide-padding: clamp(1.5rem, 5vw, 4rem);
+            --content-gap: clamp(1rem, 2vw, 2rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.8s;
+        }
+
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           =========================================== */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        *, *::before, *::after { box-sizing: inherit; }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* Abstract Dark Botanical Backgrounds */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+        body::before {
+            width: 50vw; height: 50vw;
+            background: var(--accent-warm);
+            top: -20vw; left: -10vw;
+        }
+        body::after {
+            width: 40vw; height: 40vw;
+            background: var(--accent-ziwei);
+            bottom: -10vw; right: -5vw;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Containers to prevent blowout */
+        .container {
+            max-width: min(90vw, 1100px);
+            max-height: min(85vh, 800px);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .center-container {
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+        .reveal:nth-child(6) { transition-delay: 0.6s; }
+
+        /* ===========================================
+           COMPONENTS & TYPOGRAPHY
+           =========================================== */
+        h1, h2, h3, .heading-font {
+            font-family: var(--font-display);
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: var(--title-size);
+            line-height: 1.1;
+            margin-bottom: clamp(1rem, 2vh, 1.5rem);
+            color: var(--text-primary);
+        }
+
+        .page-title {
+            font-size: clamp(0.75rem, 1vw, 0.9rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-warm);
+            margin-bottom: clamp(0.5rem, 1vh, 1rem);
+            font-family: var(--font-body);
+        }
+
+        .page-sub {
+            font-size: var(--subtitle-size);
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: clamp(1rem, 2vh, 2rem);
+            font-family: var(--font-display);
+        }
+
+        h2.section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--accent-gold);
+            margin-bottom: clamp(0.5rem, 1vh, 1rem);
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: clamp(0.75rem, 1vw, 0.85rem);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: clamp(0.5rem, 1vh, 1rem);
+            text-align: center;
+        }
+
+        .section-desc {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: clamp(1.5rem, 4vh, 3rem);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: clamp(1.2rem, 2vh, 2rem) clamp(1rem, 2vw, 1.5rem);
+            transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        /* Top subtle highlight line */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        }
+
+        /* Horizontal Flow grid (Qimen) */
+        .flow-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.5rem, 1vw, 1.2rem);
+            justify-content: center;
+        }
+        .flow-grid .glass-card {
+            flex: 1;
+            min-width: calc(20% - 1.2rem);
+            max-width: 200px;
+        }
+        
+        /* Step formatting */
+        .step-num {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--accent-warm);
+            opacity: 0.6;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .step-title {
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
+        }
+        .step-detail {
+            font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Branching container */
+        .branch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 2vw, 2rem);
+            margin-top: auto; /* Push to center if alone */
+        }
+        .branch-grid .glass-card { padding: clamp(1.5rem, 3vh, 2.5rem); }
+        .branch-grid .branch-label {
+            font-size: clamp(0.7rem, 0.9vw, 0.8rem);
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .branch-grid .step-title { font-size: clamp(1.1rem, 1.5vw, 1.4rem); color: var(--accent-gold); }
+        .branch-grid .step-detail { font-size: var(--body-size); margin-top: 1rem;}
+
+        /* Vertical Flow Container (Ziwei) */
+        .vflow-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(0.5rem, 1.5vh, 1rem);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .vflow-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+        .vflow-spine {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 40px;
+        }
+        .vflow-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(139, 139, 255, 0.05);
+            border: 1px solid var(--accent-ziwei);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-family: var(--font-display);
+            font-weight: 600;
+            color: var(--accent-ziwei);
+        }
+        .vflow-content {
+            flex: 1;
+            padding: clamp(0.8rem, 1.5vh, 1.2rem) clamp(1rem, 2vw, 1.5rem);
+        }
+
+        /* Complex List styling for Ziwei Context */
+        .context-list {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.8rem, 1.5vh, 1.2rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Comparison Table Grid */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: minmax(80px, 1fr) 2fr 2fr;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        .cg-header {
+            padding: clamp(0.8rem, 1.5vh, 1.2rem) clamp(1rem, 2vw, 1.5rem);
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            font-weight: 600;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-primary);
+        }
+        .cg-header.qimen { color: var(--accent-qimen); }
+        .cg-header.ziwei { color: var(--accent-ziwei); }
+        .cg-cell {
+            padding: clamp(0.8rem, 1.5vh, 1.2rem) clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .cg-cell:nth-child(3n) { border-right: none; }
+        .cg-row-last .cg-cell { border-bottom: none; }
+        .cg-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.01);
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+            font-weight: 600;
+            margin-bottom: 6px;
+            border: 1px solid currentColor;
+            letter-spacing: 0.05em;
+        }
+        .tag-orange { color: var(--accent-qimen); background: rgba(232, 154, 79, 0.1); }
+        .tag-purple { color: var(--accent-ziwei); background: rgba(139, 139, 255, 0.1); }
+        .tag-green  { color: #5fe88a; background: rgba(10, 32, 10, 0.4); }
+        .tag-gray   { color: #aaa; background: rgba(255, 255, 255, 0.05); }
+
+        /* Principles Grid */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1rem, 2vw, 2rem);
+        }
+
+        /* Quotes */
+        .quote-block {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .quote-text {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+        .quote-source {
+            font-size: var(--body-size);
+            color: var(--accent-warm);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Decorative UI */
+        .nav-dots {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-dot:hover { background: rgba(255, 255, 255, 0.5); }
+        .nav-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.5);
+            box-shadow: 0 0 10px rgba(201, 184, 150, 0.5);
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            width: 0%;
+            z-index: 100;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 8px var(--accent-gold);
+        }
+        
+        /* Mobile Scaling Overrides from viewport-base.css logic */
+        @media (max-width: 800px), (max-height: 700px) {
+            .flow-grid .glass-card { min-width: calc(33.333% - 1rem); }
+            .principles-grid { grid-template-columns: 1fr; }
+            .branch-grid { grid-template-columns: 1fr; }
+            .nav-dots { display: none; }
+        }
+        @media (max-width: 600px), (max-height: 600px) {
+            .flow-grid .glass-card { min-width: calc(50% - 0.5rem); padding: 1rem; }
+            .compare-grid { grid-template-columns: 70px 1fr 1fr; }
+            .cg-cell { padding: 0.5rem; }
+            .tag { display: block; width: max-content; margin: 0 auto 4px auto; }
+            .vflow-item { gap: 0.5rem; }
+            .vflow-spine { width: 30px; }
+            .vflow-dot { width: 28px; height: 28px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- Slide 1: Title -->
+    <section class="slide">
+        <div class="slide-content center-container">
+            <div class="container center-container">
+                <p class="page-title reveal">传统术数与 AI 架构解构</p>
+                <h1 class="reveal">两套玄学系统，同一工程视角</h1>
+                <p class="page-sub reveal">奇门遁甲 × 紫微斗数 · 从结构化访谈到能力边界的防御性设计</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Qimen Flow -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="container">
+                <p class="section-label reveal">图 1 · 奇门遁甲</p>
+                <h2 class="section-title reveal">访谈 → 脚本计算 → 解读输出</h2>
+                <p class="section-desc reveal">核心原则：剥离 AI 的心算幻觉，强制依赖 Python 进行刚性计算，且坚守“信息残缺即拒答”的底线。</p>
+                
+                <div class="flow-grid">
+                    <div class="glass-card reveal">
+                        <div class="step-num">01</div>
+                        <div class="step-title">结构化访谈</div>
+                        <div class="step-detail">确认事项类型、精确发生时间、所在城市、判断目标及阶段进展。核心参数，缺一必问。</div>
+                    </div>
+                    <div class="glass-card reveal" style="border-color: rgba(139,139,255,0.3);">
+                        <div class="step-num">02</div>
+                        <div class="step-title" style="color:var(--accent-ziwei);">完整验证锁</div>
+                        <div class="step-detail">所有必备入参通过前置校验校验完毕后，系统才允许数据向下一步流通。</div>
+                    </div>
+                    <div class="glass-card reveal" style="border-color: rgba(95,232,138,0.3);">
+                        <div class="step-num">03</div>
+                        <div class="step-title" style="color:#5fe88a;">唤起外部脚本</div>
+                        <div class="step-detail">注入标准化 JSON，提取宫位与干支。<br><strong>若脚本报错异常，则立刻彻底终止当前交互</strong>。</div>
+                    </div>
+                    <div class="glass-card reveal">
+                        <div class="step-num">04</div>
+                        <div class="step-title">阵列数据解析</div>
+                        <div class="step-detail">拆解并获取阴阳遁法、局数定格、旬空、值符值使及九宫阵列的绝对坐标群。</div>
+                    </div>
+                    <div class="glass-card reveal" style="border-color: rgba(232,154,79,0.3);">
+                        <div class="step-num">05</div>
+                        <div class="step-title" style="color:var(--accent-qimen);">七段式结构修辞</div>
+                        <div class="step-detail">统一输出体例：覆盖盘面摘要、核心断言、用神逻辑、空间时机策略及安全风险预警。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: AI vs Script Branch -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="container container-center">
+                <p class="section-label reveal">架构分工</p>
+                <h2 class="section-title reveal">大模型引擎 与 刚性脚本的边界分工</h2>
+                <p class="section-desc reveal">坚决剥离大语言模型对于历法的“心算幻觉”，确保大模型专攻其擅长的语义推理与抽象规则解析。</p>
+                
+                <div class="branch-grid">
+                    <div class="glass-card reveal">
+                        <div class="branch-label">大语言模型 (语义层)</div>
+                        <div class="step-title" style="color: var(--accent-gold);">意图提取 · 参数映射与话术传达</div>
+                        <div class="step-detail">
+                            <ul style="padding-left:1.2rem; margin-top:0.5rem; display:flex; flex-direction:column; gap:8px;">
+                                <li>多轮交互下的信息挖掘与认知对齐</li>
+                                <li>非结构化口语至机器标准协议 (JSON) 的编译</li>
+                                <li>对僵硬的矩阵计算数据做高情商知识降维</li>
+                                <li>抽象定位用神，给出实务动作建议与安抚</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="glass-card reveal">
+                        <div class="branch-label">外部脚本 (确定性计算引擎)</div>
+                        <div class="step-title" style="color: #5fe88a;">底层时空转换 · 矩阵定局与生成</div>
+                        <div class="step-detail">
+                            <ul style="padding-left:1.2rem; margin-top:0.5rem; display:flex; flex-direction:column; gap:8px;">
+                                <li>高容错公农历及跨时区算法转换</li>
+                                <li>节气阴遁与阳遁判断算法</li>
+                                <li>置闰法定局逻辑</li>
+                                <li>旬首、旬空与九宫的确定性推演</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Ziwei Flow -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="container">
+                <p class="section-label reveal">图 2 · 紫微斗数 (一)</p>
+                <h2 class="section-title reveal">六步强制顺序排盘</h2>
+                <p class="section-desc reveal">核心规则：不能跳步，格局名只能在排完后出现，不能先套格局再反推星位。</p>
+                
+                <div class="vflow-grid">
+                    <div class="glass-card vflow-item reveal" style="padding: 1rem 1.5rem;">
+                        <div class="vflow-spine"><div class="vflow-dot">1</div></div>
+                        <div class="vflow-content">
+                            <div class="step-title" style="margin-bottom:0.2rem;">定命宫、身宫与十二宫 (时辰不准则给差异盘)</div>
+                        </div>
+                    </div>
+                    <div class="glass-card vflow-item reveal" style="padding: 1rem 1.5rem;">
+                        <div class="vflow-spine"><div class="vflow-dot">2</div></div>
+                        <div class="vflow-content">
+                            <div class="step-title" style="margin-bottom:0.2rem;">起寅首 · 定五行局 (命宫宫干地支定起限年龄)</div>
+                        </div>
+                    </div>
+                    <div class="glass-card vflow-item reveal" style="padding: 1rem 1.5rem; border-color: rgba(95,232,138,0.3);">
+                        <div class="vflow-spine"><div class="vflow-dot" style="color:#5fe88a;border-color:#5fe88a;">3</div></div>
+                        <div class="vflow-content">
+                            <div class="step-title" style="margin-bottom:0.2rem; color:#5fe88a;">安十四主星 (先紫微星系，再天府系)</div>
+                            <div class="step-detail" style="color:var(--accent-qimen);">⚠ 绝对禁止：先选格局名，再套星位伪造架构。</div>
+                        </div>
+                    </div>
+                    <div class="glass-card vflow-item reveal" style="padding: 1rem 1.5rem;">
+                        <div class="vflow-spine"><div class="vflow-dot">4</div></div>
+                        <div class="vflow-content">
+                            <div class="step-title" style="margin-bottom:0.2rem;">安辅星、煞星与杂曜 (羊陀火铃、辅弼昌曲等)</div>
+                        </div>
+                    </div>
+                    <div class="glass-card vflow-item reveal" style="padding: 1rem 1.5rem;">
+                        <div class="vflow-spine"><div class="vflow-dot">5</div></div>
+                        <div class="vflow-content">
+                            <div class="step-title" style="margin-bottom:0.2rem;">安四化 (生年/大限/流年四化严格分层，不可混用)</div>
+                        </div>
+                    </div>
+                    <div class="glass-card vflow-item reveal" style="padding: 1rem 1.5rem;">
+                        <div class="vflow-spine"><div class="vflow-dot">6</div></div>
+                        <div class="vflow-content">
+                            <div class="step-title" style="margin-bottom:0.2rem;">定大限 (性别阴阳顺逆行) → 最终自校验总盘</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Ziwei Context -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="container container-center">
+                <p class="section-label reveal">图 2 · 紫微斗数 (二)</p>
+                <h2 class="section-title reveal">后置解读顺序</h2>
+                <p class="section-desc reveal">不反向推演，排盘落定后，按严格顺序递进读取数据。</p>
+
+                <div class="context-list">
+                    <div class="glass-card reveal">
+                        <div class="step-title" style="color:var(--text-primary);">① 命身格局与底色气质</div>
+                        <div class="step-detail">宏观审视命宫三方四正的星系构成与吉凶密度，界定个体的先天禀赋与核心阻力圈层。</div>
+                    </div>
+                    <div class="glass-card reveal">
+                        <div class="step-title" style="color:var(--text-primary);">② 六条核心运转线程</div>
+                        <div class="step-detail">依递进优先级诊断：命身底座、事业系统(官禄)、现金流(财帛)、情绪与安全感(福德)、亲密匹配(夫妻)及外部推拉力(迁移)。</div>
+                    </div>
+                    <div class="glass-card reveal">
+                        <div class="step-title" style="color:var(--text-primary);">③ 三方四正的立体交叉校验</div>
+                        <div class="step-detail">严格遵循设定的星曜交汇反射法则，严禁在语境中夹带混用其他无证流派的代码逻辑。</div>
+                    </div>
+                    <div class="glass-card reveal">
+                        <div class="step-title" style="color:var(--text-primary);">④ 四化飞星的动态引力追踪</div>
+                        <div class="step-detail">隔离分析 本命全局引力 → 大限阶段引擎 → 流年脉冲。必须分时态解析，指出当下的杠杆支点。</div>
+                    </div>
+                    <div class="glass-card reveal" style="border-color: rgba(139,139,255,0.3);">
+                        <div class="step-title" style="color:var(--accent-ziwei);">⑤ 收口：系统框架大格局（压轴总结）</div>
+                        <div class="step-detail">“格局名”仅仅是对当前复杂矩阵的一种高效隐喻，切忌反客为主。若核心支撑点残缺，决不能为了修辞强行往现成格局里硬塞。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Compare Table 1 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="container">
+                <p class="section-label reveal">图 3 · 系统对比 (上)</p>
+                <h2 class="section-title reveal">奇门遁甲 vs 紫微斗数</h2>
+                <p class="section-desc reveal">一个是实时事件的微观决策支持，一个是生命宏观结构的深度解析。</p>
+
+                <div class="compare-grid reveal">
+                    <!-- Headers -->
+                    <div class="cg-header">维度</div>
+                    <div class="cg-header qimen">奇门遁甲</div>
+                    <div class="cg-header ziwei">紫微斗数</div>
+
+                    <!-- Row 1 -->
+                    <div class="cg-cell cg-label">核心地位</div>
+                    <div class="cg-cell"><span class="tag tag-orange">实时微观决策支持</span>基于当前时间起局，判断特定单一事件</div>
+                    <div class="cg-cell"><span class="tag tag-purple">宏观本命结构分析</span>基于出生信息，解读人生倾向与长跨度周期</div>
+
+                    <!-- Row 2 -->
+                    <div class="cg-cell cg-label">时间依赖</div>
+                    <div class="cg-cell">起局时间（事件发生时）<br><span style="color:#777;font-size:0.8em;margin-top:4px;">需精确到当前此时此刻</span></div>
+                    <div class="cg-cell">出生时间（本命盘固定）<br><span style="color:#777;font-size:0.8em;margin-top:4px;">时辰不准则只能提供差异盘</span></div>
+
+                    <!-- Row 3 -->
+                    <div class="cg-cell cg-label cg-row-last">底层工程</div>
+                    <div class="cg-cell cg-row-last"><span class="tag tag-green">Python 脚本计算</span>固定计算剥离，不让 AI 心算出错</div>
+                    <div class="cg-cell cg-row-last"><span class="tag tag-gray">分段约束的链式生成</span>强制顺序，不满足条件则不强行脑补落星</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Slide 7: Compare Table 2 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="container">
+                <p class="section-label reveal">图 3 · 系统对比 (下)</p>
+                <h2 class="section-title reveal">提示工程边界防御</h2>
+                <p class="section-desc reveal">不抢答，不装懂，不和用户妥协未知的参数争议。</p>
+
+                <div class="compare-grid reveal">
+                    <!-- Headers -->
+                    <div class="cg-header">维度</div>
+                    <div class="cg-header qimen">奇门遁甲</div>
+                    <div class="cg-header ziwei">紫微斗数</div>
+
+                    <!-- Row 4 -->
+                    <div class="cg-cell cg-label">必答关卡</div>
+                    <div class="cg-cell">6个核心问题拦截<br>看什么事·时间·地点·目标·进展·偏好</div>
+                    <div class="cg-cell">4轮追问确认<br>重点模块·有无现成盘·出生参数·派系口径</div>
+
+                    <!-- Row 5 -->
+                    <div class="cg-cell cg-label">排雷防坑</div>
+                    <div class="cg-cell">默认使用大流 mainline-cn<br>不接受则果断拒绝，不硬排盘</div>
+                    <div class="cg-cell">三合 / 飞星派系之争<br>子时换日争议交由用户决定或提供双选项</div>
+
+                    <!-- Row 6 -->
+                    <div class="cg-cell cg-label cg-row-last">AI 最终输出</div>
+                    <div class="cg-cell cg-row-last">方位走位 · 时机卡位 · 行动闭环<br>回答终极一问：能不能成</div>
+                    <div class="cg-cell cg-row-last">人格弱点 · 情感事业映射 · 财富承载力<br>大限阶段指引，不提供绝对单据</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Principles -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="container container-center">
+                <p class="section-label reveal">高阶抽象</p>
+                <h2 class="section-title reveal">AI 工具设计的 3 条通用法则</h2>
+                <p class="section-desc reveal">跨越玄学边界，这些防御性产品逻辑在任何专业 AI 助理中都应成为铁律。</p>
+                
+                <div class="principles-grid">
+                    <div class="glass-card reveal">
+                        <div class="step-num">01</div>
+                        <div class="step-title">对话前置，守住沟通护城河</div>
+                        <div class="step-detail">遭遇无厘头意图时强制截流拉回轨道。坦诚的“我需要你明确一下场景”，永远比迎合式的一本正经胡说八道更容易拿下用户的最终信任。</div>
+                    </div>
+                    <div class="glass-card reveal">
+                        <div class="step-num">02</div>
+                        <div class="step-title">冷酷剥离确定性运算层</div>
+                        <div class="step-detail">看清大模型的盲区，用外部机械齿轮去填补。将 AI 死死按在它无敌的文字共鸣和逻辑映射象限里，哪怕是加减法，也不准它自己动笔。</div>
+                    </div>
+                    <div class="glass-card reveal">
+                        <div class="step-num">03</div>
+                        <div class="step-title">规则阳光化，拒绝暗箱妥协</div>
+                        <div class="step-detail">业界各执一词时，直接亮出“我所依靠的执行标准是A体系”。别用什么大数据统筹的黑盒和稀泥，真正的工程化信仰的是“要么抛弃，要么确定”。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Quote -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="quote-block reveal">
+                <p class="quote-text">「真正可怕的并不是大模型不懂这些古法推演结构的精妙，<br>而是它总是试图在缺乏起家锚点与前提条件的情况下，<br>充满自信且一本正经地向你兜售一个经不起推敲的幻觉。」</p>
+                <p class="quote-source">— AI术数工程化 · Phil @Formulasearch</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = Array.from(document.querySelectorAll('.slide'));
+                this.currentSlide = 0;
+                
+                this.initNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.updateUI();
+                
+                // Wheel navigation with cooldown
+                this.isScrolling = false;
+                window.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
+            }
+
+            initNavDots() {
+                const navDotsContainer = document.getElementById('navDots');
+                if(!navDotsContainer) return;
+                
+                this.slides.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'nav-dot';
+                    dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    navDotsContainer.appendChild(dot);
+                });
+                this.dots = Array.from(document.querySelectorAll('.nav-dot'));
+            }
+
+            setupIntersectionObserver() {
+                const options = { root: null, rootMargin: '0px', threshold: 0.5 };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // Sync state if user manually scrolled
+                            const index = this.slides.indexOf(entry.target);
+                            if(index !== -1 && index !== this.currentSlide) {
+                                this.currentSlide = index;
+                                this.updateUI();
+                            }
+                        }
+                    });
+                }, options);
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboardNav() {
+                window.addEventListener('keydown', (e) => {
+                    if (['ArrowDown', 'ArrowRight', ' '].includes(e.key)) {
+                        e.preventDefault();
+                        this.nextSlide();
+                    } else if (['ArrowUp', 'ArrowLeft'].includes(e.key)) {
+                        e.preventDefault();
+                        this.prevSlide();
+                    }
+                });
+            }
+
+            setupTouchNav() {
+                let touchStartY = 0;
+                let touchEndY = 0;
+
+                window.addEventListener('touchstart', e => {
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+
+                window.addEventListener('touchend', e => {
+                    touchEndY = e.changedTouches[0].screenY;
+                    this.handleSwipe(touchStartY, touchEndY);
+                }, { passive: true });
+            }
+
+            handleSwipe(start, end) {
+                const threshold = 50;
+                if (start - end > threshold) this.nextSlide();
+                else if (end - start > threshold) this.prevSlide();
+            }
+            
+            handleWheel(e) {
+                if(this.isScrolling) { e.preventDefault(); return; }
+                const direction = Math.sign(e.deltaY);
+                if(direction !== 0) {
+                    e.preventDefault();
+                    this.isScrolling = true;
+                    if(direction > 0) this.nextSlide();
+                    else this.prevSlide();
+                    
+                    setTimeout(() => { this.isScrolling = false; }, 800); // cooldown matches animation duration
+                }
+            }
+
+            goToSlide(index) {
+                if (index >= 0 && index < this.slides.length) {
+                    this.currentSlide = index;
+                    this.slides[this.currentSlide].scrollIntoView({ behavior: 'smooth' });
+                    this.updateUI();
+                }
+            }
+
+            nextSlide() { this.goToSlide(this.currentSlide + 1); }
+            prevSlide() { this.goToSlide(this.currentSlide - 1); }
+
+            updateUI() {
+                // Update Progress bar
+                const progressBar = document.getElementById('progressBar');
+                if (progressBar) {
+                    const percentage = ((this.currentSlide) / (this.slides.length - 1)) * 100;
+                    progressBar.style.width = `${percentage}%`;
+                }
+
+                // Update Nav dots
+                if (this.dots) {
+                    this.dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === this.currentSlide);
+                    });
+                }
+            }
+        }
+
+        // Initialize presentation when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+            // Trigger first slide animation immediately
+            setTimeout(() => {
+                const firstSlide = document.querySelector('.slide');
+                if(firstSlide) firstSlide.classList.add('visible');
+            }, 100);
+        });
+    </script>
+</body>
+</html>

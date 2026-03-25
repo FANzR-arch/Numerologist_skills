@@ -1,0 +1,2 @@
+lunar_python>=1.4.8,<2
+tzdata>=2024.1
