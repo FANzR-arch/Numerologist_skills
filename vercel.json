@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/20260325-AI术数工程化-可视化.html"
+    }
+  ]
+}
