@@ -32,10 +32,6 @@ pip install -r qimen-dunjia/scripts/requirements.txt
 python qimen-dunjia/scripts/qimen_cli.py --input tmp/qimen_input.json --output tmp/qimen_output.json
 ```
 
-## 可视化说明
-
-仓库内的 `20260325-AI术数工程化-可视化.html` 主要展示奇门遁甲与紫微斗数的工程化思路。当前仓库已经补入四柱八字模块，可视化页后续可以再扩成三套体系的统一展示。
-
 ## Why This Repo
 
 与其让 LLM 在“似懂非懂”的状态里硬着头皮往下说，不如把关键步骤拆开：
