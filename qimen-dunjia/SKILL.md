@@ -113,15 +113,15 @@ pip install "lunar_python>=1.4.8,<2" "tzdata>=2024.1"
 
 **执行脚本**
 
-脚本路径相对于 vault 根目录（`e:\00_Phil\Philthink`）：
+脚本路径以仓库根目录为基准：
 
 ```bash
-python "个人知识库/玄学/qimen-dunjia/scripts/qimen_cli.py" \
-  --input /tmp/qimen_input.json \
-  --output /tmp/qimen_output.json
+python "qimen-dunjia/scripts/qimen_cli.py" \
+  --input "tmp/qimen_input.json" \
+  --output "tmp/qimen_output.json"
 ```
 
-先把输入 JSON 写入 `/tmp/qimen_input.json`，再执行上述命令，读取输出文件。
+先把输入 JSON 写入 `tmp/qimen_input.json`，再执行上述命令，读取 `tmp/qimen_output.json`。`tmp/` 也可以替换成任意可写的临时目录。
 
 输入 JSON 最低字段：
 
