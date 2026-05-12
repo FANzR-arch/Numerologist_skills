@@ -160,19 +160,44 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
 | `chart.ju_number` | 局数（1-9）|
 | `chart.xunshou` | 旬首（如"甲子"）|
 | `chart.hidden_yi` | 旬首奇仪（寄宫的隐干，如"戊"）——**不可遗漏** |
-| `chart.kongwang` | 旬空地支（如["寅","卯"]）|
-| `chart.kongwang_palaces` | 旬空对应宫位编号 |
-| `chart.time_stem_visible` | 时干（代表用户当前状态，**取用神的关键参考**）|
-| `chart.zhifu` | 值符：`{ palace, star, ... }` 嵌套对象，读 `palace`（宫位）和 `star`（星名）|
-| `chart.zhishi` | 值使：`{ palace, door, ... }` 嵌套对象，读 `palace`（宫位）和 `door`（门名）|
-| `chart.palaces` | 9 宫完整数组，每宫含 `palace`、`earth_stem`、`sky_stem`、`star`、`door`、`god`、`is_center`、`hosts_center` |
+| `chart.kongwang` | 时旬空地支（如["寅","卯"]），影响当前时辰 |
+| `chart.kongwang_palaces` | 时旬空对应宫位编号 |
+| `chart.day_kongwang` | 日旬空地支，影响整日大环境 |
+| `chart.day_kongwang_palaces` | 日旬空对应宫位编号 |
+| `chart.time_stem_visible` | 时干（代表所问之事/当前动态，**取用神的关键参考**）|
+| `chart.day_stem` | 日干落宫：`{ stem, palace, note }`（代表求测者本人）|
+| `chart.year_stem` | 年干落宫：`{ stem, palace, note }`（代表上级/大环境）|
+| `chart.month_stem` | 月干落宫：`{ stem, palace, note }`（代表同事/同龄竞争者）|
+| `chart.yima` | 驿马：`{ branch, palace }`（出行/变动类问题关键参考）|
+| `chart.zhifu` | 值符：`{ palace, star }` 嵌套对象 |
+| `chart.zhishi` | 值使：`{ palace, door }` 嵌套对象 |
+| `chart.door_index` | 门→宫反查字典，如 `{"开门": 7, "生门": 1, ...}`——**按用神直接定位** |
+| `chart.star_index` | 星→宫反查字典，如 `{"天心": 7, "天芮": 9, ...}` |
+| `chart.detected_patterns` | 格局自动检测结果数组，每项含 `name`、`palace`、`detail`、`nature(吉/凶)` |
+| `chart.palaces` | 9 宫完整数组（详见下方） |
 | `warnings` | 边界提醒、寄宫提醒等 |
+
+**`chart.palaces` 每宫字段：**
+
+| 字段 | 说明 |
+|------|------|
+| `palace` | 宫号（1-9）|
+| `name` / `direction` / `trigram` / `element` | 宫名/方位/卦/五行 |
+| `earth_stem` / `sky_stem` | 地盘干 / 天盘干 |
+| `stem_relation` | 天地盘干五行关系：比和/天生地/地生天/天克地/地克天 |
+| `star` / `star_element` / `star_palace_relation` | 星名 / 星五行 / 星与宫的五行关系（生/被生/克/被克/比和）|
+| `door` / `door_element` / `door_palace_relation` | 门名 / 门五行 / 门与宫的五行关系——**门迫 = 被克** |
+| `god` | 八神名 |
+| `is_center` / `hosts_center` / `hosting_note` | 中宫标记 |
 
 **注意事项：**
 
 - `chart.palaces` 中 5 号宫（中宫）`door` 和 `god` 为 `null`，星为 `天禽`，不参与常规用神判断。
 - 2 号宫（坤宫）`hosts_center: true`，中宫寄坤时此宫承载中宫信息。
-- `chart.time_stem_visible` 是时干的明干（显干），用于判断用户本人在盘中的代表位置。
+- `chart.time_stem_visible` 是时干的明干（显干），用于判断所问之事在盘中的代表位置。
+- `chart.day_stem.palace` 是日干落宫，代表求测者本人的位置。
+- `chart.door_index` 可直接用 `chart.door_index["开门"]` 快速找到事业用神所在宫。
+- `chart.detected_patterns` 中 `nature: "凶"` 的格局（伏吟、反吟、门迫）需要在解读中重点提示。
 - 如果 `warnings` 里出现边界提示、中宫寄宫提示，要在解读里明确说明。
 
 ### 第 5 步：解读与输出
