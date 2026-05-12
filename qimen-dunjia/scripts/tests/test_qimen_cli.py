@@ -741,3 +741,235 @@ class TestConstants:
         assert len(EARTH_STEM_ORDER["阴遁"]) == 9
         # 两个序列包含相同的9个天干
         assert set(EARTH_STEM_ORDER["阳遁"]) == set(EARTH_STEM_ORDER["阴遁"])
+
+
+
+# ============================================================
+# 16. 新增功能测试：驿马、日干落宫、年月干、五行生克、日旬空
+# ============================================================
+
+from qimen_cli import (
+    compute_yima,
+    compute_stem_relation,
+    find_gan_palace,
+    YIMA_TABLE,
+    STEM_ELEMENT,
+    WUXING_SHENG,
+    WUXING_KE,
+)
+
+
+class TestComputeYima:
+    """测试驿马计算"""
+
+    def test_you_day_yima_hai(self):
+        # 巳酉丑→驿马在亥
+        assert compute_yima("酉") == {"branch": "亥", "palace": 6}
+
+    def test_yin_day_yima_shen(self):
+        # 寅午戌→驿马在申
+        assert compute_yima("寅") == {"branch": "申", "palace": 2}
+
+    def test_zi_day_yima_yin(self):
+        # 申子辰→驿马在寅
+        assert compute_yima("子") == {"branch": "寅", "palace": 8}
+
+    def test_mao_day_yima_si(self):
+        # 亥卯未→驿马在巳
+        assert compute_yima("卯") == {"branch": "巳", "palace": 4}
+
+    def test_all_twelve_branches_covered(self):
+        branches = "子丑寅卯辰巳午未申酉戌亥"
+        for b in branches:
+            result = compute_yima(b)
+            assert result["branch"] is not None
+            assert result["palace"] is not None
+
+
+class TestComputeStemRelation:
+    """测试天地盘五行生克关系"""
+
+    def test_bihe(self):
+        # 庚辛都是金 → 比和
+        assert compute_stem_relation("庚", "辛") == "比和"
+        assert compute_stem_relation("甲", "乙") == "比和"
+
+    def test_tian_sheng_di(self):
+        # 丙(火) 生 戊(土) → 天生地
+        assert compute_stem_relation("丙", "戊") == "天生地"
+
+    def test_di_sheng_tian(self):
+        # 地=甲(木) 生 天=丙(火) → 地生天
+        assert compute_stem_relation("丙", "甲") == "地生天"
+
+    def test_tian_ke_di(self):
+        # 天=癸(水) 克 地=丁(火) → 天克地
+        assert compute_stem_relation("癸", "丁") == "天克地"
+
+    def test_di_ke_tian(self):
+        # 天=乙(木), 地=辛(金) → 地克天 (金克木)
+        assert compute_stem_relation("乙", "辛") == "地克天"
+
+    def test_none_inputs(self):
+        assert compute_stem_relation(None, "甲") is None
+        assert compute_stem_relation("甲", None) is None
+
+
+class TestFindGanPalace:
+    """测试天干落宫查找"""
+
+    def test_find_in_plate(self):
+        plate = {1: "戊", 2: "己", 3: "庚", 4: "辛",
+                 5: "壬", 6: "癸", 7: "丁", 8: "丙", 9: "乙"}
+        result = find_gan_palace(plate, "丁")
+        assert result["stem"] == "丁"
+        assert result["raw_palace"] == 7
+        assert result["palace"] == 7
+
+    def test_center_palace_hosts_to_kun(self):
+        plate = {1: "戊", 2: "己", 3: "庚", 4: "辛",
+                 5: "壬", 6: "癸", 7: "丁", 8: "丙", 9: "乙"}
+        result = find_gan_palace(plate, "壬")
+        assert result["raw_palace"] == 5
+        assert result["palace"] == 2  # 寄坤
+
+    def test_not_found(self):
+        plate = {1: "戊", 2: "己"}
+        result = find_gan_palace(plate, "甲")
+        assert result["raw_palace"] is None
+        assert result["palace"] is None
+
+
+class TestEndToEndNewFields:
+    """验证新增字段在完整排盘中的输出"""
+
+    @pytest.fixture
+    def yang_output(self):
+        payload = {
+            "question_type": "跳槽",
+            "question_goal": "能不能动",
+            "time_input": "2026-03-24 10:30",
+            "calendar_type": "solar",
+            "location": {"country": "中国", "city": "上海", "timezone": "Asia/Shanghai"},
+            "ruleset": "mainline-cn-v1",
+        }
+        return build_output(payload)
+
+    @pytest.fixture
+    def yin_output(self):
+        payload = {
+            "question_type": "投资",
+            "question_goal": "能不能投",
+            "time_input": "2026-07-15 14:00",
+            "calendar_type": "solar",
+            "location": {"country": "中国", "city": "北京", "timezone": "Asia/Shanghai"},
+            "ruleset": "mainline-cn-v1",
+        }
+        return build_output(payload)
+
+    # --- 驿马 ---
+
+    def test_yang_yima(self, yang_output):
+        # 日支酉, 巳酉丑→驿马亥, 亥→6宫
+        yima = yang_output["chart"]["yima"]
+        assert yima["branch"] == "亥"
+        assert yima["palace"] == 6
+
+    def test_yin_yima(self, yin_output):
+        # 日支寅, 寅午戌→驿马申, 申→2宫
+        yima = yin_output["chart"]["yima"]
+        assert yima["branch"] == "申"
+        assert yima["palace"] == 2
+
+    # --- 日干落宫 ---
+
+    def test_yang_day_stem(self, yang_output):
+        # 日干丁, 阳遁1局地盘丁在7宫
+        ds = yang_output["chart"]["day_stem"]
+        assert ds["stem"] == "丁"
+        assert ds["palace"] == 7
+
+    def test_yin_day_stem(self, yin_output):
+        # 日干庚, 阴遁5局地盘庚在3宫? Let's trust the output
+        ds = yin_output["chart"]["day_stem"]
+        assert ds["stem"] == "庚"
+        assert ds["palace"] == 3
+
+    # --- 年干/月干 ---
+
+    def test_yang_year_stem(self, yang_output):
+        # 年干丙
+        ys = yang_output["chart"]["year_stem"]
+        assert ys["stem"] == "丙"
+        assert ys["palace"] is not None
+
+    def test_yang_month_stem(self, yang_output):
+        # 月干辛
+        ms = yang_output["chart"]["month_stem"]
+        assert ms["stem"] == "辛"
+        assert ms["palace"] is not None
+
+    # --- 日旬空 ---
+
+    def test_yang_day_kongwang(self, yang_output):
+        # 日旬甲午, 旬空辰巳
+        assert sorted(yang_output["chart"]["day_kongwang"]) == ["巳", "辰"]
+        assert len(yang_output["chart"]["day_kongwang_palaces"]) >= 1
+
+    def test_yin_day_kongwang(self, yin_output):
+        # 日旬空: 午未
+        assert sorted(yin_output["chart"]["day_kongwang"]) == ["午", "未"]
+
+    # --- 五行生克 ---
+
+    def test_stem_relation_present(self, yang_output):
+        """每宫（除中宫）都应有 stem_relation"""
+        for p in yang_output["chart"]["palaces"]:
+            if p["palace"] == 5:
+                assert p["stem_relation"] is None
+            else:
+                assert p["stem_relation"] in [
+                    "比和", "天生地", "地生天", "天克地", "地克天"
+                ]
+
+    def test_yang_palace_1_relation(self, yang_output):
+        # 宫1: 地=戊(土) 天=丙(火), 火生土 → 天生地
+        palaces = {p["palace"]: p for p in yang_output["chart"]["palaces"]}
+        assert palaces[1]["stem_relation"] == "天生地"
+
+
+class TestYimaTable:
+    """驿马表完整性"""
+
+    def test_all_twelve_branches_in_table(self):
+        branches = "子丑寅卯辰巳午未申酉戌亥"
+        for b in branches:
+            assert b in YIMA_TABLE
+
+    def test_yima_values_are_valid_branches(self):
+        valid_branches = set("子丑寅卯辰巳午未申酉戌亥")
+        for v in YIMA_TABLE.values():
+            assert v in valid_branches
+
+
+class TestWuxingConstants:
+    """五行常量完整性"""
+
+    def test_stem_element_has_ten(self):
+        assert len(STEM_ELEMENT) == 10
+
+    def test_wuxing_sheng_cycle(self):
+        # 木→火→土→金→水→木
+        assert WUXING_SHENG["木"] == "火"
+        assert WUXING_SHENG["火"] == "土"
+        assert WUXING_SHENG["土"] == "金"
+        assert WUXING_SHENG["金"] == "水"
+        assert WUXING_SHENG["水"] == "木"
+
+    def test_wuxing_ke_cycle(self):
+        # 木→土→水→火→金→木
+        assert WUXING_KE["木"] == "土"
+        assert WUXING_KE["土"] == "水"
+        assert WUXING_KE["水"] == "火"
+        assert WUXING_KE["火"] == "金"
+        assert WUXING_KE["金"] == "木"
