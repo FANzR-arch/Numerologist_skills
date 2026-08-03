@@ -66,9 +66,17 @@ EARTH_STEM_ORDER = {
     "阴遁": ["戊", "乙", "丙", "丁", "癸", "壬", "辛", "庚", "己"],
 }
 
+# 八宫环形序列（不含中宫5），对应洛书九宫顺序（坎1→艮8→震3→巽4→离9→坤2→兑7→乾6）
 ROTATION_RING = [1, 8, 3, 4, 9, 2, 7, 6]
+
+# 九星原始归属：天蓬→1坎, 天任→8艮, 天冲→3震, 天辅→4巽, 天英→9离, 天芮→2坤, 天柱→7兑, 天心→6乾
+# 中宫天禽不在环中，寄坤时并入天芮
 STAR_RING = ["天蓬", "天任", "天冲", "天辅", "天英", "天芮", "天柱", "天心"]
+
+# 八门原始归属：休门→1坎, 生门→8艮, 伤门→3震, 杜门→4巽, 景门→9离, 死门→2坤, 惊门→7兑, 开门→6乾
 DOOR_RING = ["休门", "生门", "伤门", "杜门", "景门", "死门", "惊门", "开门"]
+
+# 八神：阳遁顺布，阴遁逆布；值符始终为第一位
 GOD_RING_YANG = ["值符", "螣蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"]
 GOD_RING_YIN = ["值符", "九天", "九地", "玄武", "白虎", "六合", "太阴", "螣蛇"]
 
@@ -109,6 +117,48 @@ PALACE_INFO = {
 }
 
 GRID_ORDER = [4, 9, 2, 3, 5, 7, 8, 1, 6]
+
+# 驿马表：按日支所属三合局取驿马
+# 申子辰日→驿马在寅, 寅午戌日→驿马在申, 亥卯未日→驿马在巳, 巳酉丑日→驿马在亥
+YIMA_TABLE = {
+    "申": "寅", "子": "寅", "辰": "寅",
+    "寅": "申", "午": "申", "戌": "申",
+    "亥": "巳", "卯": "巳", "未": "巳",
+    "巳": "亥", "酉": "亥", "丑": "亥",
+}
+
+# 天干五行
+STEM_ELEMENT = {
+    "甲": "木", "乙": "木",
+    "丙": "火", "丁": "火",
+    "戊": "土", "己": "土",
+    "庚": "金", "辛": "金",
+    "壬": "水", "癸": "水",
+}
+
+# 五行生克关系
+# 生：木→火→土→金→水→木
+# 克：木→土→水→火→金→木
+WUXING_SHENG = {"木": "火", "火": "土", "土": "金", "金": "水", "水": "木"}
+WUXING_KE = {"木": "土", "土": "水", "水": "火", "火": "金", "金": "木"}
+
+# 九星五行（不含天禽，天禽属土寄坤）
+STAR_ELEMENT = {
+    "天蓬": "水", "天任": "土", "天冲": "木", "天辅": "木",
+    "天英": "火", "天芮": "土", "天柱": "金", "天心": "金",
+    "天禽": "土",
+}
+
+# 八门五行
+DOOR_ELEMENT = {
+    "休门": "水", "生门": "土", "伤门": "木", "杜门": "木",
+    "景门": "火", "死门": "土", "惊门": "金", "开门": "金",
+}
+
+# 三奇
+SAN_QI = {"乙", "丙", "丁"}
+# 吉门
+JI_MEN = {"开门", "休门", "生门"}
 
 
 def get_timezone(name: str):
@@ -313,6 +363,131 @@ def split_branch_pair(text: str) -> list[str]:
     return [text[i : i + 1] for i in range(0, len(text), 1) if text[i : i + 1]]
 
 
+def compute_yima(day_zhi: str) -> dict[str, Any]:
+    """根据日支三合局计算驿马所在地支和宫位"""
+    yima_branch = YIMA_TABLE.get(day_zhi)
+    if yima_branch is None:
+        return {"branch": None, "palace": None}
+    return {"branch": yima_branch, "palace": BRANCH_TO_PALACE.get(yima_branch)}
+
+
+def compute_stem_relation(sky_stem: str | None, earth_stem: str | None) -> str | None:
+    """计算天盘干与地盘干的五行生克关系"""
+    if sky_stem is None or earth_stem is None:
+        return None
+    sky_elem = STEM_ELEMENT.get(sky_stem)
+    earth_elem = STEM_ELEMENT.get(earth_stem)
+    if sky_elem is None or earth_elem is None:
+        return None
+    if sky_elem == earth_elem:
+        return "比和"
+    if WUXING_SHENG.get(sky_elem) == earth_elem:
+        return "天生地"
+    if WUXING_SHENG.get(earth_elem) == sky_elem:
+        return "地生天"
+    if WUXING_KE.get(sky_elem) == earth_elem:
+        return "天克地"
+    if WUXING_KE.get(earth_elem) == sky_elem:
+        return "地克天"
+    return None
+
+
+def find_gan_palace(earth_plate: dict[int, str], gan: str) -> dict[str, Any]:
+    """查找某天干在地盘中的宫位（含寄坤处理），返回 {stem, raw_palace, palace}"""
+    for palace, stem in earth_plate.items():
+        if stem == gan:
+            return {"stem": gan, "raw_palace": palace, "palace": hosted_palace(palace)}
+    return {"stem": gan, "raw_palace": None, "palace": None}
+
+
+def compute_element_relation(a_element: str | None, b_element: str | None) -> str | None:
+    """通用五行关系：a 对 b 的关系。返回 a生b/b生a/a克b/b克a/比和"""
+    if a_element is None or b_element is None:
+        return None
+    if a_element == b_element:
+        return "比和"
+    if WUXING_SHENG.get(a_element) == b_element:
+        return "生"
+    if WUXING_SHENG.get(b_element) == a_element:
+        return "被生"
+    if WUXING_KE.get(a_element) == b_element:
+        return "克"
+    if WUXING_KE.get(b_element) == a_element:
+        return "被克"
+    return None
+
+
+def detect_patterns(palaces: list[dict[str, Any]], zhifu: dict, xunshou_palace: int,
+                    earth_plate: dict[int, str], sky_map: dict[int, str]) -> list[dict[str, Any]]:
+    """检测盘面常见格局"""
+    patterns: list[dict[str, Any]] = []
+
+    for p in palaces:
+        if p["is_center"]:
+            continue
+        palace_no = p["palace"]
+        palace_elem = p["element"]
+        sky_stem = p.get("sky_stem")
+        earth_stem = p.get("earth_stem")
+        door = p.get("door")
+        star = p.get("star")
+
+        # 1. 三奇配吉门：天盘干为乙/丙/丁 且 门为开/休/生
+        if sky_stem in SAN_QI and door in JI_MEN:
+            patterns.append({
+                "name": "三奇配吉门",
+                "palace": palace_no,
+                "detail": f"{sky_stem}+{door}",
+                "nature": "吉",
+            })
+
+        # 2. 伏吟：天盘干 == 地盘干（同干同宫）
+        if sky_stem and earth_stem and sky_stem == earth_stem:
+            patterns.append({
+                "name": "伏吟",
+                "palace": palace_no,
+                "detail": f"天地盘同为{sky_stem}",
+                "nature": "凶",
+            })
+
+        # 3. 反吟：天盘干克地盘干 且 两干五行相克（对冲性质）
+        if sky_stem and earth_stem:
+            sky_elem = STEM_ELEMENT.get(sky_stem)
+            earth_elem = STEM_ELEMENT.get(earth_stem)
+            if sky_elem and earth_elem and WUXING_KE.get(sky_elem) == earth_elem and WUXING_KE.get(earth_elem) == sky_elem:
+                patterns.append({
+                    "name": "反吟",
+                    "palace": palace_no,
+                    "detail": f"天{sky_stem}({sky_elem})与地{earth_stem}({earth_elem})互克",
+                    "nature": "凶",
+                })
+
+        # 4. 门迫：门的五行被所在宫的五行所克
+        if door:
+            door_elem = DOOR_ELEMENT.get(door)
+            if door_elem and WUXING_KE.get(palace_elem) == door_elem:
+                patterns.append({
+                    "name": "门迫",
+                    "palace": palace_no,
+                    "detail": f"{door}({door_elem})受{p['name']}({palace_elem})克",
+                    "nature": "凶",
+                })
+
+    # 5. 值符得位：值符星落回其原始归属宫
+    zhifu_star = zhifu["star"]
+    zhifu_palace = zhifu["palace"]
+    star_home = dict(zip(STAR_RING, ROTATION_RING))
+    if zhifu_star in star_home and star_home[zhifu_star] == zhifu_palace:
+        patterns.append({
+            "name": "值符得位",
+            "palace": zhifu_palace,
+            "detail": f"{zhifu_star}回归本宫",
+            "nature": "吉",
+        })
+
+    return patterns
+
+
 def build_chart(normalized: NormalizedInput, solar: Solar, lunar: Any) -> dict[str, Any]:
     warnings = list(normalized.warnings)
 
@@ -356,7 +531,14 @@ def build_chart(normalized: NormalizedInput, solar: Solar, lunar: Any) -> dict[s
         god_order = GOD_RING_YIN
         outer_earth = [earth_plate[palace] for palace in reverse_ring]
 
-    sky_start_stem = hidden_yi if xunshou_raw_palace != 5 else earth_plate[xunshou_palace]
+    # 天盘起点：旬首所遁之仪代表甲，是天盘的起排参照
+    # 正常情况：hidden_yi 在八宫环中（不在中宫），直接以它为起点
+    # 特殊情况：hidden_yi 落中宫(5)时，寄到坤宫(2)，天盘从坤宫地盘干起排
+    # （因为中宫不在八宫环中，壬/癸等仪寄坤后，其在环上的"投影"即为坤宫地盘干）
+    if xunshou_raw_palace == 5:
+        sky_start_stem = earth_plate[xunshou_palace]  # 寄坤后取坤宫地盘干
+    else:
+        sky_start_stem = hidden_yi
     sky_order = rotate_to_start(outer_earth, sky_start_stem)
     star_map = dict(zip(palace_order, star_order))
     door_map = dict(zip(palace_order, door_order))
@@ -378,25 +560,86 @@ def build_chart(normalized: NormalizedInput, solar: Solar, lunar: Any) -> dict[s
     kongwang_branches = split_branch_pair(time_xunkong)
     kongwang_palaces = sorted({BRANCH_TO_PALACE[branch] for branch in kongwang_branches if branch in BRANCH_TO_PALACE})
 
+    # 日旬空（影响整日大环境）
+    day_xunkong = lunar.getDayXunKongExact()
+    day_kongwang_branches = split_branch_pair(day_xunkong)
+    day_kongwang_palaces = sorted({BRANCH_TO_PALACE[branch] for branch in day_kongwang_branches if branch in BRANCH_TO_PALACE})
+
+    # 驿马星：按日支三合局取驿马
+    day_zhi = day_ganzhi[1]  # 日干支第二个字为地支
+    yima = compute_yima(day_zhi)
+
+    # 日干落宫
+    day_gan = day_ganzhi[0]
+    if day_gan == "甲":
+        # 甲不直接入盘，取日旬首所遁之仪
+        day_xun = lunar.getDayXunExact()
+        day_hidden_yi = XUNSHOU_TO_HIDDEN_YI[day_xun]
+        day_gan_info = find_gan_palace(earth_plate, day_hidden_yi)
+        day_gan_info["note"] = f"日干为甲，取日旬首({day_xun})所遁之仪 {day_hidden_yi} 入盘"
+    else:
+        day_gan_info = find_gan_palace(earth_plate, day_gan)
+        day_gan_info["note"] = None
+
+    # 年干落宫
+    year_ganzhi = lunar.getYearInGanZhiExact()
+    year_gan = year_ganzhi[0]
+    if year_gan == "甲":
+        year_gan_info = find_gan_palace(earth_plate, "戊")  # 甲子旬遁戊
+        year_gan_info["note"] = "年干为甲，取戊代入"
+    else:
+        year_gan_info = find_gan_palace(earth_plate, year_gan)
+        year_gan_info["note"] = None
+
+    # 月干落宫
+    month_ganzhi = lunar.getMonthInGanZhiExact()
+    month_gan = month_ganzhi[0]
+    if month_gan == "甲":
+        month_gan_info = find_gan_palace(earth_plate, "戊")  # 甲子旬遁戊
+        month_gan_info["note"] = "月干为甲，取戊代入"
+    else:
+        month_gan_info = find_gan_palace(earth_plate, month_gan)
+        month_gan_info["note"] = None
+
     palaces: list[dict[str, Any]] = []
     for palace_no in sorted(PALACE_INFO):
         info = PALACE_INFO[palace_no]
+        p_earth = earth_plate.get(palace_no)
+        p_sky = sky_map.get(palace_no)
+        p_star = "天禽" if palace_no == 5 else star_map.get(palace_no)
+        p_door = None if palace_no == 5 else door_map.get(palace_no)
+        p_god = None if palace_no == 5 else god_map.get(palace_no)
+        p_star_elem = STAR_ELEMENT.get(p_star) if p_star else None
+        p_door_elem = DOOR_ELEMENT.get(p_door) if p_door else None
+        palace_elem = info["element"]
         palace_entry = {
             "palace": palace_no,
             "name": info["name"],
             "direction": info["direction"],
             "trigram": info["trigram"],
-            "element": info["element"],
-            "earth_stem": earth_plate.get(palace_no),
-            "sky_stem": sky_map.get(palace_no),
-            "star": "天禽" if palace_no == 5 else star_map.get(palace_no),
-            "door": None if palace_no == 5 else door_map.get(palace_no),
-            "god": None if palace_no == 5 else god_map.get(palace_no),
+            "element": palace_elem,
+            "earth_stem": p_earth,
+            "sky_stem": p_sky,
+            "stem_relation": compute_stem_relation(p_sky, p_earth),
+            "star": p_star,
+            "star_element": p_star_elem,
+            "star_palace_relation": compute_element_relation(p_star_elem, palace_elem),
+            "door": p_door,
+            "door_element": p_door_elem,
+            "door_palace_relation": compute_element_relation(p_door_elem, palace_elem),
+            "god": p_god,
             "is_center": palace_no == 5,
             "hosts_center": palace_no == 2,
             "hosting_note": "中宫寄坤" if palace_no in {2, 5} else None,
         }
         palaces.append(palace_entry)
+
+    # 反查索引：门→宫, 星→宫（方便AI按用神快速定位）
+    door_index = {p["door"]: p["palace"] for p in palaces if p["door"] is not None}
+    star_index = {p["star"]: p["palace"] for p in palaces if p["star"] is not None and not p["is_center"]}
+
+    # 格局自动检测
+    detected_patterns = detect_patterns(palaces, zhifu, xunshou_palace, earth_plate, sky_map)
 
     return {
         "dun_type": dun_type,
@@ -406,9 +649,18 @@ def build_chart(normalized: NormalizedInput, solar: Solar, lunar: Any) -> dict[s
         "hidden_yi": hidden_yi,
         "kongwang": kongwang_branches,
         "kongwang_palaces": kongwang_palaces,
+        "day_kongwang": day_kongwang_branches,
+        "day_kongwang_palaces": day_kongwang_palaces,
         "time_stem_visible": visible_time_gan,
+        "day_stem": day_gan_info,
+        "year_stem": year_gan_info,
+        "month_stem": month_gan_info,
+        "yima": yima,
         "zhifu": zhifu,
         "zhishi": zhishi,
+        "door_index": door_index,
+        "star_index": star_index,
+        "detected_patterns": detected_patterns,
         "active_jie": current_jie_name,
         "active_jie_started_at": prev_jie.getSolar().toYmdHms(),
         "next_jie": next_jie.getName() if next_jie else None,
@@ -483,9 +735,18 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "hidden_yi": chart["hidden_yi"],
             "kongwang": chart["kongwang"],
             "kongwang_palaces": chart["kongwang_palaces"],
+            "day_kongwang": chart["day_kongwang"],
+            "day_kongwang_palaces": chart["day_kongwang_palaces"],
             "time_stem_visible": chart["time_stem_visible"],
+            "day_stem": chart["day_stem"],
+            "year_stem": chart["year_stem"],
+            "month_stem": chart["month_stem"],
+            "yima": chart["yima"],
             "zhifu": chart["zhifu"],
             "zhishi": chart["zhishi"],
+            "door_index": chart["door_index"],
+            "star_index": chart["star_index"],
+            "detected_patterns": chart["detected_patterns"],
             "grid_order": chart["grid_order"],
             "palaces": chart["palaces"],
         },
