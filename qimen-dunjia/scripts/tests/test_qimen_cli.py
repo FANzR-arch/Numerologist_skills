@@ -3,7 +3,7 @@
 
 覆盖范围：
 - 输入解析（时间字符串、时区推断、农历转换）
-- 节令判断（阳遁/阴遁）
+- 节气判断（阳遁/阴遁，含中气）
 - 三元计算
 - 定局（查表）
 - 地盘排布
@@ -384,9 +384,9 @@ class TestXunshouMapping:
 class TestEndToEndYangDun:
     """
     Golden data: 2026-03-24 10:30 上海
-    惊蛰后 → 阳遁
+    春分（2026-03-20）后 → 阳遁
     日干支丁酉 → 上元
-    惊蛰上元 → 阳遁1局
+    春分上元 → 阳遁3局
     旬首甲辰 → 隐仪壬
     时干乙（巳时）
     旬空寅卯 → 3宫8宫
@@ -411,7 +411,7 @@ class TestEndToEndYangDun:
         assert output["chart"]["yuan"] == "上元"
 
     def test_ju_number(self, output):
-        assert output["chart"]["ju_number"] == 1
+        assert output["chart"]["ju_number"] == 3
 
     def test_xunshou(self, output):
         assert output["chart"]["xunshou"] == "甲辰"
@@ -430,16 +430,17 @@ class TestEndToEndYangDun:
 
     def test_zhifu(self, output):
         zf = output["chart"]["zhifu"]
-        assert zf["star"] == "天芮"
-        assert zf["palace"] == 9
+        assert zf["star"] == "天柱"
+        assert zf["palace"] == 2
 
     def test_zhishi(self, output):
+        # 旬首壬在兑七，乙巳距甲辰一个时辰，阳遁顺行一宫 → 艮八
         zs = output["chart"]["zhishi"]
-        assert zs["door"] == "死门"
-        assert zs["palace"] == 9
+        assert zs["door"] == "惊门"
+        assert zs["palace"] == 8
 
     def test_active_jie(self, output):
-        assert output["calendar"]["jieqi"]["active_jie"] == "惊蛰"
+        assert output["calendar"]["jieqi"]["active_jie"] == "春分"
 
     def test_ganzhi_day(self, output):
         assert output["ganzhi"]["day"] == "丁酉"
@@ -448,47 +449,52 @@ class TestEndToEndYangDun:
         assert output["ganzhi"]["time"] == "乙巳"
 
     def test_palace_earth_stems(self, output):
-        """验证阳遁1局地盘天干"""
+        """验证阳遁3局地盘天干"""
         palaces = {p["palace"]: p for p in output["chart"]["palaces"]}
-        assert palaces[1]["earth_stem"] == "戊"
-        assert palaces[2]["earth_stem"] == "己"
-        assert palaces[3]["earth_stem"] == "庚"
-        assert palaces[4]["earth_stem"] == "辛"
-        assert palaces[5]["earth_stem"] == "壬"
-        assert palaces[6]["earth_stem"] == "癸"
-        assert palaces[7]["earth_stem"] == "丁"
-        assert palaces[8]["earth_stem"] == "丙"
-        assert palaces[9]["earth_stem"] == "乙"
+        assert palaces[3]["earth_stem"] == "戊"
+        assert palaces[4]["earth_stem"] == "己"
+        assert palaces[5]["earth_stem"] == "庚"
+        assert palaces[6]["earth_stem"] == "辛"
+        assert palaces[7]["earth_stem"] == "壬"
+        assert palaces[8]["earth_stem"] == "癸"
+        assert palaces[9]["earth_stem"] == "丁"
+        assert palaces[1]["earth_stem"] == "丙"
+        assert palaces[2]["earth_stem"] == "乙"
 
     def test_palace_stars(self, output):
         """验证九星分布"""
         palaces = {p["palace"]: p for p in output["chart"]["palaces"]}
-        assert palaces[5]["star"] == "天禽"  # 中宫固定天禽
+        assert palaces[5]["star"] is None  # 天禽随天芮转出
         assert palaces[9]["star"] == "天芮"
+        assert palaces[9]["hosted_star"] == "天禽"
         assert palaces[7]["star"] == "天心"
         assert palaces[1]["star"] == "天任"
+        assert palaces[2]["star"] == "天柱"
 
     def test_palace_doors(self, output):
         """验证八门分布"""
         palaces = {p["palace"]: p for p in output["chart"]["palaces"]}
         assert palaces[5]["door"] is None  # 中宫无门
-        assert palaces[7]["door"] == "开门"
-        assert palaces[9]["door"] == "死门"
-        assert palaces[1]["door"] == "生门"
+        assert palaces[3]["door"] == "开门"
+        assert palaces[8]["door"] == "惊门"
+        assert palaces[9]["door"] == "生门"
+        assert palaces[1]["door"] == "死门"
 
     def test_palace_gods(self, output):
         """验证八神分布"""
         palaces = {p["palace"]: p for p in output["chart"]["palaces"]}
         assert palaces[5]["god"] is None  # 中宫无神
-        assert palaces[9]["god"] == "值符"
-        assert palaces[7]["god"] == "太阴"
+        assert palaces[2]["god"] == "值符"
+        assert palaces[9]["god"] == "九天"
 
     def test_center_palace_flags(self, output):
         """验证中宫寄坤标记"""
         palaces = {p["palace"]: p for p in output["chart"]["palaces"]}
         assert palaces[5]["is_center"] is True
         assert palaces[2]["hosts_center"] is True
-        assert palaces[2]["hosting_note"] == "中宫寄坤"
+        assert palaces[2]["hosting_note"] == "地盘寄坤：承载中五地盘干"
+        assert palaces[9]["hosts_center_sky"] is True
+        assert palaces[9]["sky_stems"] == ["乙", "庚"]
 
     def test_lunar_calendar(self, output):
         """验证公历→农历转换"""
@@ -556,9 +562,11 @@ class TestEndToEndYinDun:
         assert zf["palace"] == 9
 
     def test_zhishi(self, output):
+        # 旬首己在巽四，癸未距甲戌九个时辰，阴遁逆行九宫回到巽四
         zs = output["chart"]["zhishi"]
         assert zs["door"] == "杜门"
-        assert zs["palace"] == 9
+        assert zs["palace"] == 4
+        assert zs["hours_from_xunshou"] == 9
 
     def test_active_jie(self, output):
         assert output["calendar"]["jieqi"]["active_jie"] == "小暑"
@@ -591,14 +599,16 @@ class TestEndToEndYinDun:
         assert palaces[9]["star"] == "天辅"
         assert palaces[1]["star"] == "天心"
         assert palaces[7]["star"] == "天芮"
-        assert palaces[5]["star"] == "天禽"
+        assert palaces[7]["hosted_star"] == "天禽"
+        assert palaces[5]["star"] is None
 
     def test_palace_doors(self, output):
         """验证阴遁八门"""
         palaces = {p["palace"]: p for p in output["chart"]["palaces"]}
-        assert palaces[9]["door"] == "杜门"
-        assert palaces[1]["door"] == "开门"
-        assert palaces[7]["door"] == "死门"
+        assert palaces[4]["door"] == "杜门"
+        assert palaces[9]["door"] == "景门"
+        assert palaces[1]["door"] == "休门"
+        assert palaces[7]["door"] == "惊门"
         assert palaces[5]["door"] is None
 
     def test_palace_gods_yin_order(self, output):
@@ -635,7 +645,7 @@ class TestEdgeCases:
         assert len(output["chart"]["palaces"]) == 9
 
     def test_center_palace_structure(self):
-        """中宫(5号)必须 door=None, god=None, star=天禽"""
+        """中宫(5号)必须 door=None, god=None, star=None（天禽随天芮转出）"""
         payload = {
             "question_type": "测试",
             "question_goal": "测试",
@@ -645,7 +655,7 @@ class TestEdgeCases:
         }
         output = build_output(payload)
         palaces = {p["palace"]: p for p in output["chart"]["palaces"]}
-        assert palaces[5]["star"] == "天禽"
+        assert palaces[5]["star"] is None
         assert palaces[5]["door"] is None
         assert palaces[5]["god"] is None
         assert palaces[5]["is_center"] is True
@@ -764,19 +774,19 @@ class TestComputeYima:
 
     def test_you_day_yima_hai(self):
         # 巳酉丑→驿马在亥
-        assert compute_yima("酉") == {"branch": "亥", "palace": 6}
+        assert compute_yima("酉") == {"branch": "亥", "palace": 6, "source_branch": "酉"}
 
     def test_yin_day_yima_shen(self):
         # 寅午戌→驿马在申
-        assert compute_yima("寅") == {"branch": "申", "palace": 2}
+        assert compute_yima("寅") == {"branch": "申", "palace": 2, "source_branch": "寅"}
 
     def test_zi_day_yima_yin(self):
         # 申子辰→驿马在寅
-        assert compute_yima("子") == {"branch": "寅", "palace": 8}
+        assert compute_yima("子") == {"branch": "寅", "palace": 8, "source_branch": "子"}
 
     def test_mao_day_yima_si(self):
         # 亥卯未→驿马在巳
-        assert compute_yima("卯") == {"branch": "巳", "palace": 4}
+        assert compute_yima("卯") == {"branch": "巳", "palace": 4, "source_branch": "卯"}
 
     def test_all_twelve_branches_covered(self):
         branches = "子丑寅卯辰巳午未申酉戌亥"
@@ -870,24 +880,25 @@ class TestEndToEndNewFields:
     # --- 驿马 ---
 
     def test_yang_yima(self, yang_output):
-        # 日支酉, 巳酉丑→驿马亥, 亥→6宫
-        yima = yang_output["chart"]["yima"]
-        assert yima["branch"] == "亥"
-        assert yima["palace"] == 6
+        # 时支巳、日支酉, 都属巳酉丑→驿马亥, 亥→6宫
+        chart = yang_output["chart"]
+        assert chart["hour_yima"] == {"branch": "亥", "palace": 6, "source_branch": "巳"}
+        assert chart["day_yima"] == {"branch": "亥", "palace": 6, "source_branch": "酉"}
+        assert "yima" not in chart
 
     def test_yin_yima(self, yin_output):
-        # 日支寅, 寅午戌→驿马申, 申→2宫
-        yima = yin_output["chart"]["yima"]
-        assert yima["branch"] == "申"
-        assert yima["palace"] == 2
+        # 时支未→亥卯未→马在巳(4宫)；日支寅→寅午戌→马在申(2宫)
+        chart = yin_output["chart"]
+        assert chart["hour_yima"] == {"branch": "巳", "palace": 4, "source_branch": "未"}
+        assert chart["day_yima"] == {"branch": "申", "palace": 2, "source_branch": "寅"}
 
     # --- 日干落宫 ---
 
     def test_yang_day_stem(self, yang_output):
-        # 日干丁, 阳遁1局地盘丁在7宫
+        # 日干丁, 阳遁3局地盘丁在9宫
         ds = yang_output["chart"]["day_stem"]
         assert ds["stem"] == "丁"
-        assert ds["palace"] == 7
+        assert ds["palace"] == 9
 
     def test_yin_day_stem(self, yin_output):
         # 日干庚, 阴遁5局地盘庚在3宫? Let's trust the output
@@ -933,9 +944,9 @@ class TestEndToEndNewFields:
                 ]
 
     def test_yang_palace_1_relation(self, yang_output):
-        # 宫1: 地=戊(土) 天=丙(火), 火生土 → 天生地
+        # 宫1: 地=丙(火) 天=癸(水), 水克火 → 天克地
         palaces = {p["palace"]: p for p in yang_output["chart"]["palaces"]}
-        assert palaces[1]["stem_relation"] == "天生地"
+        assert palaces[1]["stem_relation"] == "天克地"
 
 
 class TestYimaTable:
@@ -973,3 +984,275 @@ class TestWuxingConstants:
         assert WUXING_KE["水"] == "火"
         assert WUXING_KE["火"] == "金"
         assert WUXING_KE["金"] == "木"
+
+
+# ============================================================
+# 17. 回归测试：节气、值使移宫、门迫方向、时马日马、天禽随转
+# ============================================================
+
+from qimen_cli import compute_zhishi_palace, detect_patterns
+
+
+def _chart(time_input):
+    return build_output({
+        "question_type": "测试",
+        "question_goal": "测试",
+        "time_input": time_input,
+        "calendar_type": "solar",
+        "location": {"timezone": "Asia/Shanghai"},
+    })
+
+
+def _palaces(output):
+    return {p["palace"]: p for p in output["chart"]["palaces"]}
+
+
+class TestJieqiIncludesZhongqi:
+    """定局必须按二十四节气，不能只取十二节"""
+
+    @pytest.mark.parametrize("time_input, jieqi, dun_type, ju", [
+        ("2026-01-01 12:00", "冬至", "阳遁", 4),   # 乙亥日下元；只取节会落到大雪 → 阴遁
+        ("2026-03-24 10:30", "春分", "阳遁", 3),   # 丁酉日上元；只取节会落到惊蛰 → 1 局
+        ("2026-06-25 12:00", "夏至", "阴遁", 3),   # 庚午日中元；只取节会落到芒种 → 阳遁
+        ("2026-12-25 12:00", "冬至", "阳遁", 7),   # 癸酉日中元；只取节会落到大雪 → 阴遁
+    ])
+    def test_zhongqi_period(self, time_input, jieqi, dun_type, ju):
+        output = _chart(time_input)
+        assert output["calendar"]["jieqi"]["active_jie"] == jieqi
+        assert output["chart"]["dun_type"] == dun_type
+        assert output["chart"]["ju_number"] == ju
+
+
+class TestComputeZhishiPalace:
+    """值使沿九宫数序逐时移宫：阳顺阴逆，经过中五照常计数，落中五寄坤"""
+
+    def test_zero_hours_stays(self):
+        assert compute_zhishi_palace("阳遁", 3, 0) == (3, 3)
+
+    def test_yang_forward(self):
+        assert compute_zhishi_palace("阳遁", 1, 1) == (2, 2)
+
+    def test_yin_backward(self):
+        assert compute_zhishi_palace("阴遁", 3, 1) == (2, 2)
+
+    def test_yang_wraps_nine_to_one(self):
+        assert compute_zhishi_palace("阳遁", 9, 1) == (1, 1)
+
+    def test_yin_wraps_one_to_nine(self):
+        assert compute_zhishi_palace("阴遁", 1, 1) == (9, 9)
+
+    def test_landing_on_center_hosts_to_kun(self):
+        assert compute_zhishi_palace("阳遁", 4, 1) == (5, 2)
+        assert compute_zhishi_palace("阴遁", 6, 1) == (5, 2)
+
+    def test_counting_through_center(self):
+        # 4 → 5 → 6：中五算一步，不跳过
+        assert compute_zhishi_palace("阳遁", 4, 2) == (6, 6)
+
+    def test_starting_from_center(self):
+        assert compute_zhishi_palace("阳遁", 5, 1) == (6, 6)
+        assert compute_zhishi_palace("阴遁", 5, 1) == (4, 4)
+
+
+class TestDunjiaYanyiExample:
+    """《遁甲演义》卷一「八门九星逐时移宫诀」：阳一局甲子旬
+    甲子时蓬星、休门俱在一宫；乙丑时蓬星在九、休门在二；丙寅时蓬星在八、休门在三。
+    2026-01-05（冬至上元，己卯日）凌晨恰为阳遁一局甲子旬。
+    """
+
+    @pytest.mark.parametrize("time_input, star_palace, door_palace", [
+        ("2026-01-05 00:30", 1, 1),  # 甲子时
+        ("2026-01-05 01:30", 9, 2),  # 乙丑时
+        ("2026-01-05 03:30", 8, 3),  # 丙寅时
+    ])
+    def test_star_and_door_move_separately(self, time_input, star_palace, door_palace):
+        output = _chart(time_input)
+        chart = output["chart"]
+        assert chart["dun_type"] == "阳遁"
+        assert chart["ju_number"] == 1
+        assert chart["zhifu"] == {"star": "天蓬", "palace": star_palace}
+        assert chart["zhishi"]["door"] == "休门"
+        assert chart["zhishi"]["palace"] == door_palace
+
+
+class TestIssue11Chart:
+    """Issue #11 复现盘：2026-10-12 02:03:53 上海，寒露下元阴遁三局，甲子旬乙丑时"""
+
+    @pytest.fixture
+    def output(self):
+        return _chart("2026-10-12 02:03:53")
+
+    def test_ju(self, output):
+        chart = output["chart"]
+        assert (chart["dun_type"], chart["yuan"], chart["ju_number"]) == ("阴遁", "下元", 3)
+
+    def test_zhifu_and_zhishi_in_different_palaces(self, output):
+        chart = output["chart"]
+        assert chart["zhifu"] == {"star": "天冲", "palace": 4}
+        assert chart["zhishi"]["door"] == "伤门"
+        assert chart["zhishi"]["palace"] == 2
+
+    def test_full_door_layout(self, output):
+        doors = {no: p["door"] for no, p in _palaces(output).items()}
+        assert doors == {
+            1: "死门", 2: "伤门", 3: "开门", 4: "休门", 5: None,
+            6: "景门", 7: "杜门", 8: "惊门", 9: "生门",
+        }
+
+    def test_no_false_sanqi_jimen_in_kan(self, output):
+        # 旧实现把开门放在坎一，误报「丁+开门」三奇配吉门
+        patterns = output["chart"]["detected_patterns"]
+        assert not any(p["name"] == "三奇配吉门" and p["palace"] == 1 for p in patterns)
+
+    def test_hour_and_day_yima(self, output):
+        chart = output["chart"]
+        # 丑时 → 巳酉丑 → 马在亥 → 乾六（正逢时旬空）
+        assert chart["hour_yima"] == {"branch": "亥", "palace": 6, "source_branch": "丑"}
+        # 未日 → 亥卯未 → 马在巳 → 巽四
+        assert chart["day_yima"] == {"branch": "巳", "palace": 4, "source_branch": "未"}
+
+    def test_tianqin_and_center_stem_follow_tianrui(self, output):
+        chart = output["chart"]
+        palaces = _palaces(output)
+        assert chart["center_hosting"] == {
+            "hosted_star": "天禽",
+            "center_stem": "丙",
+            "earth_host_palace": 2,
+            "sky_palace": 7,
+            "follows_star": "天芮",
+        }
+        assert palaces[7]["star"] == "天芮"
+        assert palaces[7]["hosted_star"] == "天禽"
+        assert palaces[7]["sky_stems"] == ["己", "丙"]
+        assert palaces[7]["hosted_sky_stem"] == "丙"
+        assert palaces[5]["star"] is None
+        assert palaces[5]["sky_stem"] is None
+        assert chart["star_index"]["天禽"] == 7
+
+
+class TestMenpoDirection:
+    """「宫制其门不为迫，门制其宫是迫雄」：门克宫为门迫，宫克门为门受制"""
+
+    @staticmethod
+    def _palace(no, element, door):
+        return {
+            "palace": no, "name": f"{no}宫", "element": element, "is_center": False,
+            "sky_stem": None, "earth_stem": None, "door": door, "star": None,
+        }
+
+    def _names(self, palace):
+        patterns = detect_patterns([palace], {"star": "天蓬", "palace": 9}, 1, {}, {})
+        return [(p["name"], p["nature"]) for p in patterns]
+
+    def test_door_controls_palace_is_menpo(self):
+        # 开门(金)落震三(木)：门克宫 → 门迫
+        assert self._names(self._palace(3, "木", "开门")) == [("门迫", "凶")]
+
+    def test_palace_controls_door_is_not_menpo(self):
+        # 生门(土)落震三(木)：宫克门 → 门受制，不是门迫
+        assert self._names(self._palace(3, "木", "生门")) == [("门受制", "凶")]
+
+    def test_xiong_door_controlled_is_neutral(self):
+        # 杜门(木)落兑七(金)：凶门受制
+        assert self._names(self._palace(7, "金", "杜门")) == [("门受制", "中")]
+
+    def test_no_relation(self):
+        # 休门(水)落坎一(水)：比和
+        assert self._names(self._palace(1, "水", "休门")) == []
+
+
+class TestChartInvariants:
+    """2026 全年每 5 小时一盘，检查星门整体转、值使落宫与门盘一致"""
+
+    def test_rotation_invariants(self):
+        from datetime import datetime as _dt, timedelta as _td
+        ring = ROTATION_RING
+        start = _dt(2026, 1, 1)
+        for h in range(0, 24 * 365, 5):
+            t = start + _td(hours=h)
+            chart = _chart(t.strftime("%Y-%m-%d %H:%M"))["chart"]
+            palaces = _palaces({"chart": chart})
+            doors = [palaces[p]["door"] for p in ring]
+            stars = [palaces[p]["star"] for p in ring]
+            # 门、星都是整体旋转，保持原有相对次序
+            k = doors.index("休门")
+            assert doors[k:] + doors[:k] == DOOR_RING
+            k = stars.index("天蓬")
+            assert stars[k:] + stars[:k] == STAR_RING
+            assert palaces[chart["zhishi"]["palace"]]["door"] == chart["zhishi"]["door"]
+            assert palaces[chart["zhifu"]["palace"]]["star"] == chart["zhifu"]["star"]
+            assert palaces[chart["center_hosting"]["sky_palace"]]["star"] == "天芮"
+
+
+# ============================================================
+# 18. 回归测试：阴遁八神逆布、反吟按对冲判断
+# ============================================================
+
+class TestGodDirection:
+    """八神阳遁顺布、阴遁逆布"""
+
+    def test_yin_gods_counterclockwise(self):
+        # Issue #11 盘：阴遁，值符落巽四，八神沿 4→3→8→1→6→7→2→9 逆布
+        gods = {no: p["god"] for no, p in _palaces(_chart("2026-10-12 02:03:53")).items()}
+        assert gods == {
+            4: "值符", 3: "螣蛇", 8: "太阴", 1: "六合",
+            6: "白虎", 7: "玄武", 2: "九地", 9: "九天", 5: None,
+        }
+
+    def test_yang_gods_clockwise(self):
+        # 2026-03-24 阳遁，值符落坤二，八神沿 2→7→6→1→8→3→4→9 顺布
+        gods = {no: p["god"] for no, p in _palaces(_chart("2026-03-24 10:30")).items()}
+        assert gods == {
+            2: "值符", 7: "螣蛇", 6: "太阴", 1: "六合",
+            8: "白虎", 3: "玄武", 4: "九地", 9: "九天", 5: None,
+        }
+
+
+class TestFanyin:
+    """「凡星符对冲皆反吟」：星落本宫对冲宫为反吟，门落本宫对冲宫为门反吟"""
+
+    def test_dunjia_yanyi_zhifu_fanyin(self):
+        # 《遁甲演义》：阳遁一局，甲己日乙丑时，以天蓬直符加临时干在九宫，即是直符反吟
+        patterns = _chart("2026-01-05 01:30")["chart"]["detected_patterns"]
+        fanyin = {p["palace"]: p for p in patterns if p["name"] == "反吟"}
+        assert set(fanyin) == {1, 2, 3, 4, 6, 7, 8, 9}  # 星盘整体对冲
+        assert "天蓬" in fanyin[9]["detail"]
+        assert "天盘戊加地盘乙" in fanyin[9]["detail"]  # 戊（甲子）从坎宫转到离宫，即子来加午
+        assert not any(p["name"] == "门反吟" for p in patterns)  # 休门在二宫，不对冲
+
+    def test_door_fanyin(self):
+        # 阳一局壬申时：值使休门从一宫顺行八宫到九宫，门盘整体对冲
+        patterns = _chart("2026-01-05 15:30")["chart"]["detected_patterns"]
+        door_fanyin = {p["palace"] for p in patterns if p["name"] == "门反吟"}
+        assert door_fanyin == {1, 2, 3, 4, 6, 7, 8, 9}
+
+    def test_fuyin_hour_has_no_fanyin(self):
+        # 甲子时星门都在本宫，是伏吟不是反吟
+        names = {p["name"] for p in _chart("2026-01-05 00:30")["chart"]["detected_patterns"]}
+        assert "伏吟" in names
+        assert "反吟" not in names
+        assert "门反吟" not in names
+
+    def test_single_palace_rules(self):
+        def names(star, door, palace_no):
+            palace = {
+                "palace": palace_no, "name": f"{palace_no}宫", "element": "土", "is_center": False,
+                "sky_stem": "戊", "earth_stem": "乙", "door": door, "star": star,
+            }
+            return {p["name"] for p in detect_patterns([palace], {"star": "天英", "palace": 9}, 1, {}, {})}
+
+        assert "反吟" in names("天蓬", None, 9)
+        assert "反吟" in names("天任", None, 2)
+        assert "反吟" not in names("天蓬", None, 8)
+        assert "门反吟" in names(None, "生门", 2)
+        assert "门反吟" not in names(None, "生门", 8)
+
+    def test_fanyin_fires_during_year(self):
+        # 旧实现要求天地盘干五行互克，永远不成立；修正后全年应能检出
+        from datetime import datetime as _dt, timedelta as _td
+        start = _dt(2026, 1, 1)
+        seen = set()
+        for h in range(0, 24 * 365, 3):
+            t = (start + _td(hours=h)).strftime("%Y-%m-%d %H:%M")
+            seen |= {p["name"] for p in _chart(t)["chart"]["detected_patterns"]}
+        assert {"反吟", "门反吟"} <= seen

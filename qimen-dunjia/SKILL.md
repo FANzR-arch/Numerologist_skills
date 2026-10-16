@@ -153,7 +153,7 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
 | 字段 | 用途 |
 |------|------|
 | `normalized_input` | 确认时间、时区、事项被正确解析 |
-| `calendar` | 公历/农历对照、当前节令 |
+| `calendar` | 公历/农历对照、当前节气（二十四节气，含中气） |
 | `ganzhi` | 年月日时干支、日旬、时旬（用于定旬首/旬空） |
 | `chart.dun_type` | 阴遁/阳遁 |
 | `chart.yuan` | 上元/中元/下元 |
@@ -168,12 +168,14 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
 | `chart.day_stem` | 日干落宫：`{ stem, palace, note }`（代表求测者本人）|
 | `chart.year_stem` | 年干落宫：`{ stem, palace, note }`（代表上级/大环境）|
 | `chart.month_stem` | 月干落宫：`{ stem, palace, note }`（代表同事/同龄竞争者）|
-| `chart.yima` | 驿马：`{ branch, palace }`（出行/变动类问题关键参考）|
-| `chart.zhifu` | 值符：`{ palace, star }` 嵌套对象 |
-| `chart.zhishi` | 值使：`{ palace, door }` 嵌套对象 |
+| `chart.hour_yima` | 时马：`{ branch, palace, source_branch }`，按时支取（出行/变动类问题优先看）|
+| `chart.day_yima` | 日马：`{ branch, palace, source_branch }`，按日支取（看整日的变动）|
+| `chart.zhifu` | 值符：`{ palace, star }`，随时干落宫 |
+| `chart.zhishi` | 值使：`{ palace, door, raw_palace, hours_from_xunshou }`，从旬首宫逐时移宫，**与值符分别落宫** |
+| `chart.center_hosting` | 中宫随转：`{ hosted_star: 天禽, center_stem, earth_host_palace: 2, sky_palace, follows_star: 天芮 }` |
 | `chart.door_index` | 门→宫反查字典，如 `{"开门": 7, "生门": 1, ...}`——**按用神直接定位** |
-| `chart.star_index` | 星→宫反查字典，如 `{"天心": 7, "天芮": 9, ...}` |
-| `chart.detected_patterns` | 格局自动检测结果数组，每项含 `name`、`palace`、`detail`、`nature(吉/凶)` |
+| `chart.star_index` | 星→宫反查字典，如 `{"天心": 7, "天芮": 9, "天禽": 9, ...}`（天禽与天芮同宫）|
+| `chart.detected_patterns` | 格局自动检测结果数组，每项含 `name`、`palace`、`detail`、`nature(吉/凶/中)` |
 | `chart.palaces` | 9 宫完整数组（详见下方） |
 | `warnings` | 边界提醒、寄宫提醒等 |
 
@@ -184,20 +186,26 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
 | `palace` | 宫号（1-9）|
 | `name` / `direction` / `trigram` / `element` | 宫名/方位/卦/五行 |
 | `earth_stem` / `sky_stem` | 地盘干 / 天盘干 |
+| `sky_stems` | 该宫全部天盘干；天芮所落之宫会多一个随转来的中五地盘干 |
+| `hosted_sky_stem` / `hosted_stem_relation` | 随天芮转来的中五地盘干 / 它与本宫地盘干的关系 |
 | `stem_relation` | 天地盘干五行关系：比和/天生地/地生天/天克地/地克天 |
 | `star` / `star_element` / `star_palace_relation` | 星名 / 星五行 / 星与宫的五行关系（生/被生/克/被克/比和）|
-| `door` / `door_element` / `door_palace_relation` | 门名 / 门五行 / 门与宫的五行关系——**门迫 = 被克** |
+| `hosted_star` | 随天芮转来的天禽，只在天芮所落之宫为 `天禽` |
+| `door` / `door_element` / `door_palace_relation` | 门名 / 门五行 / 门与宫的五行关系——**门迫 = 门克宫（`克`），宫克门（`被克`）是门受制** |
 | `god` | 八神名 |
-| `is_center` / `hosts_center` / `hosting_note` | 中宫标记 |
+| `is_center` / `hosts_center` / `hosts_center_sky` / `hosting_note` | 中宫标记：`hosts_center` 是地盘寄坤（坤二），`hosts_center_sky` 是天禽与中干随天芮落宫 |
 
 **注意事项：**
 
-- `chart.palaces` 中 5 号宫（中宫）`door` 和 `god` 为 `null`，星为 `天禽`，不参与常规用神判断。
-- 2 号宫（坤宫）`hosts_center: true`，中宫寄坤时此宫承载中宫信息。
+- `chart.palaces` 中 5 号宫（中宫）`star`、`door`、`god` 都为 `null`，天禽已随天芮转出，不参与常规用神判断。
+- 2 号宫（坤宫）`hosts_center: true`，承载中五地盘干；天禽和中干在天盘上落在 `chart.center_hosting.sky_palace`。
+- 值符、值使各自移宫，通常不同宫；不要默认两者同落时干宫。
+- 驿马分时马、日马两个字段，解读时说明用的是哪一个。
 - `chart.time_stem_visible` 是时干的明干（显干），用于判断所问之事在盘中的代表位置。
 - `chart.day_stem.palace` 是日干落宫，代表求测者本人的位置。
 - `chart.door_index` 可直接用 `chart.door_index["开门"]` 快速找到事业用神所在宫。
-- `chart.detected_patterns` 中 `nature: "凶"` 的格局（伏吟、反吟、门迫）需要在解读中重点提示。
+- `chart.detected_patterns` 中 `nature: "凶"` 的格局（伏吟、反吟、门反吟、门迫、吉门受制）需要在解读中重点提示。反吟、门反吟是整盘翻转，八宫会同时出现，解读时合并成一句说。
+- 八神阳遁顺布、阴遁逆布，`god` 字段已按此排好。
 - 如果 `warnings` 里出现边界提示、中宫寄宫提示，要在解读里明确说明。
 
 ### 第 5 步：解读与输出
