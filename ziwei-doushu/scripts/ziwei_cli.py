@@ -119,6 +119,7 @@ ZIWEI_PAIR_BRANCHES = {
     "破军": {"丑", "未"},
 }
 
+DEFAULT_LEAP_MONTH_RULE = "split_15"
 LEAP_MONTH_RULES = {
     "current": "闰月整月按本月",
     "next": "闰月整月按下月",
@@ -139,7 +140,8 @@ class BirthInfo:
     hour: int
     minute: int
     gender: str
-    leap_month_rule: str | None
+    leap_month_rule: str
+    leap_month_rule_source: str  # "default" 或 "explicit"
     late_zi_rule: str
     original_input: Any
     warnings: list[str]
@@ -221,7 +223,10 @@ def normalize_input(payload: dict[str, Any]) -> BirthInfo:
         raise ValueError("缺少或无法识别 gender（男/女）：性别决定大限顺逆，请先向用户确认")
 
     leap_rule = payload.get("leap_month_rule")
-    if leap_rule is not None and leap_rule not in LEAP_MONTH_RULES:
+    leap_rule_source = "explicit"
+    if leap_rule in (None, ""):
+        leap_rule, leap_rule_source = DEFAULT_LEAP_MONTH_RULE, "default"
+    if leap_rule not in LEAP_MONTH_RULES:
         raise ValueError(f"leap_month_rule 只接受 {sorted(LEAP_MONTH_RULES)}")
     late_zi_rule = payload.get("late_zi_rule") or "next_day"
     if late_zi_rule not in LATE_ZI_RULES:
@@ -239,6 +244,7 @@ def normalize_input(payload: dict[str, Any]) -> BirthInfo:
         minute=raw["minute"],
         gender=GENDER_ALIASES[gender_raw],
         leap_month_rule=leap_rule,
+        leap_month_rule_source=leap_rule_source,
         late_zi_rule=late_zi_rule,
         original_input=raw_input,
         warnings=warnings,
@@ -267,12 +273,6 @@ def resolve_calendar(info: BirthInfo) -> dict[str, Any]:
     chart_month = lunar_month
     if is_leap:
         rule = info.leap_month_rule
-        if rule is None:
-            raise ValueError(
-                f"出生在农历闰{lunar_month}月{lunar_day}日，闰月归属口径未确认。"
-                "请先向用户确认后在 leap_month_rule 中指定："
-                + "；".join(f"{key}（{desc}）" for key, desc in LEAP_MONTH_RULES.items())
-            )
         if rule == "next" or (rule == "split_15" and lunar_day > 15):
             chart_month = lunar_month % 12 + 1
 
@@ -514,7 +514,11 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
     if cal["day_rollover"]:
         warnings.append("出生于 23 点后，已按次日子时排盘（农历日期取次日）；若用户既定口径不换日，请改用 late_zi_rule=same_day 重排。")
     if cal["is_leap_month"]:
-        warnings.append(f"出生于闰月，按 {LEAP_MONTH_RULES[info.leap_month_rule]} 定月。")
+        origin = "默认算法" if info.leap_month_rule_source == "default" else "调用方指定"
+        warnings.append(
+            f"出生于农历闰{cal['lunar_month']}月{cal['lunar_day']}日，闰月按 {info.leap_month_rule}（{origin}：{LEAP_MONTH_RULES[info.leap_month_rule]}）"
+            f"定为{cal['chart_month']}月；若用户既定口径不同，请改 leap_month_rule 重排。"
+        )
 
     ming_idx, shen_idx = chart["ming_idx"], chart["shen_idx"]
     output: dict[str, Any] = {
@@ -524,6 +528,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "civil_solar_datetime": f"{info.solar_date.isoformat()} {info.hour:02d}:{info.minute:02d}",
             "gender": info.gender,
             "leap_month_rule": info.leap_month_rule,
+            "leap_month_rule_source": info.leap_month_rule_source,
             "late_zi_rule": info.late_zi_rule,
         },
         "calendar": {
@@ -544,7 +549,12 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "source": "references/calculation.md、references/sihua.md、references/stars.md",
             "year_rule": "以农历正月初一换年，年干支取农历年。",
             "late_zi_rule": LATE_ZI_RULES[info.late_zi_rule],
-            "leap_month_rule": LEAP_MONTH_RULES.get(info.leap_month_rule or "", "非闰月出生，不涉及"),
+            "leap_month_rule": {
+                "id": info.leap_month_rule,
+                "source": info.leap_month_rule_source,
+                "description": LEAP_MONTH_RULES[info.leap_month_rule],
+                "applied": cal["is_leap_month"],
+            },
             "age_rule": "大限年龄为虚岁。",
         },
         "chart": {

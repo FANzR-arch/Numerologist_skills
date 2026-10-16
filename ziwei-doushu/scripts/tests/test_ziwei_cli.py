@@ -377,19 +377,55 @@ class TestCalendarRules:
         assert run("2024-02-05 10:00")["calendar"]["year_ganzhi"] == "癸卯"
         assert run("2024-02-10 10:00")["calendar"]["year_ganzhi"] == "甲辰"
 
-    def test_leap_month_requires_explicit_rule(self):
-        with pytest.raises(ValueError, match="闰月归属口径未确认"):
-            run("2023-04-10 10:00")  # 农历 2023 闰二月二十
+    # 农历 2023 闰二月：初一 = 公历 3-22，十五 = 4-05，十六 = 4-06，二十九（月末）= 4-19
+    @pytest.mark.parametrize("day,lunar_day,month", [
+        ("2023-03-22", 1, 2), ("2023-04-05", 15, 2),
+        ("2023-04-06", 16, 3), ("2023-04-19", 29, 3),
+    ])
+    def test_leap_month_default_split_15(self, day, lunar_day, month):
+        """未传 leap_month_rule 时默认 split_15：闰月十五日及以前按本月，十六日起按下月。"""
+        out = run(f"{day} 10:00")
+        assert out["calendar"]["is_leap_month"] is True
+        assert out["calendar"]["lunar_day"] == lunar_day
+        assert out["calendar"]["chart_month"] == month
+        assert out["normalized_input"]["leap_month_rule"] == "split_15"
+        assert out["normalized_input"]["leap_month_rule_source"] == "default"
+        assert out["ruleset"]["leap_month_rule"] == {
+            "id": "split_15", "source": "default",
+            "description": z.LEAP_MONTH_RULES["split_15"], "applied": True,
+        }
+        assert any("split_15（默认算法" in w for w in out["warnings"])
 
     @pytest.mark.parametrize("rule,day,month", [
-        ("current", "2023-04-10", 2), ("next", "2023-04-10", 3),
-        ("split_15", "2023-04-05", 2),  # 闰二月十五
-        ("split_15", "2023-04-06", 3),  # 闰二月十六
+        ("current", "2023-03-22", 2), ("current", "2023-04-19", 2),
+        ("next", "2023-03-22", 3), ("next", "2023-04-19", 3),
+        ("split_15", "2023-04-05", 2), ("split_15", "2023-04-06", 3),
     ])
-    def test_leap_month_rules(self, rule, day, month):
+    def test_leap_month_explicit_rules(self, rule, day, month):
         out = run(f"{day} 10:00", leap_month_rule=rule)
         assert out["calendar"]["is_leap_month"] is True
         assert out["calendar"]["chart_month"] == month
+        assert out["normalized_input"]["leap_month_rule"] == rule
+        assert out["normalized_input"]["leap_month_rule_source"] == "explicit"
+        assert any(f"{rule}（调用方指定" in w for w in out["warnings"])
+
+    def test_leap_month_rule_changes_month_based_stars(self):
+        """current 与 next 相差一个月：按月安的命宫、左辅随之移动，按年干安的禄存不变。"""
+        cur = run("2023-04-19 10:00", leap_month_rule="current")["chart"]
+        nxt = run("2023-04-19 10:00", leap_month_rule="next")["chart"]
+        assert cur["ming_gong"]["branch"] != nxt["ming_gong"]["branch"]
+        assert (BRANCHES.index(nxt["star_index"]["左辅"]) - BRANCHES.index(cur["star_index"]["左辅"])) % 12 == 1
+        assert cur["star_index"]["禄存"] == nxt["star_index"]["禄存"]  # 按年干
+
+    def test_non_leap_birth_marks_rule_not_applied(self):
+        out = run("2000-08-16 14:30", "女")
+        assert out["normalized_input"]["leap_month_rule_source"] == "default"
+        assert out["ruleset"]["leap_month_rule"]["applied"] is False
+        assert not any("闰" in w for w in out["warnings"])
+
+    def test_invalid_leap_month_rule(self):
+        with pytest.raises(ValueError, match="leap_month_rule"):
+            run("2023-04-19 10:00", leap_month_rule="half")
 
     def test_lunar_input_equals_solar_input(self):
         solar = run("2000-08-16 14:30", "女")
