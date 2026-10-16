@@ -17,6 +17,9 @@ const STARS = [
   '天刑', '天姚', '红鸾', '天喜', '天哭', '天虚',
 ];
 
+const MAJOR = STARS.slice(0, 14);
+const BRIGHTNESS_NAMES = { 得: '得地', 不: '不得地', 陷: '落陷' };
+
 const path = process.argv[2];
 const fixture = JSON.parse(fs.readFileSync(path, 'utf8'));
 fixture.generator = `iztro@${require('iztro/package.json').version}`;
@@ -29,12 +32,14 @@ for (const c of fixture.cases) {
   const a = astro.bySolar(`${y}-${m}-${day}`, timeIndex, c.input.gender, true, 'zh-CN');
   const stars = {};
   const sihua = {};
+  const brightness = {};
   const byBranch = {};
   for (const p of a.palaces) {
     byBranch[p.earthlyBranch] = p;
     for (const s of [...p.majorStars, ...p.minorStars, ...p.adjectiveStars]) {
       if (STARS.includes(s.name)) stars[s.name] = p.earthlyBranch;
       if (s.mutagen) sihua[s.name] = s.mutagen;
+      if (MAJOR.includes(s.name)) brightness[s.name] = BRIGHTNESS_NAMES[s.brightness] || s.brightness;
     }
   }
   c.iztro = {
@@ -48,6 +53,7 @@ for (const c of fixture.cases) {
     sihua,
     stems: BRANCHES.map((b) => byBranch[b].heavenlyStem).join(''),
     decadal_starts: BRANCHES.map((b) => byBranch[b].decadal.range[0]),
+    brightness: Object.fromEntries(MAJOR.map((s) => [s, brightness[s]])),
   };
 }
 // 一个盘例一行，便于 git diff 逐例比对

@@ -8,7 +8,7 @@
 2. 安星诀推导：文档中的口诀与示例（命宫示例、宫干示例、五行局示例），
    以及由口诀推出的结构约束（issue #5：紫微七杀同宫只可能在巳、亥）。
 3. 独立实现：五行局与 lunar_python 的六十甲子纳音五行逐一对照；
-   全盘结果与开源排盘库 iztro 2.6.2 的输出逐星对照（fixtures/iztro_cases.json，
+   全盘结果（含主星庙旺利陷）与开源排盘库 iztro 2.6.2 的输出逐星对照（fixtures/iztro_cases.json，
    可用 fixtures/gen_iztro_cases.cjs 重新生成核对）。
 4. 手排盘例：test_hand_derived_chart 的 docstring 逐步写出了按口诀手排的过程。
 """
@@ -152,10 +152,23 @@ class TestMatchesDocTables:
             assert list(z.SIHUA[stem]) == rows[stem], stem
 
     def test_brightness_table(self):
-        rows = table_rows(section(read_ref("stars.md"), "### 十四主星庙旺利平陷", "注意："))
+        rows = table_rows(section(read_ref("stars.md"), "### 十四主星庙旺利平陷", "出处："))
         assert rows["主星"] == BRANCHES
         for star in z.MAJOR_STARS:
             assert z.BRIGHTNESS[star] == rows[star], star
+
+    def test_brightness_follows_quanshu_text(self):
+        """《紫微斗數全書》卷三逐星原文旁证卷二总表：紫微「庙丑未午 旺寅申卯酉巳亥 平子 无陷」，
+        七杀「平巳亥 无陷」，天同「庙巳亥」，天府「庙子丑未寅辰戌」。"""
+        def at(star, branches):
+            return {z.BRIGHTNESS[star][BRANCHES.index(b)] for b in branches}
+        assert at("紫微", "丑未午") == {"庙"}
+        assert at("紫微", "寅申卯酉巳亥") == {"旺"}
+        assert at("紫微", "子") == {"平"}
+        assert "落陷" not in z.BRIGHTNESS["紫微"]
+        assert at("七杀", "巳亥") == {"平"} and "落陷" not in z.BRIGHTNESS["七杀"]
+        assert at("天同", "巳亥") == {"庙"}
+        assert at("天府", "子丑未寅辰戌") == {"庙"}
 
 
 # ============================================================
@@ -345,6 +358,8 @@ def test_matches_iztro(case):
     by_branch = {p["branch"]: p for p in chart["palaces"]}
     assert "".join(by_branch[b]["stem"] for b in BRANCHES) == ref["stems"]
     assert [by_branch[b]["decadal"]["start_age"] for b in BRANCHES] == ref["decadal_starts"]
+    brightness = {s["name"]: s["brightness"] for p in chart["palaces"] for s in p["major_stars"]}
+    assert brightness == ref["brightness"]
 
 
 # ============================================================
