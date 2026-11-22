@@ -12,14 +12,23 @@ import math
 from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any, Callable, NamedTuple
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from lunar_python import Lunar, LunarYear, Solar
-from lunar_python.util import LunarUtil
-from lunar_python.util.ShouXingUtil import ShouXingUtil
-
 DEFAULT_TIMEZONE = "Asia/Shanghai"
+
+
+@lru_cache(maxsize=None)
+def _lp() -> SimpleNamespace:
+    """按需导入 lunar_python：只用解析与 CLI 的脚本（如 numerology）不依赖它。"""
+    try:
+        from lunar_python import Lunar, LunarYear, Solar
+        from lunar_python.util import LunarUtil
+        from lunar_python.util.ShouXingUtil import ShouXingUtil
+    except ImportError as exc:
+        raise RuntimeError("缺少依赖 lunar_python，请先运行 pip install -r <skill_dir>/scripts/requirements.txt") from exc
+    return SimpleNamespace(Lunar=Lunar, LunarYear=LunarYear, Solar=Solar, LunarUtil=LunarUtil, ShouXingUtil=ShouXingUtil)
 STEMS = "甲乙丙丁戊己庚辛壬癸"
 BRANCHES = "子丑寅卯辰巳午未申酉戌亥"
 CALENDAR_LOCALES = {
@@ -64,7 +73,7 @@ def parse_gender(value: Any, reason: str) -> str:
 
 
 def validate_leap_month(year: int, month: int) -> None:
-    if LunarYear.fromYear(year).getLeapMonth() != month:
+    if _lp().LunarYear.fromYear(year).getLeapMonth() != month:
         raise ValueError(f"农历 {year} 年没有闰{month}月")
 
 
@@ -159,7 +168,7 @@ class LunarDate(NamedTuple):
     @property
     def text(self) -> str:
         ganzhi = STEMS[(self.year - 4) % 10] + BRANCHES[(self.year - 4) % 12]
-        return f"{ganzhi}年{'闰' if self.is_leap else ''}{LunarUtil.MONTH[self.month]}月{LunarUtil.DAY[self.day]}"
+        return f"{ganzhi}年{'闰' if self.is_leap else ''}{_lp().LunarUtil.MONTH[self.month]}月{_lp().LunarUtil.DAY[self.day]}"
 
 
 def parse_calendar_locale(payload: dict[str, Any]) -> str:
@@ -172,13 +181,13 @@ def parse_calendar_locale(payload: dict[str, Any]) -> str:
 @lru_cache(maxsize=None)
 def _new_moon_jdn(n: int, tz: int) -> int:
     """第 n 个朔（n=0 约在 2000-01-06）所在当地日的儒略日数；shuoHigh 返回东八区时刻（距 J2000 的日数）。"""
-    return math.floor(ShouXingUtil.shuoHigh(n * 2 * math.pi) + 0.5 + (tz - 8) / 24) + J2000_JDN
+    return math.floor(_lp().ShouXingUtil.shuoHigh(n * 2 * math.pi) + 0.5 + (tz - 8) / 24) + J2000_JDN
 
 
 @lru_cache(maxsize=None)
 def _term_jdn(k: int, tz: int) -> int:
     """第 k 个节气（k=0 为 1999 年春分，每 15°，偶数为中气）所在当地日的儒略日数。"""
-    return math.floor(ShouXingUtil.qiHigh(k * math.pi / 12) + 0.5 + (tz - 8) / 24) + J2000_JDN
+    return math.floor(_lp().ShouXingUtil.qiHigh(k * math.pi / 12) + 0.5 + (tz - 8) / 24) + J2000_JDN
 
 
 def _lunation_containing(jdn: int, tz: int) -> int:
@@ -225,7 +234,7 @@ def solar_to_lunar(day: date, locale: str = "cn") -> LunarDate:
     jdn = day.toordinal() + ORDINAL_TO_JDN
     if locale == "vn" and jdn >= _sui_months(VN_UTC7_FROM_SUI, 7)[0][2]:
         return _lunar_from_jdn(jdn, 7, day.year)
-    lunar = Solar.fromYmd(day.year, day.month, day.day).getLunar()
+    lunar = _lp().Solar.fromYmd(day.year, day.month, day.day).getLunar()
     return LunarDate(lunar.getYear(), abs(lunar.getMonth()), lunar.getDay(), lunar.getMonth() < 0)
 
 
@@ -242,7 +251,7 @@ def lunar_to_solar(year: int, month: int, day: int, is_leap: bool, locale: str =
         raise ValueError(f"越南农历 {year} 年没有闰{month}月" if is_leap else f"越南农历 {year} 年没有 {month} 月")
     if is_leap:
         validate_leap_month(year, month)
-    solar = Lunar.fromYmd(year, -month if is_leap else month, day).getSolar()
+    solar = _lp().Lunar.fromYmd(year, -month if is_leap else month, day).getSolar()
     result = date(solar.getYear(), solar.getMonth(), solar.getDay())
     # 改历交界：中国农历 1967 年十月三十已落在越南新历十一月初一，越南阴历没有这一天
     if locale == "vn" and solar_to_lunar(result, "vn") != (year, month, day, is_leap):

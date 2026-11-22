@@ -4,6 +4,7 @@ description: >
   奇门遁甲排盘、解盘、择时、方位判断与理论教学技能。用户明确提到奇门遁甲、时家奇门、
   奇门排盘、奇门解盘、奇门择吉、方位选择、趋吉避凶，或要求“用奇门”分析一件具体事情时，
   必须使用本技能。正式排盘前先做结构化访谈，再调用脚本完成固定计算，最后再做解读与建议。
+  即使问题很短（只问某个时辰的局），也必须用本技能并运行脚本，不要心算。
 compatibility: Requires Python 3.11+, lunar_python, and tzdata; run scripts/qimen_cli.py for all fixed calculations.
 ---
 
@@ -121,7 +122,7 @@ python "<skill_dir>/scripts/qimen_cli.py" \
   --output "tmp/qimen_output.json"
 ```
 
-先把输入 JSON 写入 `tmp/qimen_input.json`，再执行上述命令，读取 `tmp/qimen_output.json`。`tmp/` 也可以替换成任意可写的临时目录。
+**写入与运行（必须照做）**：用 Write 工具在当前工作目录下创建 `tmp/qimen_input.json`（Write 需要绝对路径，即 `<当前工作目录>/tmp/qimen_input.json`；下面命令里的相对路径 `tmp/...` 指向同一文件）；不要用 shell heredoc、`echo >`、`mkdir && ...` 等组合命令写文件。然后单独运行上面那一条 `python` 命令（不加 `cd`、`&&` 或管道），再用 Read 读取输出文件。这样用户只需授权一条 python 命令；命令被拒绝时，告诉用户需要允许运行该 python 脚本，不要改为手算。
 
 输入 JSON 最低字段：
 

@@ -39,7 +39,7 @@ Claude Code 2.1.275 以前的版本分两步：
 /plugin install numerologist-skills@numerologist-skills
 ```
 
-装好后，三个 skill 在对话中按需自动加载。排盘脚本依赖 Python 3.11+ 与 `lunar_python`、`tzdata`；首次排盘缺依赖时，skill 会请你确认后运行 `pip install -r <skill 目录>/scripts/requirements.txt`。fork 后请把命令里的 `FANzR-arch/Numerologist_skills` 换成你的仓库。
+装好后，三个 skill 在对话中按需自动加载。排盘脚本依赖 Python 3.11+ 与 `lunar_python`、`tzdata`（Thần số học只需 Python 标准库）；首次排盘缺依赖时，skill 会请你确认后运行 `pip install -r <skill 目录>/scripts/requirements.txt`。fork 后请把命令里的 `FANzR-arch/Numerologist_skills` 换成你的仓库。
 
 本地试用（只对当前会话生效，不改全局配置）：
 
@@ -61,6 +61,16 @@ Claude Desktop 在 `claude_desktop_config.json` 的 `mcpServers` 中加入：
 ```json
 "numerologist": {"command": "python", "args": ["/path/to/Numerologist_skills/mcp-server/server.py"]}
 ```
+
+## 解读质量评测（eval）
+
+`evals/` 下是 `claude plugin eval` 用例：检查模型是否调用脚本而不是手算、关键数值与口径是否正确、是否守住安全边界（不下宿命断语、健康/法律/财务类附现实建议）。每个用例同时跑一个不加载插件的对照组，报告分数差 Δ。
+
+```bash
+claude plugin eval . --model haiku --runs 2 --allow-tools 'Bash(python:*)' 'Bash(python3:*)' Write --no-publish
+```
+
+运行环境里 `python3` 需要能 import `lunar_python`（Thần số học除外），否则八字、六爻、紫微等用例会因脚本无法运行而失分。
 
 ## 快速上手
 

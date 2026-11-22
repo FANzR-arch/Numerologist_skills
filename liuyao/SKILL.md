@@ -4,6 +4,7 @@ description: >
   六爻纳甲筮法排卦与断卦技能（Lục Hào / Kinh Dịch bói quẻ）。用户提到六爻、摇卦、起卦、铜钱卦、
   纳甲、世应、六亲、用神、动爻、变卦、伏神，或要求用六爻 / Lục Hào / gieo quẻ 判断一件具体事情时触发。
   排卦调用脚本完成固定计算，模型只负责问事、取用神与解读。
+  即使问题很短（只问卦名或用神），也必须用本技能并运行脚本，不要心算。
 compatibility: Requires Python 3.11+, lunar_python, and tzdata; run scripts/liuyao_cli.py for all fixed calculations.
 ---
 
@@ -44,6 +45,8 @@ python "<skill_dir>/scripts/liuyao_cli.py" \
   --input "tmp/liuyao_input.json" \
   --output "tmp/liuyao_output.json"
 ```
+
+**写入与运行（必须照做）**：用 Write 工具在当前工作目录下创建 `tmp/liuyao_input.json`（Write 需要绝对路径，即 `<当前工作目录>/tmp/liuyao_input.json`；下面命令里的相对路径 `tmp/...` 指向同一文件）；不要用 shell heredoc、`echo >`、`mkdir && ...` 等组合命令写文件。然后单独运行上面那一条 `python` 命令（不加 `cd`、`&&` 或管道），再用 Read 读取输出文件。这样用户只需授权一条 python 命令；命令被拒绝时，告诉用户需要允许运行该 python 脚本，不要改为手算。
 
 输入 JSON：
 

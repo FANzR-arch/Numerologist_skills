@@ -6,6 +6,7 @@ description: >
   触发此技能。也适用于用户想了解自己的命运、性格、事业、婚姻、财运等，
   且明确要求或暗示使用八字体系的场景。包含完整的排盘、格局判断、十神分析、
   大运流年推演等能力。正式排盘调用脚本完成固定计算，模型只负责访谈与解读。
+  即使问题很短（只问四柱或大运），也必须用本技能并运行脚本，不要心算。
 compatibility: Requires Python 3.11+, lunar_python, and tzdata; run scripts/bazi_cli.py for all fixed calculations.
 ---
 
@@ -71,7 +72,7 @@ python "<skill_dir>/scripts/bazi_cli.py" \
   --output "tmp/bazi_output.json"
 ```
 
-先把输入 JSON 写入 `tmp/bazi_input.json`，再执行上述命令，读取 `tmp/bazi_output.json`。`tmp/` 也可以替换成任意可写的临时目录。
+**写入与运行（必须照做）**：用 Write 工具在当前工作目录下创建 `tmp/bazi_input.json`（Write 需要绝对路径，即 `<当前工作目录>/tmp/bazi_input.json`；下面命令里的相对路径 `tmp/...` 指向同一文件）；不要用 shell heredoc、`echo >`、`mkdir && ...` 等组合命令写文件。然后单独运行上面那一条 `python` 命令（不加 `cd`、`&&` 或管道），再用 Read 读取输出文件。这样用户只需授权一条 python 命令；命令被拒绝时，告诉用户需要允许运行该 python 脚本，不要改为手算。
 
 输入 JSON：
 

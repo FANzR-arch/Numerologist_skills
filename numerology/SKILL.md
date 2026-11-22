@@ -4,9 +4,10 @@ description: >
   Thần số học Pythagoras (numerology): số chủ đạo / đường đời (life path), số sứ mệnh, số linh hồn,
   số nhân cách, số trưởng thành, số ngày sinh, năm cá nhân, biểu đồ ngày sinh và các mũi tên,
   4 đỉnh cao và 4 thử thách. Dùng khi người dùng nhắc đến thần số học, số chủ đạo, con số đường đời,
-  biểu đồ ngày sinh, mũi tên trống, năm cá nhân, life path number, numerology. Phép tính do script
-  làm; mô hình chỉ hỏi thông tin và diễn giải.
-compatibility: Requires Python 3.11+, lunar_python, and tzdata (shared calendar_core); run scripts/numerology_cli.py for all calculations.
+  biểu đồ ngày sinh, mũi tên trống, năm cá nhân, life path number, numerology. Luôn dùng skill này
+  và chạy script của nó cho mọi con số, kể cả câu hỏi ngắn; không tự cộng nhẩm (các cách tính khác nhau
+  cho ra số khác nhau, script ghi rõ cách đã dùng). Mô hình chỉ hỏi thông tin và diễn giải.
+compatibility: Requires Python 3.11+ only (no third-party packages); run scripts/numerology_cli.py for all calculations.
 ---
 
 # Thần số học
@@ -40,11 +41,7 @@ Hỏi thêm khi người dùng đã quen một cách tính:
 
 Script nằm trong thư mục skill này, ký hiệu `<skill_dir>` (thư mục chứa SKILL.md; khi cài làm plugin Claude Code là base directory của skill).
 
-Thiếu thư viện (lỗi `ModuleNotFoundError`) thì xin phép người dùng rồi chạy:
-
-```bash
-pip install -r "<skill_dir>/scripts/requirements.txt"
-```
+Script chỉ dùng thư viện chuẩn của Python 3.11+, không cần cài thêm.
 
 ```bash
 python "<skill_dir>/scripts/numerology_cli.py" \
@@ -52,7 +49,7 @@ python "<skill_dir>/scripts/numerology_cli.py" \
   --output "tmp/numerology_output.json"
 ```
 
-Ghi input vào `tmp/numerology_input.json`, chạy lệnh, đọc `tmp/numerology_output.json`. `tmp/` có thể thay bằng thư mục tạm bất kỳ.
+**Ghi và chạy (bắt buộc)**: dùng tool Write tạo `tmp/numerology_input.json` trong thư mục làm việc hiện tại (Write cần đường dẫn tuyệt đối, tức `<thư mục hiện tại>/tmp/numerology_input.json`; đường dẫn tương đối `tmp/...` trong lệnh bên dưới trỏ tới cùng file); không dùng heredoc, `echo >` hay lệnh ghép `mkdir && ...`. Sau đó chạy riêng đúng một lệnh `python` ở trên (không thêm `cd`, `&&`, pipe), rồi dùng Read đọc file output. Lệnh bị từ chối thì báo người dùng cần cho phép chạy script python này, không chuyển sang tự tính.
 
 Input:
 
