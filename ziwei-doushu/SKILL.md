@@ -8,7 +8,7 @@ description: >
   性格、事业、婚姻、财运等，且明确要求或暗示使用紫微斗数体系的场景。包含完整的
   排盘、宫位解读、四化分析、大限流年推演等能力。正式排盘调用脚本完成固定计算，
   模型只负责访谈与解读。
-compatibility: Requires Python 3.10+ and lunar_python; run scripts/ziwei_cli.py for all fixed calculations.
+compatibility: Requires Python 3.11+, lunar_python, and tzdata; run scripts/ziwei_cli.py for all fixed calculations.
 ---
 
 # 紫微斗数大师技能
@@ -113,15 +113,15 @@ Read:
 **前置：确认依赖已安装**
 
 ```bash
-pip install -r ziwei-doushu/scripts/requirements.txt
+pip install -r "<skill_dir>/scripts/requirements.txt"
 ```
 
 **执行脚本**
 
-脚本路径以仓库根目录为基准：
+脚本路径以本 skill 目录为基准，记为 `<skill_dir>`（本 SKILL.md 所在目录；作为 Claude Code 插件安装时，即加载本 skill 时给出的 base directory）：
 
 ```bash
-python "ziwei-doushu/scripts/ziwei_cli.py" \
+python "<skill_dir>/scripts/ziwei_cli.py" \
   --input "tmp/ziwei_input.json" \
   --output "tmp/ziwei_output.json"
 ```

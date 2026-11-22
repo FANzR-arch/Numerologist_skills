@@ -108,15 +108,15 @@ compatibility: Requires Python 3.11+, lunar_python, and tzdata; run scripts/qime
 执行正式排盘前先检查依赖。如果未安装，先运行：
 
 ```bash
-pip install "lunar_python>=1.4.8,<2" "tzdata>=2024.1"
+pip install -r "<skill_dir>/scripts/requirements.txt"
 ```
 
 **执行脚本**
 
-脚本路径以仓库根目录为基准：
+脚本路径以本 skill 目录为基准，记为 `<skill_dir>`（本 SKILL.md 所在目录；作为 Claude Code 插件安装时，即加载本 skill 时给出的 base directory）：
 
 ```bash
-python "qimen-dunjia/scripts/qimen_cli.py" \
+python "<skill_dir>/scripts/qimen_cli.py" \
   --input "tmp/qimen_input.json" \
   --output "tmp/qimen_output.json"
 ```

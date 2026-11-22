@@ -1,0 +1,12 @@
+{
+  "name": "numerologist-skills",
+  "version": "0.1.0",
+  "description": "四柱八字、紫微斗数、奇门遁甲排盘与解盘 skill：排盘由确定性 Python 脚本完成，模型只负责访谈与解读；支持真太阳时与越南阴历。",
+  "repository": "https://github.com/FANzR-arch/Numerologist_skills",
+  "keywords": ["bazi", "ziwei", "qimen", "divination", "chinese-metaphysics", "vietnamese"],
+  "skills": [
+    "./bazi",
+    "./qimen-dunjia",
+    "./ziwei-doushu"
+  ]
+}

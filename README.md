@@ -24,6 +24,27 @@
 3. 先声明口径，再做结论：流派、换日规则、闰月归属、默认规则都要说清楚。
 4. 只给结构化参考：健康、法律、财务等高风险场景不替代现实专业建议。
 
+## 作为 Claude Code 插件安装
+
+```bash
+/plugin install numerologist-skills --marketplace FANzR-arch/Numerologist_skills
+```
+
+Claude Code 2.1.275 以前的版本分两步：
+
+```bash
+/plugin marketplace add FANzR-arch/Numerologist_skills
+/plugin install numerologist-skills@numerologist-skills
+```
+
+装好后，三个 skill 在对话中按需自动加载。排盘脚本依赖 Python 3.11+ 与 `lunar_python`、`tzdata`；首次排盘缺依赖时，skill 会请你确认后运行 `pip install -r <skill 目录>/scripts/requirements.txt`。fork 后请把命令里的 `FANzR-arch/Numerologist_skills` 换成你的仓库。
+
+本地试用（只对当前会话生效，不改全局配置）：
+
+```bash
+claude --plugin-dir /path/to/Numerologist_skills
+```
+
 ## 快速上手
 
 如果你要运行奇门遁甲的固定计算脚本：

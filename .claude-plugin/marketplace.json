@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "numerologist-skills",
+  "description": "AI 术数工程化：八字、紫微斗数、奇门遁甲 skill。",
+  "owner": {
+    "name": "Numerologist Skills contributors"
+  },
+  "plugins": [
+    {
+      "name": "numerologist-skills",
+      "description": "四柱八字、紫微斗数、奇门遁甲排盘与解盘 skill，排盘由确定性脚本完成。",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

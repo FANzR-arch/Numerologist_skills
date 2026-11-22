@@ -6,7 +6,7 @@ description: >
   触发此技能。也适用于用户想了解自己的命运、性格、事业、婚姻、财运等，
   且明确要求或暗示使用八字体系的场景。包含完整的排盘、格局判断、十神分析、
   大运流年推演等能力。正式排盘调用脚本完成固定计算，模型只负责访谈与解读。
-compatibility: Requires Python 3.10+ and lunar_python; run scripts/bazi_cli.py for all fixed calculations.
+compatibility: Requires Python 3.11+, lunar_python, and tzdata; run scripts/bazi_cli.py for all fixed calculations.
 ---
 
 # 四柱八字大师技能
@@ -55,10 +55,18 @@ Read:
 
 ### 第二步：调用脚本排盘
 
-四柱、藏干、十神、纳音、大运、流年一律调用 `scripts/bazi_cli.py` 计算，不手排。脚本路径以仓库根目录为基准：
+四柱、藏干、十神、纳音、大运、流年一律调用 `scripts/bazi_cli.py` 计算，不手排。
+
+依赖未安装（报 `ModuleNotFoundError`）时，征得用户同意后运行：
 
 ```bash
-python "bazi/scripts/bazi_cli.py" \
+pip install -r "<skill_dir>/scripts/requirements.txt"
+```
+
+脚本路径以本 skill 目录为基准，记为 `<skill_dir>`（本 SKILL.md 所在目录；作为 Claude Code 插件安装时，即加载本 skill 时给出的 base directory）：
+
+```bash
+python "<skill_dir>/scripts/bazi_cli.py" \
   --input "tmp/bazi_input.json" \
   --output "tmp/bazi_output.json"
 ```
