@@ -73,7 +73,9 @@ python "bazi/scripts/bazi_cli.py" \
   "is_leap_month": false,
   "gender": "男|女",
   "late_zi_rule": "next_day|same_day",
-  "query_year": 2026
+  "query_year": 2026,
+  "true_solar_time": false,
+  "location": {"longitude": 116.4, "timezone": "Asia/Shanghai"}
 }
 ```
 
@@ -81,7 +83,8 @@ python "bazi/scripts/bazi_cli.py" \
 - `calendar_type=lunar` 时 `birth_time` 写农历年月日，闰月出生同时传 `"is_leap_month": true`。
 - `late_zi_rule` 默认 `next_day`；只有用户明确沿用夜子时口径时才传 `same_day`。
 - `query_year` 可选，填公历年份（与紫微斗数脚本的农历年不同），脚本给出该年立春后的流年干支、虚岁与所在大运。虚岁按公历年计，立春前出生者会有 `warnings` 提示少 1 岁。
-- 脚本按输入的民用时间排盘，不做真太阳时校正；用户要求真太阳时，先由用户提供校正后的时间。
+- `true_solar_time` 可选，默认不校正。用户要求真太阳时（或出生地远离时区中央经线，如新疆、西藏）时传 `true`，并必须给出生地经度 `location.longitude`（东经为正）；时区 `location.timezone` 默认 `Asia/Shanghai`。脚本按时区（含夏令时）换回 UTC，再加经度时差与均时差，明细见输出 `normalized_input.true_solar_time`。
+- 出生时间处于 `location.timezone`（默认 `Asia/Shanghai`）的夏令时期间（如中国 1986-1991 年夏季），或落在拨钟空档/重叠时，输出 `warnings` 会提示；向用户确认报的是钟表时间还是标准时间，必要时开启 `true_solar_time` 重排。
 - 时辰不确定时，按候选时辰分别跑脚本，对比差异，不要硬定。
 
 使用要求：
@@ -96,7 +99,7 @@ python "bazi/scripts/bazi_cli.py" \
 
 | 字段 | 用途 |
 |------|------|
-| `normalized_input` | 确认出生时间、性别、子时口径被正确解析 |
+| `normalized_input` | 确认出生时间、性别、子时口径被正确解析；`true_solar_time` 为真太阳时换算明细（未开启时为 null） |
 | `ruleset` | 换年、换月、子时、起运、虚岁口径，向用户说明时照此表述 |
 | `calendar` | 农历对照、是否换日、出生前后的节（`prev_jie` / `next_jie`） |
 | `day_master` | 日主天干、五行、阴阳 |

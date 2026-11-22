@@ -134,11 +134,15 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
   "location": {
     "country": "",
     "city": "",
-    "timezone": ""
+    "timezone": "",
+    "longitude": null
   },
+  "true_solar_time": false,
   "ruleset": "mainline-cn-v1"
 }
 ```
+
+- `true_solar_time` 可选，默认按所给时区的钟表时间起局。用户要求按真太阳时起局时传 `true`，并给 `location.longitude`（东经为正）；明细见输出 `normalized_input.true_solar_time`，口径见 `ruleset.time_rule`。
 
 使用要求：
 

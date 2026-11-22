@@ -251,3 +251,26 @@ class TestInput:
 
     def test_hour_boundary_warning(self):
         assert any("时辰交界" in w for w in _chart("1990-05-15 10:58")["warnings"])
+
+
+class TestTrueSolarTime:
+    def test_urumqi_moves_hour_pillar(self):
+        # 乌鲁木齐东经 87.6°：北京时间 10:30 约为真太阳时 08:32，巳时变辰时
+        output = _chart("1990-12-01 10:30", true_solar_time=True, location={"longitude": 87.6})
+        assert output["pillars"]["time"]["zhi"] == "辰"
+        assert output["normalized_input"]["true_solar_time"]["true_solar_datetime"].startswith("1990-12-01 08:3")
+        assert "真太阳时" in output["ruleset"]["time_rule"]
+        assert _chart("1990-12-01 10:30")["pillars"]["time"]["zhi"] == "巳"
+
+    def test_requires_longitude(self):
+        with pytest.raises(ValueError, match="longitude"):
+            _chart("1990-12-01 10:30", true_solar_time=True)
+
+    def test_china_dst_warning(self):
+        assert any("夏令时" in w for w in _chart("1990-05-15 10:00")["warnings"])
+        dst_free = _chart("1990-05-15 10:00", true_solar_time=True, location={"longitude": 120})
+        assert not any("夏令时" in w for w in dst_free["warnings"])
+
+    def test_dst_warning_follows_location_timezone(self):
+        output = _chart("1986-07-01 12:00", location={"timezone": "America/New_York"})
+        assert [w for w in output["warnings"] if "夏令时" in w and "Asia/Shanghai" in w] == []
