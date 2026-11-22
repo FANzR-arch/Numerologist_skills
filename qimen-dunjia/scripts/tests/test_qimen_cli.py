@@ -1268,3 +1268,20 @@ class TestLateZiRule:
 
     def test_rule_is_declared(self):
         assert "23:00 起换日" in _chart("1990-05-10 23:30")["ruleset"]["late_zi_rule"]
+
+
+class TestTrueSolarTime:
+    def test_urumqi_moves_hour(self):
+        # 乌鲁木齐东经 87.6°：北京时间 10:30 约为真太阳时 08:32，巳时变辰时
+        assert _chart("1990-12-01 10:30")["ganzhi"]["time"][1] == "巳"
+        output = build_output({
+            "question_type": "测试", "question_goal": "测试", "time_input": "1990-12-01 10:30",
+            "calendar_type": "solar", "true_solar_time": True,
+            "location": {"timezone": "Asia/Shanghai", "longitude": 87.6},
+        })
+        assert output["ganzhi"]["time"][1] == "辰"
+        assert output["normalized_input"]["true_solar_time"]["timezone"] == "Asia/Shanghai"
+
+    def test_single_hour_string_is_parsed(self):
+        # 旧实现把 "2026-01-05 10" 当成 00:00
+        assert _chart("2026-01-05 10")["calendar"]["solar"]["ymd_hms"] == "2026-01-05 10:00:00"

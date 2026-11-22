@@ -487,3 +487,13 @@ def test_cli_roundtrip(tmp_path):
     src.write_text(json.dumps({"calendar_type": "solar", "birth_time": "2000-08-16 14:30"}), encoding="utf-8")
     assert z.main() == 1
     assert "gender" in json.loads(dst.read_text(encoding="utf-8"))["error"]
+
+
+def test_true_solar_time_moves_hour_branch():
+    # 乌鲁木齐东经 87.6°：北京时间 10:30 约为真太阳时 08:32，巳时变辰时
+    payload = {"calendar_type": "solar", "birth_time": "1990-12-01 10:30", "gender": "男"}
+    assert build_output(payload)["calendar"]["hour_branch"] == "巳时"
+    output = build_output({**payload, "true_solar_time": True, "location": {"longitude": 87.6}})
+    assert output["calendar"]["hour_branch"] == "辰时"
+    assert output["normalized_input"]["civil_solar_datetime"] == "1990-12-01 10:30"
+    assert output["normalized_input"]["true_solar_time"]["longitude"] == 87.6
