@@ -1256,3 +1256,15 @@ class TestFanyin:
             t = (start + _td(hours=h)).strftime("%Y-%m-%d %H:%M")
             seen |= {p["name"] for p in _chart(t)["chart"]["detected_patterns"]}
         assert {"反吟", "门反吟"} <= seen
+
+
+class TestLateZiRule:
+    """23:00 起换日，与紫微斗数 late_zi_rule=next_day 一致。"""
+
+    def test_day_ganzhi_switches_at_23(self):
+        # 1990-05-10 日柱乙亥；23:30 已属次日丙子
+        assert _chart("1990-05-10 22:59")["ganzhi"]["day"] == "乙亥"
+        assert _chart("1990-05-10 23:30")["ganzhi"]["day"] == "丙子"
+
+    def test_rule_is_declared(self):
+        assert "23:00 起换日" in _chart("1990-05-10 23:30")["ruleset"]["late_zi_rule"]

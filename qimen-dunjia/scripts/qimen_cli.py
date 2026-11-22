@@ -805,6 +805,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "name": "时家转盘奇门（大陆默认）",
             "timezone_default": DEFAULT_TIMEZONE,
             "dun_type_rule": "冬至到芒种用阳遁，夏至到大雪用阴遁，按当前所处二十四节气（含中气）判定。",
+            "late_zi_rule": "23:00 起换日，日干支取次日（与紫微斗数 late_zi_rule=next_day、八字默认口径一致）；calendar.lunar 的农历日期仅作显示，不换日。",
             "yuan_rule": "按日干支所在六十甲子序列，每 5 日一元，循环上元/中元/下元。",
             "ju_rule": "按当前节气和三元，从固定定局表取局数。",
             "zhifu_zhishi_rule": "值符随时干落宫；值使从旬首地盘宫起逐时沿九宫数序移宫（阳顺阴逆，中五寄坤），二者分别移宫。",
