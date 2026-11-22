@@ -92,7 +92,7 @@ Cảnh báo thường gặp trong kết quả (Claude sẽ nói lại):
 - Giờ sinh sát ranh giới canh giờ (±15 phút): nên xem cả hai canh giờ.
 - Sinh sát tiết khí (±24 giờ): trụ tháng, có khi cả trụ năm, có thể đổi nếu giờ sinh lệch.
 - Sinh trong giờ mùa hè (Trung Quốc 1986–1991): giờ đồng hồ khi đó nhanh 1 tiếng.
-- Sinh 1968–1975 ở miền Nam Việt Nam: âm lịch miền Nam khi đó còn theo UTC+8.
+- Sinh từ 1968 đến 13/6/1975 ở miền Nam Việt Nam: giờ đồng hồ miền Nam khi đó theo UTC+8, âm lịch theo lịch truyền thống (Tết 1968 miền Nam 30/1, miền Bắc 29/1).
 
 ## 4. Chạy script trực tiếp (không qua Claude)
 

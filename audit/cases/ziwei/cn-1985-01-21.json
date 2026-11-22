@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "hko-calendar-tables",
+    "locator": "T1985e.txt, dòng 1985/01/21 (12th Lunar month)"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "1985-01-21 12:00",
+    "gender": "男",
+    "calendar_locale": "cn"
+  },
+  "expect": {
+    "calendar.lunar_month": 12,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}

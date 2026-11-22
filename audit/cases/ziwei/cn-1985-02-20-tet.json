@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "hko-calendar-tables",
+    "locator": "T1985e.txt, dòng 1985/02/20 (1st Lunar month)"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "1985-02-20 12:00",
+    "gender": "男",
+    "calendar_locale": "cn"
+  },
+  "expect": {
+    "calendar.lunar_month": 1,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}

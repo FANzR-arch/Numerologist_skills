@@ -63,4 +63,5 @@ Can chi ghép đọc liền: 甲子 Giáp Tý, 乙丑 Ất Sửu, 庚午 Canh Ng
 
 - Từ tháng 11 âm năm Đinh Mùi (12/1967), âm lịch Việt Nam tính theo múi giờ UTC+7, khác Trung Quốc (UTC+8). Vài tháng mỗi thập kỷ lệch một ngày, có năm lệch cả tháng (Tết Ất Sửu 1985: Việt Nam 21/1, Trung Quốc 20/2).
 - Người dùng Việt Nam nói ngày âm thì truyền `"calendar_locale": "vn"` cho script. Người dùng nói theo lịch Trung Quốc, hoặc dùng phần mềm Trung Quốc, thì giữ mặc định `cn`.
-- 1968–1975 miền Nam vẫn dùng lịch UTC+8; script sẽ cảnh báo, cần hỏi người dùng sinh ở miền nào.
+- Miền Nam dùng giờ đồng hồ UTC+8 đến 13/6/1975. Âm lịch miền Nam vẫn theo lịch truyền thống (kinh tuyến Bắc Kinh), nên Tết 1968 miền Nam là 30/1, miền Bắc là 29/1. Các năm 1969–1975 chưa có nguồn xác nhận. Script cảnh báo cho giai đoạn này, cần hỏi người dùng sinh ở miền nào.
+- Trước 1967, Việt Nam dùng lịch Trung Quốc theo kinh tuyến Bắc Kinh; script đang tính theo 120°Đ, có thể lệch một ngày ở vài tháng (chưa sửa, xem `audit/rules.json`).

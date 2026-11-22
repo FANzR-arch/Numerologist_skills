@@ -25,7 +25,9 @@ def test_registry_matches_code():
 
 
 def test_registry_is_valid():
-    assert audit.validate(audit.load(audit.RULES), audit.load(audit.SOURCES)) == []
+    sources = audit.load(audit.SOURCES)
+    assert audit.validate(audit.load(audit.RULES), sources) == []
+    assert audit.validate_cases(sources) == []
 
 
 def test_confirmed_needs_t1_t2_and_independent_source():

@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "hko-calendar-tables",
+    "locator": "T2024e.txt, dòng 2024/2/10 (1st Lunar Month)"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "2024-02-10 12:00",
+    "gender": "男",
+    "calendar_locale": "cn"
+  },
+  "expect": {
+    "calendar.lunar_month": 1,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}

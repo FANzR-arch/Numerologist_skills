@@ -9,7 +9,7 @@
     "edition": null,
     "access": null,
     "verified": false,
-    "note": ""
+    "note": "Chưa đọc được nguyên văn (chỉ có bản bán hoặc hệ thống công bố toàn văn); các quy tắc đang dựa trên nguồn thứ cấp nói là theo tiêu chuẩn này"
   },
   {
     "id": "aslaksen-chinese-calendar",
@@ -17,10 +17,10 @@
     "author": "Helmer Aslaksen",
     "language": "en",
     "tier": "T2",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
+    "lineage": "aslaksen",
+    "edition": "Draft: July 17, 2010 (52 tr.)",
+    "access": "https://www.gwern.net/doc/science/2010-aslaksen.pdf (bản NUS gốc www.math.nus.edu.sg/aslaksen/calendar/cal.pdf trả 404 ngày 2026-11-23); đọc 2026-11-23",
+    "verified": true,
     "note": ""
   },
   {
@@ -45,7 +45,7 @@
     "edition": null,
     "access": null,
     "verified": false,
-    "note": ""
+    "note": "Các trang informatik.uni-leipzig.de/~duc/amlich/ (index, calrules.html, calrules_en.html) trả 404 ngày 2026-11-23; cần bản lưu trữ hoặc nguồn khác"
   },
   {
     "id": "hko-calendar-tables",
@@ -53,10 +53,10 @@
     "author": "香港天文台",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
+    "lineage": "hko",
+    "edition": "Bảng text năm 1985, 2007, 2024, 2033",
+    "access": "https://www.hko.gov.hk/en/gts/time/calendar/text/files/T<năm>e.txt; đọc 2026-11-23",
+    "verified": true,
     "note": ""
   },
   {
@@ -442,5 +442,41 @@
     "access": null,
     "verified": false,
     "note": ""
+  },
+  {
+    "id": "noaa-solar-calculations",
+    "title": "General Solar Position Calculations",
+    "author": "NOAA Global Monitoring Division",
+    "language": "en",
+    "tier": "T1",
+    "lineage": "noaa",
+    "edition": "PDF 2 tr., metadata CreationDate 2017-03-07",
+    "access": "https://gml.noaa.gov/grad/solcalc/solareqns.PDF; đọc 2026-11-23",
+    "verified": true,
+    "note": "Công thức phương trình thời gian và giờ mặt trời thực (tài liệu không ghi tác giả công thức)"
+  },
+  {
+    "id": "iana-tzdb",
+    "title": "IANA Time Zone Database, file asia",
+    "author": "tz project (Paul Eggert và cộng sự)",
+    "language": "en",
+    "tier": "T2",
+    "lineage": "iana-tzdb",
+    "edition": "2026f",
+    "access": "https://data.iana.org/time-zones/tzdb/asia; đọc 2026-11-23",
+    "verified": true,
+    "note": "Trích dẫn thông báo chính phủ TQ về giờ mùa hè 1986–1991; zoneinfo của Python dùng cùng dữ liệu (không tính là nguồn độc lập)"
+  },
+  {
+    "id": "ytliu0-chinese-calendar",
+    "title": "Rules for the Chinese Calendar / Calendar Calculation (ytliu0.github.io/ChineseCalendar)",
+    "author": "(trang không ghi tên tác giả)",
+    "language": "en",
+    "tier": "T3",
+    "lineage": "aslaksen",
+    "edition": "rules.html, computation.html, examples.html",
+    "access": "https://ytliu0.github.io/ChineseCalendar/rules.html; đọc 2026-11-23",
+    "verified": true,
+    "note": "Ghi là theo GB/T 33661-2017 cho 1912–2200, tính bằng ephemeris JPL DE441; dùng thuật ngữ và trích Aslaksen nên phần quy tắc không tính là độc lập với Aslaksen"
   }
 ]

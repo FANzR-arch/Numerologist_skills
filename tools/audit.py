@@ -146,6 +146,12 @@ def validate(rules: list[dict], sources: list[dict]) -> list[str]:
         for test in r.get("tests") or []:
             if not (ROOT / test.split("::")[0]).exists():
                 errors.append(f"{rid}: 测试文件不存在 {test}")
+    return errors
+
+
+def validate_cases(sources: list[dict]) -> list[str]:
+    errors = []
+    by_id = {s["id"]: s for s in sources if s.get("id")}
     for path in sorted(CASES.glob("*/*.json")):
         name = path.relative_to(ROOT).as_posix()
         case = json.loads(path.read_text(encoding="utf-8"))
@@ -197,7 +203,7 @@ def main() -> int:
         if changes[kind]:
             problems.append(f"登记表未同步（{kind}）：{', '.join(changes[kind][:10])} … 请运行 python3 tools/audit.py sync")
     rules = load(RULES)
-    problems += validate(rules, load(SOURCES))
+    problems += validate(rules, load(SOURCES)) + validate_cases(load(SOURCES))
     print(coverage(rules))
     # 已审校规则的代码变了只提示，不让 CI 失败：先同步，再安排重新审校
     for r in rules:

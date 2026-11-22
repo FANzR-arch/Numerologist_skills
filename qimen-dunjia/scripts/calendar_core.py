@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import argparse
+import calendar
 import json
 import math
 from datetime import date, datetime, timedelta, timezone
@@ -33,7 +34,7 @@ STEMS = "甲乙丙丁戊己庚辛壬癸"
 BRANCHES = "子丑寅卯辰巳午未申酉戌亥"
 CALENDAR_LOCALES = {
     "cn": "中国农历（东八区定朔定气，lunar_python）",
-    "vn": "越南农历：1967 年十一月（1967-12）起按东七区定朔定气，此前与中国农历相同",
+    "vn": "越南农历：1967 年十一月（1967-12）起按东七区定朔定气；此前按中国农历（东八区）计算，越南当时实际用北京子午线的传统历，个别日期可能差一天",
 }
 J2000_JDN = 2451545
 ORDINAL_TO_JDN = 1721425  # date.toordinal() + ORDINAL_TO_JDN = 儒略日数
@@ -114,10 +115,11 @@ def clock_warnings(payload: dict[str, Any], civil: datetime) -> list[str]:
     return warnings
 
 
-def equation_of_time_minutes(moment: datetime) -> float:
-    """均时差（真太阳时 − 平太阳时，分钟），Spencer (1971) 傅里叶级数，误差约半分钟。"""
-    day_of_year = moment.timetuple().tm_yday
-    gamma = 2 * math.pi / 365 * (day_of_year - 1 + (moment.hour - 12) / 24)
+def equation_of_time_minutes(utc: datetime) -> float:
+    """均时差（真太阳时 − 平太阳时，分钟），按 NOAA GML《General Solar Position Calculations》公式：
+    γ 取 UTC 时刻的年内分数，闰年分母为 366。"""
+    days_in_year = 366 if calendar.isleap(utc.year) else 365
+    gamma = 2 * math.pi / days_in_year * (utc.timetuple().tm_yday - 1 + (utc.hour - 12) / 24)
     return 229.18 * (0.000075 + 0.001868 * math.cos(gamma) - 0.032077 * math.sin(gamma)
                      - 0.014615 * math.cos(2 * gamma) - 0.040849 * math.sin(2 * gamma))
 
@@ -127,9 +129,10 @@ def true_solar_time(civil: datetime, longitude: float, timezone_name: str = DEFA
     if not -180 <= longitude <= 180:
         raise ValueError("经度 longitude 需在 -180 到 180 之间（东经为正）")
     offset = civil.replace(tzinfo=get_zone(timezone_name)).utcoffset()
-    mean_solar = civil - offset + timedelta(minutes=longitude * 4)
-    eot = equation_of_time_minutes(mean_solar)
-    true_dt = (mean_solar + timedelta(minutes=eot)).replace(microsecond=0)
+    utc = civil - offset
+    eot = equation_of_time_minutes(utc)
+    # NOAA：time_offset = eqtime + 4·longitude − 60·timezone
+    true_dt = (utc + timedelta(minutes=longitude * 4 + eot)).replace(microsecond=0)
     detail = {
         "civil_datetime": civil.isoformat(sep=" "),
         "timezone": timezone_name,
@@ -266,8 +269,9 @@ def calendar_locale_warnings(locale: str, day: date) -> list[str]:
         if vn != cn:
             warnings.append(f"{day.isoformat()} 越南阴历为 {vn.text}，中国农历为 {cn.text}：两国历法按不同时区（东七区 / 东八区）定朔，本盘按越南阴历排。"
                             "这不是计算错误，不要用中国农历的春节日期去“纠正”；用户要按中国农历看时改传 calendar_locale=cn。")
-        if date(1967, 12, 1) <= day < date(1976, 1, 1):
-            warnings.append("1968-1975 年越南南方仍沿用东八区农历，与北方（东七区）个别月份日期不同；出生在南方时请向用户确认，必要时改用 calendar_locale=cn 对照。")
+        # 南越 1959-12-31 至 1975-06-13 用 +08（tzdb asia）；1968 年南北春节不同（Aslaksen 2010 p.29）
+        if date(1967, 12, 1) <= day < date(1975, 6, 13):
+            warnings.append("1967 年 12 月至 1975-06-13 越南南方时钟用东八区，农历沿用传统历（1968 年南方春节为 1 月 30 日，北方为 1 月 29 日），与北方（东七区）个别月份日期不同；出生在南方时请向用户确认，必要时改用 calendar_locale=cn 对照。")
     return warnings
 
 

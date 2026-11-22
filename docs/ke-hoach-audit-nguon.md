@@ -1,6 +1,6 @@
 # Kế hoạch audit logic theo nguồn tài liệu đáng tin cậy
 
-Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1–A7 chưa bắt đầu.
+Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2–A7 chưa bắt đầu.
 
 ## Mục tiêu
 
@@ -164,7 +164,7 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 | Giai đoạn | Nội dung | Xong khi |
 |---|---|---|
 | A0. Khung ✅ | `audit/`, `tools/audit.py sync/check`, loader ca vàng, CI | Xong 2026-11-23: 231 đơn vị (bảng, hàm, mục `ruleset`, tài liệu) được trích tự động; 19 mục `not_applicable` có lý do; còn lại `unverified`; 37 nguồn ✓ trong `sources.json` (chưa xác minh ấn bản) |
-| A1. Lịch pháp | Đối chiếu GB/T 33661, Aslaksen, Hồ Ngọc Đức; ca vàng tiết khí lấy từ bảng của Đài thiên văn quốc gia Nhật và Hồng Kông Thiên văn đài | 100% quy tắc lịch `confirmed`; ca vàng về Tết VN/TQ và tháng nhuận năm 2033 |
+| A1. Lịch pháp (phần công khai ✅) | Đã đọc nguyên văn: Aslaksen (bản nháp 2010), bảng HKO 1985/2007/2024/2033, ytliu0 (theo GB/T 33661), NOAA, tzdb 2026f. Chưa đọc được: GB/T 33661 nguyên văn, Hồ Ngọc Đức (404), bảng NAOJ | core: 6 `confirmed` (đánh số tháng, tháng nhuận, ngày sóc, tiết khí, đổi ngày cn), 1 `conflict` (âm lịch VN trước 1967: nguồn nói kinh tuyến Bắc Kinh, code dùng 120°Đ), còn lại `unverified`; 10 ca vàng. Đã sửa: phương trình thời gian theo NOAA (366 ngày năm nhuận, giờ UTC); cảnh báo miền Nam dừng ở 13/6/1975 theo tzdb |
 | A2. Thần số học | Sách Phillips và 2 sách phương Tây; viết lại `y-nghia-so.md` theo nguồn | Không còn nội dung nào chỉ có nguồn blog; tên mũi tên có nguồn |
 | A3. Lục Hào | 京氏易传, 增删卜易, 卜筮正宗; ca vàng là quẻ mẫu trong sách | Bảng 64 quẻ, nạp giáp, bát cung, phục thần `confirmed`; ≥10 ca vàng |
 | A4. Bát Tự | Các kinh điển và chú giải của 徐乐吾; mệnh lệ in trong sách | Bảng tàng can, thập thần, khởi vận `confirmed`; ≥10 mệnh lệ |

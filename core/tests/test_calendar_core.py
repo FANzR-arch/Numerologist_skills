@@ -65,7 +65,7 @@ def test_hour_boundary_warning():
 
 
 class TestEquationOfTime:
-    # 均时差极值与零点（天文年历公布值，分钟）
+    # 均时差极值与零点的常见参考值（分钟；未核对出处，只作合理性检查，出处见 TestAgainstSources）
     @pytest.mark.parametrize("day,expected", [
         ((2, 11), -14.2), ((5, 14), 3.7), ((7, 26), -6.5), ((11, 3), 16.4),
         ((4, 15), 0.0), ((6, 13), 0.0), ((9, 1), 0.0), ((12, 25), 0.0),
@@ -200,3 +200,27 @@ def test_common_glossary_covers_stems_and_branches():
     glossary = (Path(__file__).resolve().parents[1] / "thuat-ngu-chung.md").read_text(encoding="utf-8")
     for char in "甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥金木水火土":
         assert f"| {char} |" in glossary or f"{char} " in glossary, char
+
+
+class TestAgainstSources:
+    def test_equation_of_time_follows_noaa(self):
+        # NOAA GML "General Solar Position Calculations"：γ = 2π/365·(day_of_year − 1 + (hour − 12)/24)，闰年分母用 366；hour 为 UTC
+        import math
+        for utc, days in ((datetime(2024, 3, 1, 3, 0), 366), (datetime(2023, 3, 1, 3, 0), 365)):
+            gamma = 2 * math.pi / days * (utc.timetuple().tm_yday - 1 + (utc.hour - 12) / 24)
+            expected = 229.18 * (0.000075 + 0.001868 * math.cos(gamma) - 0.032077 * math.sin(gamma)
+                                 - 0.014615 * math.cos(2 * gamma) - 0.040849 * math.sin(2 * gamma))
+            assert equation_of_time_minutes(utc) == pytest.approx(expected, abs=1e-9)
+
+    def test_true_solar_time_uses_utc_for_eot(self):
+        # NOAA：time_offset = eqtime + 4·longitude − 60·timezone；均时差按 UTC 时刻取
+        civil = datetime(2024, 3, 1, 10, 0)
+        true_dt, detail = true_solar_time(civil, 120.0)
+        eot = equation_of_time_minutes(datetime(2024, 3, 1, 2, 0))
+        assert detail["equation_of_time_minutes"] == round(eot, 1)
+        assert abs((true_dt - (civil + timedelta(minutes=eot))).total_seconds()) < 1
+
+    def test_south_vietnam_warning_window_follows_tzdb(self):
+        # tzdb asia：南越 1959-12-31 至 1975-06-13 使用 +08；Aslaksen (2010) p.29：1968 年南越春节按东八区为 1 月 30 日
+        assert any("越南南方" in w for w in calendar_locale_warnings("vn", date(1975, 6, 12)))
+        assert not any("越南南方" in w for w in calendar_locale_warnings("vn", date(1975, 6, 13)))

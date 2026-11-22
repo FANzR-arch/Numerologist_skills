@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "aslaksen-chinese-calendar",
+    "locator": "Draft 2010-07-17, tr. 29: sóc Tết 1968 lúc 16h29m UTC ngày 29/1, tức 00h29 ngày 30/1 theo UTC+8"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "1968-01-30 12:00",
+    "gender": "男",
+    "calendar_locale": "cn"
+  },
+  "expect": {
+    "calendar.lunar_month": 1,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}

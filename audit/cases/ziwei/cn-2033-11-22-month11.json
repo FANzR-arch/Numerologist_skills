@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "hko-calendar-tables",
+    "locator": "T2033e.txt, dòng 2033/11/22 (11th Lunar Month, Light Snow)"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "2033-11-22 12:00",
+    "gender": "男",
+    "calendar_locale": "cn"
+  },
+  "expect": {
+    "calendar.lunar_month": 11,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "hko-calendar-tables",
+    "locator": "T2007e.txt, dòng 2007/02/17 (30)"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "2007-02-17 12:00",
+    "gender": "男",
+    "calendar_locale": "cn"
+  },
+  "expect": {
+    "calendar.lunar_month": 12,
+    "calendar.lunar_day": 30,
+    "calendar.is_leap_month": false
+  }
+}

@@ -3,7 +3,7 @@
     "id": "core.table.DEFAULT_TIMEZONE",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:18",
+    "location": "core/calendar_core.py:19",
     "fingerprint": "87af758f5b13e6e9",
     "claim": "",
     "sources": [],
@@ -16,7 +16,7 @@
     "id": "core.function._lp",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:22",
+    "location": "core/calendar_core.py:23",
     "fingerprint": "37c2789aca6596e4",
     "claim": "",
     "sources": [],
@@ -29,7 +29,7 @@
     "id": "core.table.STEMS",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:31",
+    "location": "core/calendar_core.py:32",
     "fingerprint": "20ad319adfcd324e",
     "claim": "",
     "sources": [],
@@ -42,7 +42,7 @@
     "id": "core.table.BRANCHES",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:32",
+    "location": "core/calendar_core.py:33",
     "fingerprint": "1b421d58ef46f438",
     "claim": "",
     "sources": [],
@@ -55,12 +55,12 @@
     "id": "core.table.CALENDAR_LOCALES",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:33",
-    "fingerprint": "7a6c58561a85699d",
+    "location": "core/calendar_core.py:34",
+    "fingerprint": "d4683084a4e71937",
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Mô tả nhánh vn đã ghi rõ phần chưa khớp nguồn; xem core.table.VN_UTC7_FROM_SUI.",
     "tests": [],
     "stale": false
   },
@@ -68,7 +68,7 @@
     "id": "core.table.J2000_JDN",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:37",
+    "location": "core/calendar_core.py:38",
     "fingerprint": "3d98cab21642fe20",
     "claim": "",
     "sources": [],
@@ -81,7 +81,7 @@
     "id": "core.table.ORDINAL_TO_JDN",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:38",
+    "location": "core/calendar_core.py:39",
     "fingerprint": "fee8ebafc1fdfd47",
     "claim": "",
     "sources": [],
@@ -94,20 +94,28 @@
     "id": "core.table.VN_UTC7_FROM_SUI",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:39",
+    "location": "core/calendar_core.py:40",
     "fingerprint": "bd0559d532b28559",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Âm lịch Việt Nam tính theo UTC+7 từ tuế 1967 (tháng 11 âm ≈ 12/1967); trước đó script tính như lịch Trung Quốc 120°Đ.",
+    "sources": [
+      {
+        "id": "aslaksen-chinese-calendar",
+        "locator": "Draft 2010-07-17, tr. 29: Việt Nam theo truyền thống dùng lịch TQ theo kinh tuyến Bắc Kinh (116°25′Đ); chính phủ miền Bắc duyệt lịch UTC+7 ngày 8/8/1967",
+        "stance": "disagree"
+      }
+    ],
+    "verdict": "conflict",
+    "notes": "Mâu thuẫn: trước 1967 Việt Nam dùng kinh tuyến Bắc Kinh, không phải 120°Đ, nên có thể lệch một ngày. Mốc 'tuế 1967' là suy ra từ ngày duyệt 8/8/1967 và Tết 1968, nguồn không ghi trực tiếp. Chưa sửa code vì mới có 1 nguồn; cần nguồn thứ hai (văn bản 1967, Hồ Ngọc Đức) trước khi đổi sang kinh tuyến Bắc Kinh.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
     "id": "core.table.GENDER_ALIASES",
     "engine": "core",
     "kind": "table",
-    "location": "core/calendar_core.py:40",
+    "location": "core/calendar_core.py:41",
     "fingerprint": "90773523de8a43a7",
     "claim": "",
     "sources": [],
@@ -120,7 +128,7 @@
     "id": "core.function.parse_datetime_string",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:43",
+    "location": "core/calendar_core.py:44",
     "fingerprint": "d6afe7bab264e93c",
     "claim": "",
     "sources": [],
@@ -133,7 +141,7 @@
     "id": "core.function.parse_gender",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:67",
+    "location": "core/calendar_core.py:68",
     "fingerprint": "a496ba76c2aa51a9",
     "claim": "",
     "sources": [],
@@ -146,20 +154,28 @@
     "id": "core.function.validate_leap_month",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:74",
+    "location": "core/calendar_core.py:75",
     "fingerprint": "2489b53c00c74042",
-    "claim": "",
-    "sources": [],
+    "claim": "Báo lỗi khi năm âm lịch TQ không có tháng nhuận được yêu cầu.",
+    "sources": [
+      {
+        "id": "hko-calendar-tables",
+        "locator": "T2033e.txt, dòng 2033/12/22 (một ví dụ)",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "notes": "Mới có 1 ví dụ; lunar_python là thư viện chính của code nên không tính là nguồn.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestLunarCalendar"
+    ],
     "stale": false
   },
   {
     "id": "core.function.hour_boundary_warning",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:79",
+    "location": "core/calendar_core.py:80",
     "fingerprint": "7abed98eff6ba222",
     "claim": "",
     "sources": [],
@@ -172,7 +188,7 @@
     "id": "core.function.get_zone",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:87",
+    "location": "core/calendar_core.py:88",
     "fingerprint": "7d2a812ccaf7da66",
     "claim": "",
     "sources": [],
@@ -185,7 +201,7 @@
     "id": "core.function.payload_timezone",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:94",
+    "location": "core/calendar_core.py:95",
     "fingerprint": "deb4ed9290464d1c",
     "claim": "",
     "sources": [],
@@ -198,46 +214,70 @@
     "id": "core.function.clock_warnings",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:98",
+    "location": "core/calendar_core.py:99",
     "fingerprint": "fbe80ca4f41536fa",
-    "claim": "",
-    "sources": [],
+    "claim": "Cảnh báo giờ mùa hè và giờ không tồn tại/lặp theo dữ liệu tzdb (TQ 1986–1991).",
+    "sources": [
+      {
+        "id": "iana-tzdb",
+        "locator": "asia, Rule PRC dòng 448–450 và chú thích trích thông báo chính phủ",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "notes": "zoneinfo dùng chính tzdb nên chưa có nguồn độc lập thứ hai.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestClockWarnings"
+    ],
     "stale": false
   },
   {
     "id": "core.function.equation_of_time_minutes",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:116",
-    "fingerprint": "25c36dfa49f3b251",
-    "claim": "",
-    "sources": [],
+    "location": "core/calendar_core.py:117",
+    "fingerprint": "784cf4fb68c95eb9",
+    "claim": "Phương trình thời gian theo công thức NOAA: γ = 2π/365 (366 năm nhuận)·(ngày trong năm − 1 + (giờ UTC − 12)/24), eqtime = 229.18·(…).",
+    "sources": [
+      {
+        "id": "noaa-solar-calculations",
+        "locator": "tr. 1, mục fractional year và eqtime",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "notes": "Đã sửa code cho khớp NOAA (trước đây luôn dùng 365 và giờ địa phương). Tài liệu NOAA không ghi tác giả công thức hay độ chính xác; cần nguồn thứ hai.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestAgainstSources"
+    ],
     "stale": false
   },
   {
     "id": "core.function.true_solar_time",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:124",
-    "fingerprint": "b300a567214f7ac8",
-    "claim": "",
-    "sources": [],
+    "location": "core/calendar_core.py:126",
+    "fingerprint": "57c3de0e1f059c9d",
+    "claim": "Giờ mặt trời thực = giờ UTC + 4·kinh độ (phút, Đông dương) + phương trình thời gian; UTC lấy theo múi giờ có giờ mùa hè.",
+    "sources": [
+      {
+        "id": "noaa-solar-calculations",
+        "locator": "tr. 1, time_offset = eqtime + 4*longitude − 60*timezone",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "notes": "Mới có 1 nguồn.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestAgainstSources"
+    ],
     "stale": false
   },
   {
     "id": "core.function.apply_true_solar_time",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:144",
+    "location": "core/calendar_core.py:147",
     "fingerprint": "9e24fd29dd43ceef",
     "claim": "",
     "sources": [],
@@ -250,7 +290,7 @@
     "id": "core.function.LunarDate",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:161",
+    "location": "core/calendar_core.py:164",
     "fingerprint": "2ca0c8b9ea108deb",
     "claim": "",
     "sources": [],
@@ -263,7 +303,7 @@
     "id": "core.function.parse_calendar_locale",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:173",
+    "location": "core/calendar_core.py:176",
     "fingerprint": "5be9224505892cf2",
     "claim": "",
     "sources": [],
@@ -276,33 +316,66 @@
     "id": "core.function._new_moon_jdn",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:181",
+    "location": "core/calendar_core.py:184",
     "fingerprint": "39cf742552b828a7",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Ngày sóc tính theo giờ địa phương của kinh tuyến lịch: 120°Đ (UTC+8) cho lịch Trung Quốc từ 1929; dời theo múi giờ cho lịch khác. Thời điểm sóc lấy từ ShouXingUtil.shuoHigh của lunar_python.",
+    "sources": [
+      {
+        "id": "aslaksen-chinese-calendar",
+        "locator": "Draft 2010-07-17, tr. 18 (Rule 1)",
+        "stance": "agree"
+      },
+      {
+        "id": "ytliu0-chinese-calendar",
+        "locator": "rules.html, Lunar Conjunction (New Moon); computation.html, Modern Period (1912–2200)",
+        "stance": "agree"
+      },
+      {
+        "id": "hko-calendar-tables",
+        "locator": "bảng 1985, 2007, 2024, 2033",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Độ chính xác ephemeris kiểm gián tiếp qua ca vàng HKO; chưa đối chiếu thời điểm sóc từng phút.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestLunarCalendar",
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
     "id": "core.function._term_jdn",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:187",
+    "location": "core/calendar_core.py:190",
     "fingerprint": "2434353b10a313cd",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Ngày tiết khí/trung khí tính theo giờ địa phương của kinh tuyến lịch (UTC+8 cho lịch TQ); thời điểm lấy từ ShouXingUtil.qiHigh.",
+    "sources": [
+      {
+        "id": "ytliu0-chinese-calendar",
+        "locator": "rules.html (thời gian theo China standard time UTC+08:00)",
+        "stance": "agree"
+      },
+      {
+        "id": "hko-calendar-tables",
+        "locator": "T2024e.txt: 2024/2/4 Spring Commences; T2033e.txt: 2033/11/22 Light Snow",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Mới kiểm tới mức ngày; chưa có nguồn T1 cho thời điểm tới phút (bảng NAOJ chưa đọc).",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestLunarCalendar",
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
     "id": "core.function._lunation_containing",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:192",
+    "location": "core/calendar_core.py:195",
     "fingerprint": "a911bda393d3d9a2",
     "claim": "",
     "sources": [],
@@ -315,72 +388,150 @@
     "id": "core.function._sui_months",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:202",
+    "location": "core/calendar_core.py:205",
     "fingerprint": "bbbedc5a2595e4b8",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Tháng chứa Đông chí là tháng 11; tuế (từ tháng 11 tới tháng 11 năm sau) có 13 tháng thì tháng đầu tiên sau tháng 11 không chứa trung khí là tháng nhuận, mang số của tháng trước.",
+    "sources": [
+      {
+        "id": "aslaksen-chinese-calendar",
+        "locator": "Draft 2010-07-17, tr. 22 (Rule 4), tr. 23 (Rule 5)",
+        "stance": "agree"
+      },
+      {
+        "id": "ytliu0-chinese-calendar",
+        "locator": "rules.html, Rules for the Modern Chinese Calendar, rule 4–5",
+        "stance": "agree"
+      },
+      {
+        "id": "hko-calendar-tables",
+        "locator": "T2033e.txt: 11th Lunar Month lặp ở 2033/11/22 và 2033/12/22",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Ca vàng 2033 (nhuận tháng 11) khớp HKO; ytliu0 examples.html 'Example 2: N2033' cùng kết quả.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestLunarCalendar",
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
     "id": "core.function._lunar_from_jdn",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:222",
+    "location": "core/calendar_core.py:225",
     "fingerprint": "b53bf0e97ffab859",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Ngày có sóc là mùng 1 của tháng.",
+    "sources": [
+      {
+        "id": "aslaksen-chinese-calendar",
+        "locator": "Draft 2010-07-17, tr. 19 (Rule 3)",
+        "stance": "agree"
+      },
+      {
+        "id": "ytliu0-chinese-calendar",
+        "locator": "rules.html, rule 3",
+        "stance": "agree"
+      },
+      {
+        "id": "hko-calendar-tables",
+        "locator": "T1985e.txt, T2007e.txt, T2024e.txt",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Cách gán năm âm lịch (tháng 11, 12 thuộc năm trước) chưa có câu nguồn trực tiếp; chỉ khớp dữ liệu HKO.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestLunarCalendar",
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
     "id": "core.function.solar_to_lunar",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:232",
+    "location": "core/calendar_core.py:235",
     "fingerprint": "6d552d7f46b91378",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "calendar_locale=cn trả âm lịch Trung Quốc (kinh tuyến 120°Đ) khớp bảng HKO.",
+    "sources": [
+      {
+        "id": "hko-calendar-tables",
+        "locator": "T1985e.txt, T2007e.txt, T2024e.txt, T2033e.txt (các dòng trong audit/cases/ziwei)",
+        "stance": "agree"
+      },
+      {
+        "id": "aslaksen-chinese-calendar",
+        "locator": "Draft 2010-07-17, tr. 18–23 (Rule 1, 3, 4, 5)",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Chỉ xác nhận nhánh cn. Nhánh vn xem core.table.VN_UTC7_FROM_SUI.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestLunarCalendar",
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
     "id": "core.function.lunar_to_solar",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:240",
+    "location": "core/calendar_core.py:243",
     "fingerprint": "a2eba8f003c59460",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Phép ngược của solar_to_lunar theo cùng quy tắc; báo lỗi khi tháng nhuận/ngày không tồn tại.",
+    "sources": [
+      {
+        "id": "aslaksen-chinese-calendar",
+        "locator": "Draft 2010-07-17, tr. 19–23 (Rule 3–5)",
+        "stance": "agree"
+      },
+      {
+        "id": "hko-calendar-tables",
+        "locator": "bảng 1985, 2007, 2033",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Đổi qua đổi lại khớp mọi ngày 1967–2100 (test vn_round_trip).",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestLunarCalendar"
+    ],
     "stale": false
   },
   {
     "id": "core.function.calendar_locale_warnings",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:261",
-    "fingerprint": "78147f114a3c2cc7",
-    "claim": "",
-    "sources": [],
+    "location": "core/calendar_core.py:264",
+    "fingerprint": "feb5f8f6beaed738",
+    "claim": "Cảnh báo khi lịch VN và TQ khác nhau ở ngày đó; với ngày từ 12/1967 đến trước 13/6/1975 thì cảnh báo miền Nam dùng giờ đồng hồ UTC+8 và âm lịch truyền thống.",
+    "sources": [
+      {
+        "id": "aslaksen-chinese-calendar",
+        "locator": "Draft 2010-07-17, tr. 29: Tết 1968 Bắc 29/1, Nam 30/1 (Nam theo lịch truyền thống)",
+        "stance": "agree"
+      },
+      {
+        "id": "iana-tzdb",
+        "locator": "asia, dòng 4192–4194 (South Vietnam +07 từ 1955-07-01, +08 từ 1959-12-31, +07 từ 1975-06-13)",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "notes": "Mỗi nguồn chỉ chứng minh một phần: tzdb là giờ đồng hồ, Aslaksen chỉ có năm 1968. Âm lịch miền Nam 1969–1975 chưa có nguồn.",
+    "tests": [
+      "core/tests/test_calendar_core.py::TestAgainstSources"
+    ],
     "stale": false
   },
   {
     "id": "core.function.run_cli",
     "engine": "core",
     "kind": "function",
-    "location": "core/calendar_core.py:273",
+    "location": "core/calendar_core.py:277",
     "fingerprint": "03ba7c248bc7e42b",
     "claim": "",
     "sources": [],
@@ -394,7 +545,7 @@
     "engine": "core",
     "kind": "doc",
     "location": "core/thuat-ngu-chung.md",
-    "fingerprint": "9493a1b60741ebea",
+    "fingerprint": "fea1000c4e59009c",
     "claim": "",
     "sources": [],
     "verdict": "unverified",
@@ -641,7 +792,7 @@
     "engine": "bazi",
     "kind": "doc",
     "location": "bazi/SKILL.md",
-    "fingerprint": "11d0b9fbc67548df",
+    "fingerprint": "5f79a04a326e372e",
     "claim": "",
     "sources": [],
     "verdict": "unverified",
@@ -2929,7 +3080,7 @@
     "engine": "ziwei",
     "kind": "doc",
     "location": "ziwei-doushu/SKILL.md",
-    "fingerprint": "c426c963313bc897",
+    "fingerprint": "02770199abb5fa58",
     "claim": "",
     "sources": [],
     "verdict": "unverified",

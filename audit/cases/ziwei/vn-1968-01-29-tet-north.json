@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "aslaksen-chinese-calendar",
+    "locator": "Draft 2010-07-17, tr. 29 (Tết miền Bắc 29/1/1968, lịch UTC+7)"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "1968-01-29 12:00",
+    "gender": "男",
+    "calendar_locale": "vn"
+  },
+  "expect": {
+    "calendar.lunar_month": 1,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}
