@@ -45,6 +45,21 @@ Claude Code 2.1.275 以前的版本分两步：
 claude --plugin-dir /path/to/Numerologist_skills
 ```
 
+## 作为 MCP server 使用
+
+`mcp-server/server.py` 把三个排盘脚本暴露为 MCP tool：`bazi_chart`、`ziwei_chart`、`qimen_chart`，参数与各 skill 的输入 JSON 相同，返回脚本输出。适合 Claude Desktop 等不能直接运行脚本的客户端。
+
+```bash
+pip install -r mcp-server/requirements.txt
+claude mcp add numerologist -- python /path/to/Numerologist_skills/mcp-server/server.py
+```
+
+Claude Desktop 在 `claude_desktop_config.json` 的 `mcpServers` 中加入：
+
+```json
+"numerologist": {"command": "python", "args": ["/path/to/Numerologist_skills/mcp-server/server.py"]}
+```
+
 ## 快速上手
 
 如果你要运行奇门遁甲的固定计算脚本：

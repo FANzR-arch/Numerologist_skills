@@ -1,0 +1,2 @@
+-r ../qimen-dunjia/scripts/requirements.txt
+mcp>=2.3,<3
