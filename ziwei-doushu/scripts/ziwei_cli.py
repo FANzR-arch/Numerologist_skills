@@ -12,10 +12,13 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from typing import Any
 
-from lunar_python import Lunar, Solar
-
 from calendar_core import (
+    CALENDAR_LOCALES,
     apply_true_solar_time,
+    calendar_locale_warnings,
+    lunar_to_solar,
+    parse_calendar_locale,
+    solar_to_lunar,
     clock_warnings,
     hour_boundary_warning,
     parse_datetime_string,
@@ -152,6 +155,7 @@ class BirthInfo:
     leap_month_rule: str
     leap_month_rule_source: str  # "default" 或 "explicit"
     late_zi_rule: str
+    calendar_locale: str
     original_input: Any
     warnings: list[str]
 
@@ -164,17 +168,10 @@ def wrap(index: int) -> int:
     return index % 12
 
 
-def lunar_to_solar_date(year: int, month: int, day: int, is_leap: bool) -> date:
-    if is_leap:
-        validate_leap_month(year, month)
-    lunar = Lunar.fromYmd(year, -month if is_leap else month, day)
-    solar = lunar.getSolar()
-    return date(solar.getYear(), solar.getMonth(), solar.getDay())
-
-
 def normalize_input(payload: dict[str, Any]) -> BirthInfo:
     warnings: list[str] = []
     calendar_type = str(payload.get("calendar_type") or "solar").strip().lower()
+    locale = parse_calendar_locale(payload)
     raw_input = payload.get("birth_time")
     if raw_input in (None, ""):
         raise ValueError("缺少 birth_time")
@@ -200,7 +197,7 @@ def normalize_input(payload: dict[str, Any]) -> BirthInfo:
     if calendar_type == "solar":
         solar_date = date(raw["year"], raw["month"], raw["day"])
     elif calendar_type == "lunar":
-        solar_date = lunar_to_solar_date(raw["year"], raw["month"], raw["day"], is_leap)
+        solar_date = lunar_to_solar(raw["year"], raw["month"], raw["day"], is_leap, locale)
     else:
         raise ValueError(f"不支持的 calendar_type: {calendar_type}（只接受 solar 或 lunar）")
 
@@ -232,6 +229,7 @@ def normalize_input(payload: dict[str, Any]) -> BirthInfo:
         leap_month_rule=leap_rule,
         leap_month_rule_source=leap_rule_source,
         late_zi_rule=late_zi_rule,
+        calendar_locale=locale,
         original_input=raw_input,
         warnings=warnings,
     )
@@ -251,10 +249,8 @@ def resolve_calendar(info: BirthInfo) -> dict[str, Any]:
         chart_date = info.solar_date + timedelta(days=1)
         day_rollover = True
 
-    lunar = Solar.fromYmd(chart_date.year, chart_date.month, chart_date.day).getLunar()
-    lunar_month = abs(lunar.getMonth())
-    is_leap = lunar.getMonth() < 0
-    lunar_day = lunar.getDay()
+    lunar = solar_to_lunar(chart_date, info.calendar_locale)
+    lunar_month, lunar_day, is_leap = lunar.month, lunar.day, lunar.is_leap
 
     chart_month = lunar_month
     if is_leap:
@@ -262,12 +258,12 @@ def resolve_calendar(info: BirthInfo) -> dict[str, Any]:
         if rule == "next" or (rule == "split_15" and lunar_day > 15):
             chart_month = lunar_month % 12 + 1
 
-    year_stem = STEMS[lunar.getYearGanIndex()]
-    year_branch = BRANCHES[lunar.getYearZhiIndex()]
+    year_stem = STEMS[(lunar.year - 4) % 10]
+    year_branch = BRANCHES[(lunar.year - 4) % 12]
     return {
         "chart_solar_date": chart_date,
         "day_rollover": day_rollover,
-        "lunar_year": lunar.getYear(),
+        "lunar_year": lunar.year,
         "lunar_month": lunar_month,
         "lunar_day": lunar_day,
         "is_leap_month": is_leap,
@@ -275,7 +271,7 @@ def resolve_calendar(info: BirthInfo) -> dict[str, Any]:
         "year_stem": year_stem,
         "year_branch": year_branch,
         "hour_index": hour_idx,
-        "lunar_text": f"{lunar.getYearInGanZhi()}年{lunar.getMonthInChinese()}月{lunar.getDayInChinese()}",
+        "lunar_text": lunar.text,
     }
 
 
@@ -496,7 +492,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
     chart = build_chart(info)
     cal = chart["calendar"]
     check = self_check(chart)
-    warnings = list(info.warnings)
+    warnings = list(info.warnings) + calendar_locale_warnings(info.calendar_locale, cal["chart_solar_date"])
     if cal["day_rollover"]:
         warnings.append("出生于 23 点后，已按次日子时排盘（农历日期取次日）；若用户既定口径不换日，请改用 late_zi_rule=same_day 重排。")
     if cal["is_leap_month"]:
@@ -517,6 +513,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "leap_month_rule": info.leap_month_rule,
             "leap_month_rule_source": info.leap_month_rule_source,
             "late_zi_rule": info.late_zi_rule,
+            "calendar_locale": info.calendar_locale,
         },
         "calendar": {
             "chart_solar_date": cal["chart_solar_date"].isoformat(),
@@ -535,6 +532,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "id": str(payload.get("ruleset") or DEFAULT_RULESET),
             "source": "references/calculation.md、references/sihua.md、references/stars.md",
             "year_rule": "以农历正月初一换年，年干支取农历年。",
+            "calendar_locale": CALENDAR_LOCALES[info.calendar_locale],
             "late_zi_rule": LATE_ZI_RULES[info.late_zi_rule],
             "leap_month_rule": {
                 "id": info.leap_month_rule,

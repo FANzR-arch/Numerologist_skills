@@ -1285,3 +1285,22 @@ class TestTrueSolarTime:
     def test_single_hour_string_is_parsed(self):
         # 旧实现把 "2026-01-05 10" 当成 00:00
         assert _chart("2026-01-05 10")["calendar"]["solar"]["ymd_hms"] == "2026-01-05 10:00:00"
+
+
+class TestCalendarLocale:
+    def test_vn_lunar_display(self):
+        output = build_output({"question_type": "测试", "question_goal": "测试", "time_input": "2007-02-17 09:00",
+                               "calendar_type": "solar", "calendar_locale": "vn"})
+        lunar = output["calendar"]["lunar"]
+        assert (lunar["year"], lunar["month"], lunar["day"]) == (2007, 1, 1)
+        assert _chart("2007-02-17 09:00")["calendar"]["lunar"]["month_text"] == "腊"
+
+
+def test_vietnamese_glossary_covers_output_terms():
+    glossary = (Path(__file__).resolve().parents[2] / "references" / "thuat-ngu-vi.md").read_text(encoding="utf-8")
+    terms = set(STAR_RING) | {"天禽"} | set(DOOR_RING) | set(GOD_RING_YANG) | set(GOD_RING_YIN)
+    from datetime import datetime as _dt, timedelta as _td
+    for h in range(0, 24 * 365, 7):
+        output = _chart((_dt(2026, 1, 1) + _td(hours=h)).strftime("%Y-%m-%d %H:%M"))
+        terms |= {p["name"] for p in output["chart"]["detected_patterns"]} | {p["name"] for p in output["chart"]["palaces"]}
+    assert [t for t in sorted(terms) if t not in glossary] == []

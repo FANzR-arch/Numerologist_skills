@@ -17,6 +17,7 @@ Read:
 
 - `references/prompt-template.md`
 - `references/tiangan-dizhi.md`
+- `references/thuat-ngu-vi.md`、`references/thuat-ngu-chung.md`（越南语用户）
 
 ## 核心规则
 
@@ -75,6 +76,7 @@ python "bazi/scripts/bazi_cli.py" \
   "late_zi_rule": "next_day|same_day",
   "query_year": 2026,
   "true_solar_time": false,
+  "calendar_locale": "cn|vn",
   "location": {"longitude": 116.4, "timezone": "Asia/Shanghai"}
 }
 ```
@@ -82,6 +84,7 @@ python "bazi/scripts/bazi_cli.py" \
 - `birth_time`、`gender` 必填；出生时间或性别缺失时脚本直接报错，不代填。
 - `calendar_type=lunar` 时 `birth_time` 写农历年月日，闰月出生同时传 `"is_leap_month": true`。
 - `late_zi_rule` 默认 `next_day`；只有用户明确沿用夜子时口径时才传 `same_day`。
+- `calendar_locale` 默认 `cn`（中国农历）；越南用户传 `vn`，农历输入与输出的农历日期按越南阴历（1967 年十一月即 1967-12 起按东七区）。四柱按节气，不受此项影响。
 - `query_year` 可选，填公历年份（与紫微斗数脚本的农历年不同），脚本给出该年立春后的流年干支、虚岁与所在大运。虚岁按公历年计，立春前出生者会有 `warnings` 提示少 1 岁。
 - `true_solar_time` 可选，默认不校正。用户要求真太阳时（或出生地远离时区中央经线，如新疆、西藏）时传 `true`，并必须给出生地经度 `location.longitude`（东经为正）；时区 `location.timezone` 默认 `Asia/Shanghai`。脚本按时区（含夏令时）换回 UTC，再加经度时差与均时差，明细见输出 `normalized_input.true_solar_time`。
 - 出生时间处于 `location.timezone`（默认 `Asia/Shanghai`）的夏令时期间（如中国 1986-1991 年夏季），或落在拨钟空档/重叠时，输出 `warnings` 会提示；向用户确认报的是钟表时间还是标准时间，必要时开启 `true_solar_time` 重排。
@@ -168,6 +171,12 @@ python "bazi/scripts/bazi_cli.py" \
 - 不堆砌古诀，不空泛玄谈。
 - 凶象转译成风险、课题、需要注意之处。
 - 结论要有推演过程支撑。
+
+### 越南语用户
+
+- 用户用越南语提问时，全程用越南语回答；术语用 `references/thuat-ngu-vi.md` 与 `references/thuat-ngu-chung.md` 的汉越音（如 日主 → Nhật chủ），首次出现时括注汉字。
+- 用户提到的阴历日期默认是越南阴历：输入 JSON 传 `"calendar_locale": "vn"`；用户明确说是中国农历或来自中国软件时用 `cn`。两者在 1968 年后个别月份相差一天，偶有整月（见 `thuat-ngu-chung.md`）。
+- 输出 `warnings` 提示 1968-1975 年越南南方历法时，先问用户出生在南方还是北方。
 
 ## 与其他命理体系的协同
 

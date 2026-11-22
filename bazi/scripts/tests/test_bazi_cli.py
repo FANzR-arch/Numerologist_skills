@@ -274,3 +274,30 @@ class TestTrueSolarTime:
     def test_dst_warning_follows_location_timezone(self):
         output = _chart("1986-07-01 12:00", location={"timezone": "America/New_York"})
         assert [w for w in output["warnings"] if "夏令时" in w and "Asia/Shanghai" in w] == []
+
+
+class TestCalendarLocale:
+    def test_vn_only_changes_lunar_display(self):
+        cn, vn = _chart("1985-01-25 10:00"), _chart("1985-01-25 10:00", calendar_locale="vn")
+        assert _pillars(cn) == _pillars(vn)
+        assert cn["calendar"]["lunar_text"].startswith("甲子年腊月初五")
+        assert vn["calendar"]["lunar_text"].startswith("乙丑年正月初五")
+
+    def test_vn_lunar_input(self):
+        vn = _chart({"year": 1985, "month": 1, "day": 1, "hour": 10}, calendar_type="lunar", calendar_locale="vn")
+        assert _pillars(vn) == _pillars(_chart("1985-01-21 10:00"))
+
+    def test_south_vietnam_warning(self):
+        assert any("越南南方" in w for w in _chart("1970-06-01 10:00", calendar_locale="vn")["warnings"])
+
+
+def test_vietnamese_glossary_covers_output_terms():
+    glossary = (Path(__file__).resolve().parents[2] / "references" / "thuat-ngu-vi.md").read_text(encoding="utf-8")
+    terms = set()
+    rng = random.Random(5)
+    for _ in range(200):
+        dt = datetime(1950, 1, 1) + timedelta(hours=rng.randrange(70 * 365 * 24))
+        for pillar in _chart(dt.strftime("%Y-%m-%d %H:%M"))["pillars"].values():
+            terms |= {pillar["shishen_gan"], pillar["dishi"]} | {h["shishen"] for h in pillar["hide_gan"]}
+    assert len(terms) >= 22  # 10 十神 + 日主 + 12 长生
+    assert [t for t in terms if t not in glossary] == []

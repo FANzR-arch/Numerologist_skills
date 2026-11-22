@@ -470,6 +470,7 @@
 | 项目 | 脚本口径 | 输入字段 |
 |---|---|---|
 | 年界 | 以农历正月初一换年，年干支取农历年（不以立春换年） | — |
+| 历法 | 默认中国农历（东八区）；`vn` 为越南阴历，1967 年十一月（1967-12）起按东七区定朔定气，月界、闰月与年界可能与中国不同 | `calendar_locale`：`cn`（默认）/ `vn` |
 | 月、日 | 用农历月、农历日；出生日期为公历时由 `lunar_python` 换算 | `calendar_type` |
 | 子时换日 | 默认 23:00 起视为次日子时，农历日期按次日计算（见 §1）；用户既定口径不换日时传 `same_day`，取子时但日期不变 | `late_zi_rule`：`next_day`（默认）/ `same_day` |
 | 闰月归属 | 默认 `split_15`：闰月十五日及以前按本月，十六日起按下月（如闰二月十六按三月）。用户有既定口径时改传 `current`（整月按本月）或 `next`（整月按下月）。输出 `normalized_input.leap_month_rule` 与 `ruleset.leap_month_rule` 写明本次用的算法，`source` 为 `default`（未传，用默认）或 `explicit`（调用方指定）；闰月出生时 `warnings` 也会注明 | `leap_month_rule`：`split_15`（默认）/ `current` / `next` |

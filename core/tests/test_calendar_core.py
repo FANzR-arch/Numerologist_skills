@@ -1,5 +1,5 @@
 import sys
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -8,6 +8,13 @@ import pytest
 
 from calendar_core import (
     apply_true_solar_time,
+    LunarDate,
+    _lunar_from_jdn,
+    _sui_months,
+    calendar_locale_warnings,
+    lunar_to_solar,
+    parse_calendar_locale,
+    solar_to_lunar,
     clock_warnings,
     equation_of_time_minutes,
     hour_boundary_warning,
@@ -122,3 +129,68 @@ class TestClockWarnings:
     def test_gap_and_overlap(self, civil, word):
         for payload in ({}, {"true_solar_time": True}):
             assert any(word in w for w in clock_warnings(payload, civil))
+
+
+class TestLunarCalendar:
+    def test_cn_matches_lunar_python(self):
+        from lunar_python import Solar
+        d = date(1900, 2, 1)
+        while d < date(2100, 12, 1):
+            lunar = Solar.fromYmd(d.year, d.month, d.day).getLunar()
+            assert solar_to_lunar(d) == (lunar.getYear(), abs(lunar.getMonth()), lunar.getDay(), lunar.getMonth() < 0)
+            d += timedelta(days=29)
+
+    def test_vn_engine_at_utc8_matches_chinese_calendar(self):
+        # 同一套定朔定气与置闰规则放在东八区，必须复现 lunar_python 的中国农历（1967-2100）每个月的初一、月号与闰月；
+        # 月内其余日期只是初一的偏移，所以逐月核对初一即覆盖全部日期
+        from lunar_python import Solar
+        for year in range(1967, 2100):
+            for month, is_leap, first in _sui_months(year, 8):
+                d = date.fromordinal(first - 1721425)
+                lunar = Solar.fromYmd(d.year, d.month, d.day).getLunar()
+                assert (abs(lunar.getMonth()), lunar.getDay(), lunar.getMonth() < 0) == (month, 1, is_leap), d
+                assert _lunar_from_jdn(first, 8, d.year).year == lunar.getYear(), d
+
+    @pytest.mark.parametrize("vn_tet,cn_tet", [
+        (date(1968, 1, 29), date(1968, 1, 30)),  # 戊申年春节，越南北方新历
+        (date(1985, 1, 21), date(1985, 2, 20)),  # 越南乙丑年正月比中国早一个月
+        (date(2007, 2, 17), date(2007, 2, 18)),
+    ])
+    def test_documented_tet_differences(self, vn_tet, cn_tet):
+        assert lunar_to_solar(vn_tet.year, 1, 1, False, "vn") == vn_tet
+        assert lunar_to_solar(cn_tet.year, 1, 1, False, "cn") == cn_tet
+        assert solar_to_lunar(vn_tet, "vn") == (vn_tet.year, 1, 1, False)
+
+    def test_vn_before_1968_follows_chinese_calendar(self):
+        assert solar_to_lunar(date(1960, 6, 1), "vn") == solar_to_lunar(date(1960, 6, 1), "cn")
+
+    def test_vn_round_trip(self):
+        d = date(1967, 12, 1)
+        while d < date(2100, 1, 1):
+            assert lunar_to_solar(*solar_to_lunar(d, "vn"), "vn") == d, d
+            d += timedelta(days=5)
+
+    def test_vn_rejects_missing_days(self):
+        with pytest.raises(ValueError, match="没有闰"):
+            lunar_to_solar(2021, 4, 1, True, "vn")
+        with pytest.raises(ValueError, match="没有30日"):
+            lunar_to_solar(2024, 1, 30, False, "vn")  # 越南 2024 年正月小
+        with pytest.raises(ValueError, match="改历交界"):
+            lunar_to_solar(1967, 10, 30, False, "vn")
+        assert lunar_to_solar(1967, 10, 29, False, "vn") == date(1967, 11, 30)
+
+    def test_text(self):
+        assert LunarDate(2020, 4, 1, True).text == "庚子年闰四月初一"
+
+    def test_locale(self):
+        assert parse_calendar_locale({}) == "cn"
+        with pytest.raises(ValueError, match="calendar_locale"):
+            parse_calendar_locale({"calendar_locale": "jp"})
+        assert calendar_locale_warnings("vn", date(1970, 1, 1))
+        assert calendar_locale_warnings("cn", date(1970, 1, 1)) == []
+
+
+def test_common_glossary_covers_stems_and_branches():
+    glossary = (Path(__file__).resolve().parents[1] / "thuat-ngu-chung.md").read_text(encoding="utf-8")
+    for char in "甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥金木水火土":
+        assert f"| {char} |" in glossary or f"{char} " in glossary, char

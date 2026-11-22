@@ -7,9 +7,19 @@ from typing import Any
 
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from lunar_python import Lunar, Solar
+from lunar_python import Solar
+from lunar_python.util import LunarUtil
 
-from calendar_core import apply_true_solar_time, parse_datetime_string, run_cli
+from calendar_core import (
+    CALENDAR_LOCALES,
+    apply_true_solar_time,
+    calendar_locale_warnings,
+    lunar_to_solar,
+    parse_calendar_locale,
+    parse_datetime_string,
+    run_cli,
+    solar_to_lunar,
+)
 
 DEFAULT_RULESET = "mainline-cn-v1"
 DEFAULT_TIMEZONE = "Asia/Shanghai"
@@ -188,6 +198,7 @@ class NormalizedInput:
     use_now: bool
     leap_month: bool
     solar_dt: datetime
+    calendar_locale: str
     true_solar_time: dict[str, Any] | None
     lunar_input: dict[str, Any] | None
     original_time_input: Any
@@ -223,6 +234,7 @@ def normalize_input(payload: dict[str, Any]) -> NormalizedInput:
         raise ValueError(f"无法识别时区 {timezone}: {exc}") from exc
 
     calendar_type = str(payload.get("calendar_type") or "solar").strip().lower()
+    locale = parse_calendar_locale(payload)
     original_time_input = payload.get("time_input")
     leap_month = False
     lunar_input: dict[str, Any] | None = None
@@ -260,24 +272,15 @@ def normalize_input(payload: dict[str, Any]) -> NormalizedInput:
             raw = parse_datetime_string(str(original_time_input))
             raw["is_leap_month"] = bool(payload.get("is_leap_month", False))
         leap_month = bool(raw.get("is_leap_month", False))
-        lunar_month = -raw["month"] if leap_month else raw["month"]
-        lunar_obj = Lunar.fromYmdHms(raw["year"], lunar_month, raw["day"], raw["hour"], raw["minute"], raw["second"])
-        solar_obj = lunar_obj.getSolar()
-        solar_dt = datetime(
-            solar_obj.getYear(),
-            solar_obj.getMonth(),
-            solar_obj.getDay(),
-            solar_obj.getHour(),
-            solar_obj.getMinute(),
-            solar_obj.getSecond(),
-            tzinfo=tz,
-        )
+        day = lunar_to_solar(raw["year"], raw["month"], raw["day"], leap_month, locale)
+        solar_dt = datetime(day.year, day.month, day.day, raw["hour"], raw["minute"], raw["second"], tzinfo=tz)
         lunar_input = raw
     else:
         raise ValueError(f"不支持的 calendar_type: {calendar_type}")
 
     corrected, true_solar = apply_true_solar_time({**payload, "location": {**location, "timezone": timezone}}, solar_dt.replace(tzinfo=None))
     solar_dt = corrected.replace(tzinfo=tz)
+    warnings += calendar_locale_warnings(locale, solar_dt.date())
 
     return NormalizedInput(
         question_type=str(payload.get("question_type") or "").strip(),
@@ -289,6 +292,7 @@ def normalize_input(payload: dict[str, Any]) -> NormalizedInput:
         use_now=use_now,
         leap_month=leap_month,
         solar_dt=solar_dt,
+        calendar_locale=locale,
         true_solar_time=true_solar,
         lunar_input=lunar_input,
         original_time_input=original_time_input,
@@ -732,6 +736,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
     normalized = normalize_input(payload)
     solar, lunar = build_solar_and_lunar(normalized)
     chart = build_chart(normalized, solar, lunar)
+    local_lunar = solar_to_lunar(normalized.solar_dt.date(), normalized.calendar_locale)
 
     return {
         "normalized_input": {
@@ -745,6 +750,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "used_now": normalized.use_now,
             "original_time_input": normalized.original_time_input,
             "true_solar_time": normalized.true_solar_time,
+            "calendar_locale": normalized.calendar_locale,
         },
         "calendar": {
             "solar": {
@@ -752,12 +758,13 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
                 "timezone": normalized.timezone,
             },
             "lunar": {
-                "year": lunar.getYear(),
-                "month": abs(lunar.getMonth()),
-                "day": lunar.getDay(),
-                "month_text": lunar.getMonthInChinese(),
-                "day_text": lunar.getDayInChinese(),
-                "is_leap_month": lunar.getMonth() < 0,
+                "year": local_lunar.year,
+                "month": local_lunar.month,
+                "day": local_lunar.day,
+                "month_text": ("闰" if local_lunar.is_leap else "") + LunarUtil.MONTH[local_lunar.month],
+                "day_text": LunarUtil.DAY[local_lunar.day],
+                "is_leap_month": local_lunar.is_leap,
+                "calendar_locale": CALENDAR_LOCALES[normalized.calendar_locale],
             },
             "jieqi": {
                 "active_jie": chart["active_jie"],

@@ -15,7 +15,7 @@
 - `SKILL.md`：主技能说明、触发条件、工作流、输出约束
 - `references/`：规则集、术语表、示例、口径说明
 - `scripts/`：需要刚性计算时使用的外部脚本（奇门遁甲、紫微斗数、四柱八字均包含）
-- `core/calendar_core.py`：三个脚本共用的输入解析与真太阳时换算。各 skill 的 `scripts/calendar_core.py` 是生成的副本（每个 skill 可单独安装），只改 `core/`，再运行 `python tools/sync_core.py`；CI 用 `--check` 检查副本一致
+- `core/calendar_core.py`：三个脚本共用的输入解析、真太阳时换算与越南阴历（`calendar_locale: vn`）。`core/thuat-ngu-chung.md`：越南语通用术语表。各 skill 的 `scripts/calendar_core.py`、`references/thuat-ngu-chung.md` 是生成的副本（每个 skill 可单独安装），只改 `core/`，再运行 `python tools/sync_core.py`；CI 用 `--check` 检查副本一致
 
 ## 设计原则
 

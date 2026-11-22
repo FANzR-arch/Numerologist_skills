@@ -9,16 +9,20 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
-from lunar_python import Lunar, Solar
+from lunar_python import Solar
 
 from calendar_core import (
+    CALENDAR_LOCALES,
     apply_true_solar_time,
+    calendar_locale_warnings,
+    lunar_to_solar,
+    parse_calendar_locale,
+    solar_to_lunar,
     clock_warnings,
     hour_boundary_warning,
     parse_datetime_string,
     parse_gender,
     run_cli,
-    validate_leap_month,
 )
 
 DEFAULT_RULESET = "bazi-ziping-v1"
@@ -37,6 +41,7 @@ PILLAR_KEYS = ("year", "month", "day", "time")
 
 def normalize_input(payload: dict[str, Any]) -> dict[str, Any]:
     calendar_type = str(payload.get("calendar_type") or "solar").strip().lower()
+    locale = parse_calendar_locale(payload)
     raw_input = payload.get("birth_time")
     if raw_input in (None, ""):
         raise ValueError("缺少 birth_time")
@@ -56,10 +61,8 @@ def normalize_input(payload: dict[str, Any]) -> dict[str, Any]:
     if calendar_type == "solar":
         civil = datetime(raw["year"], raw["month"], raw["day"], raw["hour"], raw["minute"])
     elif calendar_type == "lunar":
-        if is_leap:
-            validate_leap_month(raw["year"], raw["month"])
-        month = -raw["month"] if is_leap else raw["month"]
-        civil = to_datetime(Lunar.fromYmdHms(raw["year"], month, raw["day"], raw["hour"], raw["minute"], 0).getSolar())
+        day = lunar_to_solar(raw["year"], raw["month"], raw["day"], is_leap, locale)
+        civil = datetime(day.year, day.month, day.day, raw["hour"], raw["minute"])
     else:
         raise ValueError(f"不支持的 calendar_type: {calendar_type}（只接受 solar 或 lunar）")
 
@@ -76,6 +79,7 @@ def normalize_input(payload: dict[str, Any]) -> dict[str, Any]:
         "true_solar_time": true_solar,
         "gender": parse_gender(payload.get("gender"), "性别决定大运顺逆"),
         "late_zi_rule": late_zi_rule,
+        "calendar_locale": locale,
     }
 
 
@@ -119,6 +123,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
 
     boundary = hour_boundary_warning(birth.hour, birth.minute, "时柱会改变")
     warnings = ([boundary] if boundary else []) + clock_warnings(payload, info["civil"])
+    warnings += calendar_locale_warnings(info["calendar_locale"], birth.date())
     day_rollover = birth.hour == 23 and info["late_zi_rule"] == "next_day"
     if day_rollover:
         warnings.append("出生于 23 点后，已按次日排日柱；若用户既定口径为夜子时，请改用 late_zi_rule=same_day 重排。")
@@ -156,11 +161,13 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "true_solar_time": info["true_solar_time"],
             "gender": info["gender"],
             "late_zi_rule": info["late_zi_rule"],
+            "calendar_locale": info["calendar_locale"],
         },
         "ruleset": {
             "id": str(payload.get("ruleset") or DEFAULT_RULESET),
             "source": "references/tiangan-dizhi.md；历法与四柱由 lunar_python 计算",
             "year_rule": "以立春交节时刻换年。",
+            "calendar_locale": CALENDAR_LOCALES[info["calendar_locale"]] + "；只影响农历显示与农历输入换算，四柱按节气，不受影响。",
             "month_rule": "以十二节交节时刻换月，月干按年上起月法。",
             "late_zi_rule": late_zi_text,
             "yun_rule": "阳年男、阴年女顺排，阴年男、阳年女逆排；起运岁数 = 出生至下一个（顺）或上一个（逆）节的天数 ÷ 3（3 天 1 年、1 天 4 个月、1 个时辰 10 天）。",
@@ -168,7 +175,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "time_rule": "按真太阳时排盘（经度时差 + 均时差，见 normalized_input.true_solar_time）。" if info["true_solar_time"] else "按输入的民用时间排盘，未做真太阳时校正。",
         },
         "calendar": {
-            "lunar_text": f"{lunar.getYearInGanZhi()}年{lunar.getMonthInChinese()}月{lunar.getDayInChinese()} {lunar.getTimeZhi()}时",
+            "lunar_text": f"{solar_to_lunar(birth.date(), info['calendar_locale']).text} {lunar.getTimeZhi()}时",
             "day_rollover_applied": day_rollover,
             **jie_info,
         },

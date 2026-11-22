@@ -497,3 +497,29 @@ def test_true_solar_time_moves_hour_branch():
     assert output["calendar"]["hour_branch"] == "辰时"
     assert output["normalized_input"]["civil_solar_datetime"] == "1990-12-01 10:30"
     assert output["normalized_input"]["true_solar_time"]["longitude"] == 87.6
+
+
+def test_vn_calendar_changes_lunar_year_and_chart():
+    # 1985-01-25：越南已是乙丑年正月初五，中国仍是甲子年十二月初五
+    payload = {"calendar_type": "solar", "birth_time": "1985-01-25 10:00", "gender": "男"}
+    cn, vn = build_output(payload), build_output({**payload, "calendar_locale": "vn"})
+    assert (cn["calendar"]["year_ganzhi"], cn["calendar"]["lunar_month"]) == ("甲子", 12)
+    assert (vn["calendar"]["year_ganzhi"], vn["calendar"]["lunar_month"], vn["calendar"]["lunar_day"]) == ("乙丑", 1, 5)
+    assert cn["chart"]["palaces"] != vn["chart"]["palaces"]
+    assert vn["normalized_input"]["calendar_locale"] == "vn"
+
+
+def test_vn_lunar_input():
+    # 越南乙丑年正月初一 = 公历 1985-01-21
+    output = build_output({"calendar_type": "lunar", "birth_time": "1985-01-01 10:00", "gender": "女", "calendar_locale": "vn"})
+    assert output["calendar"]["chart_solar_date"] == "1985-01-21"
+
+
+def test_vietnamese_glossary_covers_output_terms():
+    glossary = (Path(__file__).resolve().parents[2] / "references" / "thuat-ngu-vi.md").read_text(encoding="utf-8")
+    terms = set(z.PALACE_NAMES) | set(z.MAJOR_STARS) | {b for row in z.BRIGHTNESS.values() for b in row}
+    for month in range(1, 13):
+        output = build_output({"calendar_type": "solar", "birth_time": f"1990-{month:02d}-15 {month * 2 - 1:02d}:30", "gender": "男"})
+        terms |= set(output["chart"]["star_index"]) | {output["chart"]["wuxing_ju"]["name"]}
+        terms |= {s["sihua"] for p in output["chart"]["palaces"] for s in p["major_stars"] if s.get("sihua")}
+    assert [t for t in sorted(terms) if t not in glossary] == []

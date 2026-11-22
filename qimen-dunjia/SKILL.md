@@ -138,10 +138,12 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
     "longitude": null
   },
   "true_solar_time": false,
+  "calendar_locale": "cn|vn",
   "ruleset": "mainline-cn-v1"
 }
 ```
 
+- `calendar_locale` 默认 `cn`；越南用户用阴历报时间时传 `vn`。只影响农历输入换算与输出的农历日期，起局按节气与干支，不受影响。
 - `true_solar_time` 可选，默认按所给时区的钟表时间起局。用户要求按真太阳时起局时传 `true`，并给 `location.longitude`（东经为正）；明细见输出 `normalized_input.true_solar_time`，口径见 `ruleset.time_rule`。
 
 使用要求：
@@ -303,6 +305,11 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
 - 不展示完整推理链，只展示用户看得懂的关键依据。
 - 结论要明确，但语气保持平和。
 
+### 越南语用户
+
+- 用户用越南语提问时，全程用越南语回答；术语用 `references/thuat-ngu-vi.md` 与 `references/thuat-ngu-chung.md` 的汉越音（如 日主 → Nhật chủ），首次出现时括注汉字。
+- 用户提到的阴历日期默认是越南阴历：输入 JSON 传 `"calendar_locale": "vn"`；用户明确说是中国农历或来自中国软件时用 `cn`。两者在 1968 年后个别月份相差一天，偶有整月（见 `thuat-ngu-chung.md`）。
+
 ## 特殊处理
 
 ### 用户只说“现在，帮我看看”
@@ -332,6 +339,7 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
 - `references/yongshen.md`：取用神顺序和事项映射
 - `references/geju.md`：格局与常见组合的简明解释
 - `references/examples.md`：示例输出
+- `references/thuat-ngu-vi.md`、`references/thuat-ngu-chung.md`：越南语术语对照与越南阴历说明
 
 ## 禁止事项
 
