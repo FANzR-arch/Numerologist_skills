@@ -1,6 +1,6 @@
 # Kế hoạch audit logic theo nguồn tài liệu đáng tin cậy
 
-Ngày: 2026-11-22. Trạng thái: kế hoạch, chưa bắt đầu.
+Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1–A7 chưa bắt đầu.
 
 ## Mục tiêu
 
@@ -93,12 +93,14 @@ Thêm thư mục `audit/`:
 
 ```
 audit/
-  sources.yaml      # thư mục nguồn
-  rules.yaml        # mỗi quy tắc một mục
+  sources.json      # thư mục nguồn
+  rules.json        # mỗi quy tắc một mục
   cases/            # ca vàng chép từ ví dụ trong sách (chỉ input, output kỳ vọng và trích dẫn)
 ```
 
-`sources.yaml`, mỗi nguồn một mục:
+(Thực hiện bằng JSON thay vì YAML để không thêm dependency; công cụ là một file `tools/audit.py` với hai lệnh `sync` và `check`.)
+
+`sources.json`, mỗi nguồn một mục (ví dụ viết dạng YAML cho dễ đọc):
 
 ```yaml
 - id: jingshi-yizhuan
@@ -110,7 +112,7 @@ audit/
   access: "ctext.org / bản giấy / ảnh chụp do người dùng cung cấp"
 ```
 
-`rules.yaml`, mỗi quy tắc một mục:
+`rules.json`, mỗi quy tắc một mục:
 
 ```yaml
 - id: liuyao.palace.generations
@@ -133,26 +135,26 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 
 - Mỗi ca ghi vào `audit/cases/<engine>/<id>.json`: input, các trường output kỳ vọng, và `source` (id + vị trí trang).
 - Một test tham số hoá đọc toàn bộ `audit/cases/` và chạy qua `build_output` của từng engine.
-- Ca không khớp không được sửa tay cho khớp. Phải truy xem lỗi nằm ở code, ở dị bản, hay ở lỗi in của sách, rồi ghi kết luận vào `rules.yaml`.
+- Ca không khớp không được sửa tay cho khớp. Phải truy xem lỗi nằm ở code, ở dị bản, hay ở lỗi in của sách, rồi ghi kết luận vào `rules.json`.
 
 ## 6. Quy trình cho mỗi quy tắc
 
-1. **Trích**: lấy danh sách quy tắc tự động từ code (các bảng hằng số, các trường `ruleset`) bằng một script `tools/audit_extract.py`. Không liệt kê bằng tay.
+1. **Trích**: lấy danh sách quy tắc tự động từ code (các bảng hằng số, các trường `ruleset`) bằng `python3 tools/audit.py sync`. Không liệt kê bằng tay.
 2. **Tìm nguồn**:
    - Sách cổ thuộc phạm vi công cộng: agent tìm trên ctext.org và zh.wikisource, ghi vị trí.
    - Sách còn bản quyền: người dùng cung cấp ảnh chụp các trang liên quan; agent đọc, đối chiếu và ghi vị trí.
 3. **Đối chiếu**: so từng ô của bảng, không chỉ so ý chung chung.
-4. **Ghi kết luận** vào `rules.yaml`. Nếu mâu thuẫn: biến quy tắc thành tham số, hoặc ghi mặc định kèm lý do.
+4. **Ghi kết luận** vào `rules.json`. Nếu mâu thuẫn: biến quy tắc thành tham số, hoặc ghi mặc định kèm lý do.
 5. **Thêm ca vàng** nếu sách có ví dụ.
 6. **Review**: một agent khác kiểm lại vị trí trích dẫn trên đúng tài liệu đó, không kiểm bằng trí nhớ. Mỗi engine thêm một vòng người am hiểu đọc lại.
 
 ## 7. Công cụ và kiểm tự động
 
-- `tools/audit_extract.py`: sinh danh sách quy tắc từ code. CI báo khi code có quy tắc mới mà sổ chưa có.
-- `tools/audit_check.py` (chạy trong CI):
+- `tools/audit.py sync`: sinh danh sách quy tắc từ code. `check` báo khi code có quy tắc mới mà sổ chưa có.
+- `tools/audit.py check` (chạy trong CI):
   - Mỗi quy tắc phải có `verdict`.
   - Quy tắc `confirmed` phải có nguồn T1 hoặc T2, cộng một nguồn độc lập.
-  - Mọi `id` nguồn phải tồn tại trong `sources.yaml`.
+  - Mọi `id` nguồn phải tồn tại trong `sources.json`.
   - Mọi `tests` được trỏ tới phải tồn tại.
 - Báo cáo độ phủ: tỷ lệ quy tắc `confirmed` / `variant` / `conflict` / `unverified` theo từng engine, in trong CI và ghi vào lộ trình.
 - Tận dụng những gì đã có: các test oracle số học, đối chiếu iztro (ghi rõ là T4, cùng dòng dõi với `lunar_python`), bộ eval (thêm ca kiểm diễn giải theo đúng nguồn).
@@ -161,7 +163,7 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 
 | Giai đoạn | Nội dung | Xong khi |
 |---|---|---|
-| A0. Khung | `audit/`, schema, `audit_extract.py`, `audit_check.py`, CI ở chế độ chỉ báo | Mọi quy tắc trong code đã có mục trong sổ (phần lớn `unverified`) |
+| A0. Khung ✅ | `audit/`, `tools/audit.py sync/check`, loader ca vàng, CI | Xong 2026-11-23: 231 đơn vị (bảng, hàm, mục `ruleset`, tài liệu) được trích tự động; 19 mục `not_applicable` có lý do; còn lại `unverified`; 37 nguồn ✓ trong `sources.json` (chưa xác minh ấn bản) |
 | A1. Lịch pháp | Đối chiếu GB/T 33661, Aslaksen, Hồ Ngọc Đức; ca vàng tiết khí lấy từ bảng của Đài thiên văn quốc gia Nhật và Hồng Kông Thiên văn đài | 100% quy tắc lịch `confirmed`; ca vàng về Tết VN/TQ và tháng nhuận năm 2033 |
 | A2. Thần số học | Sách Phillips và 2 sách phương Tây; viết lại `y-nghia-so.md` theo nguồn | Không còn nội dung nào chỉ có nguồn blog; tên mũi tên có nguồn |
 | A3. Lục Hào | 京氏易传, 增删卜易, 卜筮正宗; ca vàng là quẻ mẫu trong sách | Bảng 64 quẻ, nạp giáp, bát cung, phục thần `confirmed`; ≥10 ca vàng |

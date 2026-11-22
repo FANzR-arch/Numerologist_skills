@@ -19,6 +19,7 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - run: pytest -q
       - run: python tools/sync_core.py --check
+      - run: python tools/audit.py check
 
   # 用 iztro 重新生成紫微对照盘例，fixture 必须保持不变
   iztro-fixtures:
