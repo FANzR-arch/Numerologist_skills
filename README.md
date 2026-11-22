@@ -8,13 +8,13 @@
 |---|---|---|---|
 | `qimen-dunjia/` | 奇门遁甲 | 单事判断、择时、方位、趋吉避凶 | Python CLI：`scripts/qimen_cli.py` |
 | `ziwei-doushu/` | 紫微斗数 | 本命盘结构解读、宫位分析、大限流年 | Python CLI：`scripts/ziwei_cli.py` |
-| `bazi/` | 四柱八字 | 日主强弱、格局、十神、大运流年 | 规则与 references 驱动 |
+| `bazi/` | 四柱八字 | 日主强弱、格局、十神、大运流年 | Python CLI：`scripts/bazi_cli.py` |
 
 ## 仓库结构
 
 - `SKILL.md`：主技能说明、触发条件、工作流、输出约束
 - `references/`：规则集、术语表、示例、口径说明
-- `scripts/`：需要刚性计算时使用的外部脚本（当前奇门遁甲、紫微斗数包含）
+- `scripts/`：需要刚性计算时使用的外部脚本（奇门遁甲、紫微斗数、四柱八字均包含）
 
 ## 设计原则
 
@@ -37,6 +37,13 @@ python qimen-dunjia/scripts/qimen_cli.py --input tmp/qimen_input.json --output t
 ```bash
 pip install -r ziwei-doushu/scripts/requirements.txt
 python ziwei-doushu/scripts/ziwei_cli.py --input tmp/ziwei_input.json --output tmp/ziwei_output.json
+```
+
+如果你要运行八字的排盘脚本：
+
+```bash
+pip install -r bazi/scripts/requirements.txt
+python bazi/scripts/bazi_cli.py --input tmp/bazi_input.json --output tmp/bazi_output.json
 ```
 
 运行全部测试：
