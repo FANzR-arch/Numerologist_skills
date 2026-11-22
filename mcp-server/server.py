@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MCP server：把八字、紫微斗数、奇门遁甲三个排盘脚本暴露为 MCP tool。
+"""MCP server：把八字、紫微斗数、奇门遁甲、Thần số học 四个计算脚本暴露为 MCP tool。
 
 每个 tool 的参数与对应 skill 的输入 JSON 一一对应（见各 skill 的 SKILL.md），返回值即脚本输出。
 排盘逻辑全部在各 skill 的 scripts/ 里，这里只做参数到 payload 的转换。
@@ -16,10 +16,11 @@ from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
 ROOT = Path(__file__).resolve().parent.parent
-for skill in ("bazi", "ziwei-doushu", "qimen-dunjia"):
+for skill in ("bazi", "ziwei-doushu", "qimen-dunjia", "numerology"):
     sys.path.insert(0, str(ROOT / skill / "scripts"))
 
 import bazi_cli  # noqa: E402
+import numerology_cli  # noqa: E402
 import qimen_cli  # noqa: E402
 import ziwei_cli  # noqa: E402
 
@@ -127,6 +128,26 @@ def qimen_chart(
         question_type=question_type, question_goal=question_goal, time_input=time_input,
         calendar_type=calendar_type, is_leap_month=is_leap_month, true_solar_time=true_solar_time,
         longitude=longitude, timezone=timezone, calendar_locale=calendar_locale,
+    ))
+
+
+@server.tool()
+def numerology_chart(
+    birth_date: str,
+    full_name: str | None = None,
+    query_year: int | None = None,
+    life_path_rule: Literal["vn", "classic"] = "vn",
+    life_path_method: Literal["digits", "components"] = "digits",
+    y_as_vowel: bool = True,
+) -> dict[str, Any]:
+    """Thần số học Pythagoras：số chủ đạo、số ngày sinh、biểu đồ ngày sinh và mũi tên、4 đỉnh cao/thử thách；
+    给 full_name 时加算 số sứ mệnh / linh hồn / nhân cách / trưởng thành，给 query_year 时加算 năm cá nhân。
+
+    birth_date 为公历 "YYYY-MM-DD"。life_path_rule：vn（2–11、22/4、33/6，越南常用）或 classic（1–9 与 11/22/33）。
+    """
+    return _chart(numerology_cli.build_output, _payload(
+        birth_date=birth_date, full_name=full_name, query_year=query_year, life_path_rule=life_path_rule,
+        life_path_method=life_path_method, y_as_vowel=y_as_vowel,
     ))
 
 

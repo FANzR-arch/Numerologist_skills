@@ -1,0 +1,107 @@
+---
+name: numerology
+description: >
+  Thần số học Pythagoras (numerology): số chủ đạo / đường đời (life path), số sứ mệnh, số linh hồn,
+  số nhân cách, số trưởng thành, số ngày sinh, năm cá nhân, biểu đồ ngày sinh và các mũi tên,
+  4 đỉnh cao và 4 thử thách. Dùng khi người dùng nhắc đến thần số học, số chủ đạo, con số đường đời,
+  biểu đồ ngày sinh, mũi tên trống, năm cá nhân, life path number, numerology. Phép tính do script
+  làm; mô hình chỉ hỏi thông tin và diễn giải.
+compatibility: Requires Python 3.11+, lunar_python, and tzdata (shared calendar_core); run scripts/numerology_cli.py for all calculations.
+---
+
+# Thần số học
+
+Read:
+
+- `references/y-nghia-so.md`
+
+## Nguyên tắc
+
+- Con số mô tả khuynh hướng, điểm mạnh và điều cần rèn; không phải định mệnh. Không nói "số xấu", "số khổ".
+- Mọi con số lấy từ script. Không tự cộng nhẩm, không sửa kết quả.
+- Thần số học không có cơ sở khoa học. Với sức khỏe, pháp lý, tài chính, chọn nghề hay hôn nhân, chỉ đưa góc nhìn tham khảo và khuyên dựa vào thông tin thực tế.
+- Trả lời bằng ngôn ngữ người dùng dùng (mặc định tiếng Việt).
+
+## Bước 1: hỏi thông tin
+
+Cần:
+
+1. Ngày sinh dương lịch (ngày, tháng, năm). Người dùng đưa ngày âm thì đổi sang dương lịch trước; nếu cần, dùng skill `bazi` hoặc `ziwei-doushu` với `calendar_locale: "vn"` để đổi.
+2. Họ tên đầy đủ khai sinh (để tính số sứ mệnh, linh hồn, nhân cách). Không có tên thì vẫn tính được các số theo ngày sinh.
+3. Năm cần xem năm cá nhân. Người dùng không nói thì dùng năm hiện tại; luôn truyền `query_year` vì script không tự lấy năm hiện tại.
+
+Hỏi thêm khi người dùng đã quen một cách tính:
+
+- Số chủ đạo theo cách Việt Nam phổ biến (2–11, 22/4, 33/6; không có 1, thay bằng 10) hay cách phương Tây (1–9, 11, 22, 33): `life_path_rule` = `vn` (mặc định) / `classic`.
+- Cộng tất cả chữ số (mặc định) hay rút gọn riêng ngày, tháng, năm rồi cộng: `life_path_method` = `digits` / `components`. Hai cách có thể ra số khác nhau (ví dụ 6/7/1989: `digits` ra 4, `components` ra 22/4). Kết quả lệch với app người dùng đang xem thì thử cách còn lại và nói rõ.
+- Chữ Y tính là nguyên âm (mặc định, hợp với tên tiếng Việt như Huy, Thủy) hay phụ âm: `y_as_vowel`.
+
+## Bước 2: gọi script
+
+Script nằm trong thư mục skill này, ký hiệu `<skill_dir>` (thư mục chứa SKILL.md; khi cài làm plugin Claude Code là base directory của skill).
+
+Thiếu thư viện (lỗi `ModuleNotFoundError`) thì xin phép người dùng rồi chạy:
+
+```bash
+pip install -r "<skill_dir>/scripts/requirements.txt"
+```
+
+```bash
+python "<skill_dir>/scripts/numerology_cli.py" \
+  --input "tmp/numerology_input.json" \
+  --output "tmp/numerology_output.json"
+```
+
+Ghi input vào `tmp/numerology_input.json`, chạy lệnh, đọc `tmp/numerology_output.json`. `tmp/` có thể thay bằng thư mục tạm bất kỳ.
+
+Input:
+
+```json
+{
+  "birth_date": "1990-05-15",
+  "full_name": "Nguyễn Văn An",
+  "query_year": 2026,
+  "life_path_rule": "vn|classic",
+  "life_path_method": "digits|components",
+  "y_as_vowel": true
+}
+```
+
+- Chỉ `birth_date` bắt buộc. Tên có dấu tiếng Việt được tự bỏ dấu (Đ thành D).
+- Output có `error` thì hỏi lại người dùng theo nội dung lỗi; không tự tính thay.
+
+## Bước 3: đọc output
+
+| Trường | Ý nghĩa |
+|---|---|
+| `normalized_input` | Ngày sinh, họ tên đã bỏ dấu (`normalized_name`) và các lựa chọn cách tính; kiểm tra đúng thông tin người dùng đưa |
+| `ruleset` | Cách tính đã dùng cho từng con số; nói lại với người dùng khi có khác biệt cách tính |
+| `life_path` | Số chủ đạo: `value`, `display` (như 22/4, 10/1), `digit_sum` (tổng mọi chữ số); cách `components` có thêm `components_sum` |
+| `birthday` | Số ngày sinh |
+| `name.expression` / `soul_urge` / `personality` | Số sứ mệnh / linh hồn / nhân cách; `letters` là bảng chữ cái đã tính |
+| `maturity` | Số trưởng thành |
+| `personal_year` | Năm cá nhân của `query_year` |
+| `birth_chart` | `counts` số lần xuất hiện 1–9, `missing` số thiếu, `arrows` mũi tên (`full` / `empty` / `partial`) |
+| `pinnacles` | 4 đỉnh cao: giá trị và khoảng tuổi |
+| `challenges` | 4 thử thách |
+| `warnings` | Lưu ý (thiếu họ tên, tên không có nguyên âm…); đưa vào phần giải thích cho người dùng |
+
+## Bước 4: diễn giải
+
+Thứ tự:
+
+1. Số chủ đạo: tính cách cốt lõi, điểm mạnh, điều cần rèn.
+2. Số sứ mệnh, linh hồn, nhân cách: so với số chủ đạo, chỗ nào cùng hướng, chỗ nào giằng co.
+3. Biểu đồ ngày sinh: số lặp nhiều, số thiếu, mũi tên đủ và mũi tên trống. Tên mũi tên lấy từ `references/y-nghia-so.md` và nói rõ đó là cách gọi phổ biến.
+4. Đỉnh cao và thử thách theo giai đoạn tuổi; nhấn mạnh giai đoạn hiện tại.
+5. Năm cá nhân: chủ đề của năm và gợi ý hành động cụ thể.
+
+Phong cách:
+
+- Nói rõ, cụ thể, có ví dụ đời thường; không dùng câu chung chung áp dụng cho ai cũng đúng.
+- Mỗi điểm mạnh đi kèm một điều cần rèn.
+- Kết bằng 2–3 gợi ý hành động thực tế.
+
+Cuối mỗi lần luận giải đầy đủ:
+
+> Thần số học là một hệ thống biểu tượng, không phải khoa học. Kết quả để tham khảo và tự suy ngẫm, không thay cho lời khuyên chuyên môn về sức khỏe, pháp lý, tài chính.

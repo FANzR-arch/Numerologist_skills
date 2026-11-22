@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "numerologist-skills",
-      "description": "四柱八字、紫微斗数、奇门遁甲排盘与解盘 skill，排盘由确定性脚本完成。",
+      "description": "四柱八字、紫微斗数、奇门遁甲、Thần số học skill，计算由确定性脚本完成。",
       "source": "./",
       "category": "productivity"
     }

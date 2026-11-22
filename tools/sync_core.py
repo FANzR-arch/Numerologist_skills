@@ -12,11 +12,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILLS = ["bazi", "qimen-dunjia", "ziwei-doushu"]
-# (源文件, skill 内目标路径, 生成标记)
+CHINESE_SKILLS = ["bazi", "qimen-dunjia", "ziwei-doushu"]
+# (源文件, skill 内目标路径, 生成标记, 需要副本的 skill)
 FILES = [
-    ("calendar_core.py", "scripts/calendar_core.py", "# 由 tools/sync_core.py 从 core/calendar_core.py 生成，勿手改。\n"),
-    ("thuat-ngu-chung.md", "references/thuat-ngu-chung.md", "<!-- 由 tools/sync_core.py 从 core/thuat-ngu-chung.md 生成，勿手改。 -->\n"),
+    ("calendar_core.py", "scripts/calendar_core.py", "# 由 tools/sync_core.py 从 core/calendar_core.py 生成，勿手改。\n", CHINESE_SKILLS + ["numerology"]),
+    ("thuat-ngu-chung.md", "references/thuat-ngu-chung.md", "<!-- 由 tools/sync_core.py 从 core/thuat-ngu-chung.md 生成，勿手改。 -->\n", CHINESE_SKILLS),
 ]
 
 
@@ -26,9 +26,9 @@ def main() -> int:
     args = parser.parse_args()
 
     stale = []
-    for source, relative, header in FILES:
+    for source, relative, header, skills in FILES:
         expected = header + (ROOT / "core" / source).read_text(encoding="utf-8")
-        for skill in SKILLS:
+        for skill in skills:
             target = ROOT / skill / relative
             if target.exists() and target.read_text(encoding="utf-8") == expected:
                 continue
