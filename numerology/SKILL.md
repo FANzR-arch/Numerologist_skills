@@ -44,12 +44,12 @@ Script nằm trong thư mục skill này, ký hiệu `<skill_dir>` (thư mục c
 Script chỉ dùng thư viện chuẩn của Python 3.11+, không cần cài thêm.
 
 ```bash
-python "<skill_dir>/scripts/numerology_cli.py" \
+python3 "<skill_dir>/scripts/numerology_cli.py" \
   --input "tmp/numerology_input.json" \
   --output "tmp/numerology_output.json"
 ```
 
-**Ghi và chạy (bắt buộc)**: dùng tool Write tạo `tmp/numerology_input.json` trong thư mục làm việc hiện tại (Write cần đường dẫn tuyệt đối, tức `<thư mục hiện tại>/tmp/numerology_input.json`; đường dẫn tương đối `tmp/...` trong lệnh bên dưới trỏ tới cùng file); không dùng heredoc, `echo >` hay lệnh ghép `mkdir && ...`. Sau đó chạy riêng đúng một lệnh `python` ở trên (không thêm `cd`, `&&`, pipe), rồi dùng Read đọc file output. Lệnh bị từ chối thì báo người dùng cần cho phép chạy script python này, không chuyển sang tự tính.
+**Ghi và chạy (bắt buộc)**: dùng tool Write tạo `tmp/numerology_input.json` trong thư mục làm việc hiện tại (Write cần đường dẫn tuyệt đối, tức `<thư mục hiện tại>/tmp/numerology_input.json`; đường dẫn tương đối `tmp/...` trong lệnh bên dưới trỏ tới cùng file); không dùng heredoc, `echo >` hay lệnh ghép `mkdir && ...`. Sau đó chạy riêng đúng một lệnh `python3` ở trên (không thêm `cd`, `&&`, pipe), rồi dùng Read đọc file output. Lệnh bị từ chối thì báo người dùng cần cho phép chạy script python này, không chuyển sang tự tính. Lệnh dùng `python3`; chỉ khi máy không có `python3` (một số máy Windows) mới đổi sang `python`. `python3` chạy được script nghĩa là thư viện đã đủ, đừng cài thêm.
 
 Input:
 

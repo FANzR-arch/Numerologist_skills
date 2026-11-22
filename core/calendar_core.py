@@ -259,9 +259,15 @@ def lunar_to_solar(year: int, month: int, day: int, is_leap: bool, locale: str =
 
 
 def calendar_locale_warnings(locale: str, day: date) -> list[str]:
-    if locale == "vn" and date(1967, 12, 1) <= day < date(1976, 1, 1):
-        return ["1968-1975 年越南南方仍沿用东八区农历，与北方（东七区）个别月份日期不同；出生在南方时请向用户确认，必要时改用 calendar_locale=cn 对照。"]
-    return []
+    warnings = []
+    if locale == "vn":
+        vn, cn = solar_to_lunar(day, "vn"), solar_to_lunar(day, "cn")
+        if vn != cn:
+            warnings.append(f"{day.isoformat()} 越南阴历为 {vn.text}，中国农历为 {cn.text}：两国历法按不同时区（东七区 / 东八区）定朔，本盘按越南阴历排。"
+                            "这不是计算错误，不要用中国农历的春节日期去“纠正”；用户要按中国农历看时改传 calendar_locale=cn。")
+        if date(1967, 12, 1) <= day < date(1976, 1, 1):
+            warnings.append("1968-1975 年越南南方仍沿用东八区农历，与北方（东七区）个别月份日期不同；出生在南方时请向用户确认，必要时改用 calendar_locale=cn 对照。")
+    return warnings
 
 
 def run_cli(build_output: Callable[[dict[str, Any]], dict[str, Any]], description: str) -> int:

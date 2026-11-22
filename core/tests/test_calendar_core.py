@@ -189,6 +189,12 @@ class TestLunarCalendar:
         assert calendar_locale_warnings("vn", date(1970, 1, 1))
         assert calendar_locale_warnings("cn", date(1970, 1, 1)) == []
 
+    def test_vn_warns_when_differs_from_chinese_calendar(self):
+        # 1985-01-25：越南乙丑年正月初五，中国甲子年腊月初五；提醒以免把正确结果当成错误
+        warnings = calendar_locale_warnings("vn", date(1985, 1, 25))
+        assert any("乙丑年正月初五" in w and "甲子年腊月初五" in w for w in warnings)
+        assert calendar_locale_warnings("vn", date(1990, 5, 15)) == []
+
 
 def test_common_glossary_covers_stems_and_branches():
     glossary = (Path(__file__).resolve().parents[1] / "thuat-ngu-chung.md").read_text(encoding="utf-8")

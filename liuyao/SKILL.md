@@ -37,16 +37,16 @@ Read:
 脚本以本 skill 目录为基准，记为 `<skill_dir>`（本 SKILL.md 所在目录；作为 Claude Code 插件安装时即 skill 的 base directory）。缺依赖时征得用户同意后运行：
 
 ```bash
-pip install -r "<skill_dir>/scripts/requirements.txt"
+python3 -m pip install -r "<skill_dir>/scripts/requirements.txt"
 ```
 
 ```bash
-python "<skill_dir>/scripts/liuyao_cli.py" \
+python3 "<skill_dir>/scripts/liuyao_cli.py" \
   --input "tmp/liuyao_input.json" \
   --output "tmp/liuyao_output.json"
 ```
 
-**写入与运行（必须照做）**：用 Write 工具在当前工作目录下创建 `tmp/liuyao_input.json`（Write 需要绝对路径，即 `<当前工作目录>/tmp/liuyao_input.json`；下面命令里的相对路径 `tmp/...` 指向同一文件）；不要用 shell heredoc、`echo >`、`mkdir && ...` 等组合命令写文件。然后单独运行上面那一条 `python` 命令（不加 `cd`、`&&` 或管道），再用 Read 读取输出文件。这样用户只需授权一条 python 命令；命令被拒绝时，告诉用户需要允许运行该 python 脚本，不要改为手算。
+**写入与运行（必须照做）**：用 Write 工具在当前工作目录下创建 `tmp/liuyao_input.json`（Write 需要绝对路径，即 `<当前工作目录>/tmp/liuyao_input.json`；下面命令里的相对路径 `tmp/...` 指向同一文件）；不要用 shell heredoc、`echo >`、`mkdir && ...` 等组合命令写文件。然后单独运行上面那一条 `python3` 命令（不加 `cd`、`&&` 或管道），再用 Read 读取输出文件。这样用户只需授权一条 python3 命令；命令被拒绝时，告诉用户需要允许运行该 python 脚本，不要改为手算。命令用 `python3`；只有 `python3` 不存在（如部分 Windows）时才改用 `python`。`python3` 能运行脚本即说明依赖已装好，不要再去安装。
 
 输入 JSON：
 

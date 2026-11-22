@@ -52,14 +52,14 @@ claude --plugin-dir /path/to/Numerologist_skills
 `mcp-server/server.py` 把五个计算脚本暴露为 MCP tool：`bazi_chart`、`ziwei_chart`、`qimen_chart`、`liuyao_chart`、`numerology_chart`，参数与各 skill 的输入 JSON 相同，返回脚本输出。适合 Claude Desktop 等不能直接运行脚本的客户端。
 
 ```bash
-pip install -r mcp-server/requirements.txt
-claude mcp add numerologist -- python /path/to/Numerologist_skills/mcp-server/server.py
+python3 -m pip install -r mcp-server/requirements.txt
+claude mcp add numerologist -- python3 /path/to/Numerologist_skills/mcp-server/server.py
 ```
 
 Claude Desktop 在 `claude_desktop_config.json` 的 `mcpServers` 中加入：
 
 ```json
-"numerologist": {"command": "python", "args": ["/path/to/Numerologist_skills/mcp-server/server.py"]}
+"numerologist": {"command": "python3", "args": ["/path/to/Numerologist_skills/mcp-server/server.py"]}
 ```
 
 ## 解读质量评测（eval）
@@ -77,28 +77,28 @@ claude plugin eval . --model haiku --runs 2 --allow-tools 'Bash(python:*)' 'Bash
 如果你要运行奇门遁甲的固定计算脚本：
 
 ```bash
-pip install -r qimen-dunjia/scripts/requirements.txt
-python qimen-dunjia/scripts/qimen_cli.py --input tmp/qimen_input.json --output tmp/qimen_output.json
+python3 -m pip install -r qimen-dunjia/scripts/requirements.txt
+python3 qimen-dunjia/scripts/qimen_cli.py --input tmp/qimen_input.json --output tmp/qimen_output.json
 ```
 
 如果你要运行紫微斗数的排盘脚本：
 
 ```bash
-pip install -r ziwei-doushu/scripts/requirements.txt
-python ziwei-doushu/scripts/ziwei_cli.py --input tmp/ziwei_input.json --output tmp/ziwei_output.json
+python3 -m pip install -r ziwei-doushu/scripts/requirements.txt
+python3 ziwei-doushu/scripts/ziwei_cli.py --input tmp/ziwei_input.json --output tmp/ziwei_output.json
 ```
 
 如果你要运行八字的排盘脚本：
 
 ```bash
-pip install -r bazi/scripts/requirements.txt
-python bazi/scripts/bazi_cli.py --input tmp/bazi_input.json --output tmp/bazi_output.json
+python3 -m pip install -r bazi/scripts/requirements.txt
+python3 bazi/scripts/bazi_cli.py --input tmp/bazi_input.json --output tmp/bazi_output.json
 ```
 
 运行全部测试：
 
 ```bash
-pip install -r requirements-dev.txt
+python3 -m pip install -r requirements-dev.txt
 pytest -q
 ```
 

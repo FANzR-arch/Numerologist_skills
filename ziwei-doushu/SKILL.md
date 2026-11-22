@@ -114,7 +114,7 @@ Read:
 **前置：确认依赖已安装**
 
 ```bash
-pip install -r "<skill_dir>/scripts/requirements.txt"
+python3 -m pip install -r "<skill_dir>/scripts/requirements.txt"
 ```
 
 **执行脚本**
@@ -122,12 +122,12 @@ pip install -r "<skill_dir>/scripts/requirements.txt"
 脚本路径以本 skill 目录为基准，记为 `<skill_dir>`（本 SKILL.md 所在目录；作为 Claude Code 插件安装时，即加载本 skill 时给出的 base directory）：
 
 ```bash
-python "<skill_dir>/scripts/ziwei_cli.py" \
+python3 "<skill_dir>/scripts/ziwei_cli.py" \
   --input "tmp/ziwei_input.json" \
   --output "tmp/ziwei_output.json"
 ```
 
-**写入与运行（必须照做）**：用 Write 工具在当前工作目录下创建 `tmp/ziwei_input.json`（Write 需要绝对路径，即 `<当前工作目录>/tmp/ziwei_input.json`；下面命令里的相对路径 `tmp/...` 指向同一文件）；不要用 shell heredoc、`echo >`、`mkdir && ...` 等组合命令写文件。然后单独运行上面那一条 `python` 命令（不加 `cd`、`&&` 或管道），再用 Read 读取输出文件。这样用户只需授权一条 python 命令；命令被拒绝时，告诉用户需要允许运行该 python 脚本，不要改为手算。
+**写入与运行（必须照做）**：用 Write 工具在当前工作目录下创建 `tmp/ziwei_input.json`（Write 需要绝对路径，即 `<当前工作目录>/tmp/ziwei_input.json`；下面命令里的相对路径 `tmp/...` 指向同一文件）；不要用 shell heredoc、`echo >`、`mkdir && ...` 等组合命令写文件。然后单独运行上面那一条 `python3` 命令（不加 `cd`、`&&` 或管道），再用 Read 读取输出文件。这样用户只需授权一条 python3 命令；命令被拒绝时，告诉用户需要允许运行该 python 脚本，不要改为手算。命令用 `python3`；只有 `python3` 不存在（如部分 Windows）时才改用 `python`。`python3` 能运行脚本即说明依赖已装好，不要再去安装。
 
 输入 JSON：
 
@@ -316,6 +316,7 @@ python "<skill_dir>/scripts/ziwei_cli.py" \
 
 - 用户用越南语提问时，全程用越南语回答；术语用 `references/thuat-ngu-vi.md` 与 `references/thuat-ngu-chung.md` 的汉越音（如 日主 → Nhật chủ），首次出现时括注汉字。
 - 用户提到的阴历日期默认是越南阴历：输入 JSON 传 `"calendar_locale": "vn"`；用户明确说是中国农历或来自中国软件时用 `cn`。两者在 1968 年后个别月份相差一天，偶有整月（见 `thuat-ngu-chung.md`）。
+- 越南阴历与中国农历不同时（如 1985 年越南春节是 1 月 21 日，中国是 2 月 20 日），脚本会在 `warnings` 列出两边日期。以脚本结果为准，不要拿中国农历的春节日期去怀疑或“纠正”它，也不要因此改为手算。
 - 输出 `warnings` 提示 1968-1975 年越南南方历法时，先问用户出生在南方还是北方。
 
 ## 特殊情况
