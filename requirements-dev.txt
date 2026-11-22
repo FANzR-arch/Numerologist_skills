@@ -1,0 +1,3 @@
+-r qimen-dunjia/scripts/requirements.txt
+-r ziwei-doushu/scripts/requirements.txt
+pytest>=8

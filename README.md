@@ -39,6 +39,13 @@ pip install -r ziwei-doushu/scripts/requirements.txt
 python ziwei-doushu/scripts/ziwei_cli.py --input tmp/ziwei_input.json --output tmp/ziwei_output.json
 ```
 
+运行全部测试：
+
+```bash
+pip install -r requirements-dev.txt
+pytest -q
+```
+
 ## Why This Repo
 
 与其让 LLM 在“似懂非懂”的状态里硬着头皮往下说，不如把关键步骤拆开：
