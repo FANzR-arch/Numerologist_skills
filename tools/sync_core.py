@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CHINESE_SKILLS = ["bazi", "qimen-dunjia", "ziwei-doushu"]
+CHINESE_SKILLS = ["bazi", "liuyao", "qimen-dunjia", "ziwei-doushu"]
 # (源文件, skill 内目标路径, 生成标记, 需要副本的 skill)
 FILES = [
     ("calendar_core.py", "scripts/calendar_core.py", "# 由 tools/sync_core.py 从 core/calendar_core.py 生成，勿手改。\n", CHINESE_SKILLS + ["numerology"]),

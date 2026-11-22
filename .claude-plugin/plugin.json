@@ -1,12 +1,13 @@
 {
   "name": "numerologist-skills",
   "version": "0.1.0",
-  "description": "四柱八字、紫微斗数、奇门遁甲、Thần số học（毕达哥拉斯数字学）排盘与解读 skill：计算由确定性 Python 脚本完成，模型只负责访谈与解读；支持真太阳时与越南阴历。",
+  "description": "四柱八字、紫微斗数、奇门遁甲、六爻、Thần số học（毕达哥拉斯数字学）排盘与解读 skill：计算由确定性 Python 脚本完成，模型只负责访谈与解读；支持真太阳时与越南阴历。",
   "repository": "https://github.com/FANzR-arch/Numerologist_skills",
   "keywords": [
     "bazi",
     "ziwei",
     "qimen",
+    "liuyao",
     "divination",
     "chinese-metaphysics",
     "vietnamese",
@@ -15,6 +16,7 @@
   ],
   "skills": [
     "./bazi",
+    "./liuyao",
     "./numerology",
     "./qimen-dunjia",
     "./ziwei-doushu"

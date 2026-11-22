@@ -9,14 +9,15 @@
 | `qimen-dunjia/` | 奇门遁甲 | 单事判断、择时、方位、趋吉避凶 | Python CLI：`scripts/qimen_cli.py` |
 | `ziwei-doushu/` | 紫微斗数 | 本命盘结构解读、宫位分析、大限流年 | Python CLI：`scripts/ziwei_cli.py` |
 | `bazi/` | 四柱八字 | 日主强弱、格局、十神、大运流年 | Python CLI：`scripts/bazi_cli.py` |
+| `liuyao/` | 六爻 | 一事一卦、用神、世应、动变 | Python CLI：`scripts/liuyao_cli.py` |
 | `numerology/` | Thần số học（毕达哥拉斯数字学，越南语） | số chủ đạo、biểu đồ ngày sinh、đỉnh cao、năm cá nhân | Python CLI：`scripts/numerology_cli.py` |
 
 ## 仓库结构
 
 - `SKILL.md`：主技能说明、触发条件、工作流、输出约束
 - `references/`：规则集、术语表、示例、口径说明
-- `scripts/`：需要刚性计算时使用的外部脚本（四个 skill 均包含）
-- `core/calendar_core.py`：四个脚本共用的输入解析、真太阳时换算与越南阴历（`calendar_locale: vn`）。`core/thuat-ngu-chung.md`：越南语通用术语表。各 skill 的 `scripts/calendar_core.py`（四个 skill）、`references/thuat-ngu-chung.md`（三个中国术数 skill）是生成的副本（每个 skill 可单独安装），只改 `core/`，再运行 `python tools/sync_core.py`；CI 用 `--check` 检查副本一致
+- `scripts/`：需要刚性计算时使用的外部脚本（五个 skill 均包含）
+- `core/calendar_core.py`：五个脚本共用的输入解析、真太阳时换算与越南阴历（`calendar_locale: vn`）。`core/thuat-ngu-chung.md`：越南语通用术语表。各 skill 的 `scripts/calendar_core.py`（五个 skill）、`references/thuat-ngu-chung.md`（四个中国术数 skill）是生成的副本（每个 skill 可单独安装），只改 `core/`，再运行 `python tools/sync_core.py`；CI 用 `--check` 检查副本一致
 
 ## 设计原则
 
@@ -48,7 +49,7 @@ claude --plugin-dir /path/to/Numerologist_skills
 
 ## 作为 MCP server 使用
 
-`mcp-server/server.py` 把四个计算脚本暴露为 MCP tool：`bazi_chart`、`ziwei_chart`、`qimen_chart`、`numerology_chart`，参数与各 skill 的输入 JSON 相同，返回脚本输出。适合 Claude Desktop 等不能直接运行脚本的客户端。
+`mcp-server/server.py` 把五个计算脚本暴露为 MCP tool：`bazi_chart`、`ziwei_chart`、`qimen_chart`、`liuyao_chart`、`numerology_chart`，参数与各 skill 的输入 JSON 相同，返回脚本输出。适合 Claude Desktop 等不能直接运行脚本的客户端。
 
 ```bash
 pip install -r mcp-server/requirements.txt

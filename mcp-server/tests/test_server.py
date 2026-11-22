@@ -14,8 +14,10 @@ sys.path.insert(0, str(ROOT / "bazi" / "scripts"))
 sys.path.insert(0, str(ROOT / "ziwei-doushu" / "scripts"))
 sys.path.insert(0, str(ROOT / "qimen-dunjia" / "scripts"))
 sys.path.insert(0, str(ROOT / "numerology" / "scripts"))
+sys.path.insert(0, str(ROOT / "liuyao" / "scripts"))
 
 import bazi_cli  # noqa: E402
+import liuyao_cli  # noqa: E402
 import numerology_cli  # noqa: E402
 import qimen_cli  # noqa: E402
 import ziwei_cli  # noqa: E402
@@ -32,7 +34,7 @@ def _run(calls):
 
 
 def test_tools_over_stdio():
-    tools, (bazi, ziwei, qimen, no_longitude, bad_locale, bad_lunar, numerology) = _run([
+    tools, (bazi, ziwei, qimen, no_longitude, bad_locale, bad_lunar, numerology, liuyao) = _run([
         ("bazi_chart", {"birth_time": "1990-05-15 10:00", "gender": "男", "query_year": 2026}),
         ("ziwei_chart", {"birth_time": "1985-01-25 10:00", "gender": "男", "calendar_locale": "vn"}),
         ("qimen_chart", {"question_type": "事业", "question_goal": "能否入职", "time_input": "2026-01-05 15:30",
@@ -41,8 +43,10 @@ def test_tools_over_stdio():
         ("bazi_chart", {"birth_time": "1990-05-15 10:00", "gender": "男", "calendar_locale": "jp"}),
         ("bazi_chart", {"birth_time": "1990-13-01 10:00", "gender": "男", "calendar_type": "lunar"}),
         ("numerology_chart", {"birth_date": "1990-05-15", "full_name": "Nguyễn Văn An", "query_year": 2026}),
+        ("liuyao_chart", {"time": "2026-11-22 10:00", "lines": [7, 8, 9, 7, 6, 8]}),
     ])
-    assert sorted(t.name for t in tools.tools) == ["bazi_chart", "numerology_chart", "qimen_chart", "ziwei_chart"]
+    assert sorted(t.name for t in tools.tools) == ["bazi_chart", "liuyao_chart", "numerology_chart", "qimen_chart", "ziwei_chart"]
+    assert liuyao.structured_content == liuyao_cli.build_output({"time": "2026-11-22 10:00", "lines": [7, 8, 9, 7, 6, 8]})
     assert numerology.structured_content == numerology_cli.build_output(
         {"birth_date": "1990-05-15", "full_name": "Nguyễn Văn An", "query_year": 2026})
 

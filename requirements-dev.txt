@@ -1,4 +1,5 @@
 -r bazi/scripts/requirements.txt
+-r liuyao/scripts/requirements.txt
 -r numerology/scripts/requirements.txt
 -r qimen-dunjia/scripts/requirements.txt
 -r ziwei-doushu/scripts/requirements.txt

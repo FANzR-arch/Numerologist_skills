@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MCP server：把八字、紫微斗数、奇门遁甲、Thần số học 四个计算脚本暴露为 MCP tool。
+"""MCP server：把八字、紫微斗数、奇门遁甲、六爻、Thần số học 五个计算脚本暴露为 MCP tool。
 
 每个 tool 的参数与对应 skill 的输入 JSON 一一对应（见各 skill 的 SKILL.md），返回值即脚本输出。
 排盘逻辑全部在各 skill 的 scripts/ 里，这里只做参数到 payload 的转换。
@@ -16,10 +16,11 @@ from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
 ROOT = Path(__file__).resolve().parent.parent
-for skill in ("bazi", "ziwei-doushu", "qimen-dunjia", "numerology"):
+for skill in ("bazi", "ziwei-doushu", "qimen-dunjia", "numerology", "liuyao"):
     sys.path.insert(0, str(ROOT / skill / "scripts"))
 
 import bazi_cli  # noqa: E402
+import liuyao_cli  # noqa: E402
 import numerology_cli  # noqa: E402
 import qimen_cli  # noqa: E402
 import ziwei_cli  # noqa: E402
@@ -148,6 +149,25 @@ def numerology_chart(
     return _chart(numerology_cli.build_output, _payload(
         birth_date=birth_date, full_name=full_name, query_year=query_year, life_path_rule=life_path_rule,
         life_path_method=life_path_method, y_as_vowel=y_as_vowel,
+    ))
+
+
+@server.tool()
+def liuyao_chart(
+    time: str,
+    question: str | None = None,
+    lines: list[int] | None = None,
+    cast: bool = False,
+    late_zi_rule: LateZi = "next_day",
+    timezone: str | None = None,
+) -> dict[str, Any]:
+    """六爻纳甲排卦：本卦、变卦、八宫世应、纳甲、六亲、六神、伏神、月建日辰、旬空月破。
+
+    lines 为自下而上六个爻值（6 老阴、7 少阳、8 少阴、9 老阳）；用户请你代摇时不传 lines，改传 cast=true。
+    time 为起卦时刻（如 "2026-11-22 10:00"）或 "now"。
+    """
+    return _chart(liuyao_cli.build_output, _payload(
+        time=time, question=question, lines=lines, cast=cast or None, late_zi_rule=late_zi_rule, timezone=timezone,
     ))
 
 
