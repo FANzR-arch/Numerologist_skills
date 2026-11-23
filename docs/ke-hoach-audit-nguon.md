@@ -1,6 +1,6 @@
 # Kế hoạch audit logic theo nguồn tài liệu đáng tin cậy
 
-Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2 làm được phần đọc được trên Google Books 2026-11-23; A3 xong phần bảng 2026-11-23; A4 xong phần quy tắc tính 2026-11-23; A5 làm được phần 紫微斗數全書 2026-11-23; A6 xong phần định cục và bố bàn 2026-11-23; A7 xong việc gắn nhãn nguồn 2026-11-23.
+Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2 làm được phần đọc được trên Google Books 2026-11-23; A3 xong phần bảng 2026-11-23; A4 xong phần quy tắc tính 2026-11-23; A5 làm được phần 紫微斗數全書 2026-11-23; A6 xong phần định cục và bố bàn 2026-11-23; A7 xong việc gắn nhãn nguồn 2026-11-23. Quyết định phái mặc định 2026-11-23: Kỳ Môn giữ 拆補; Tử Vi năm 壬 giữ Tả phụ, thêm sihua_rule=quanshu; tháng nhuận giữ split_15.
 
 ## Mục tiêu
 

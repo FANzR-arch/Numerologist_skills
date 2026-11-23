@@ -83,7 +83,8 @@ Các trường phái tính khác nhau ở một số điểm. Script có mặc �
 | Âm lịch Việt Nam / Trung Quốc (`calendar_locale`) | Bát Tự, Tử Vi, Kỳ Môn | `cn` | Ngày âm theo lịch Việt Nam: nói "âm lịch Việt Nam". Lệch nhau vài tháng mỗi thập kỷ, có năm lệch cả tháng (Tết 1985: VN 21/1, TQ 20/2). Khi hai lịch khác nhau ở ngày đó, kết quả có cảnh báo nêu cả hai. |
 | Giờ Tý (`late_zi_rule`) | Bát Tự, Tử Vi, Lục Hào | 23:00 tính sang ngày mới | Thầy/phần mềm của bạn dùng "dạ Tý" (23:00–24:00 vẫn là ngày cũ). |
 | Giờ mặt trời thực (`true_solar_time`) | Bát Tự, Tử Vi, Kỳ Môn | tắt | Sinh xa kinh tuyến múi giờ (Tây Bắc VN, Tân Cương…) hoặc thầy yêu cầu; cần kinh độ nơi sinh. |
-| Tháng nhuận (`leap_month_rule`) | Tử Vi | ngày 1–15 tính tháng này, 16 trở đi tính tháng sau | Theo cách của phần mềm bạn đang đối chiếu. |
+| Tháng nhuận (`leap_month_rule`) | Tử Vi | ngày 1–15 tính tháng này, 16 trở đi tính tháng sau | Theo cách của phần mềm bạn đang đối chiếu. 《紫微斗數全書》 tính cả tháng nhuận theo tháng sau (`next`). |
+| Tứ hóa can Nhâm (`sihua_rule`) | Tử Vi | `zuofu`: Tả phụ hóa khoa | `quanshu` nếu theo 《紫微斗數全書》 (Thiên phủ hóa khoa). |
 | Rút gọn số chủ đạo (`life_path_rule`) | Thần số học | `vn`: 2–11, 22/4, 33/6 | `classic` nếu theo sách phương Tây (1–9, 11, 22, 33); `phillips` nếu theo đúng sách Phillips (33 tính là 6, tuổi đỉnh cao đầu = 36 − 10 hoặc 11). |
 | Cách cộng (`life_path_method`) | Thần số học | cộng mọi chữ số | Kết quả lệch với app khác thì thử cách rút gọn riêng ngày/tháng/năm. |
 

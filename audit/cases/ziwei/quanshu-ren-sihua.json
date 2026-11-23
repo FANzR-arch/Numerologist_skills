@@ -1,0 +1,19 @@
+{
+  "source": {
+    "id": "ziwei-quanshu",
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例, 安禄权科忌四星变化诀: 壬梁紫府武. Chọn năm 壬 1992, sihua_rule=quanshu"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "1992-08-16 14:30",
+    "gender": "男",
+    "sihua_rule": "quanshu"
+  },
+  "expect": {
+    "calendar.year_ganzhi": "壬申",
+    "chart.year_sihua.0.star": "天梁",
+    "chart.year_sihua.1.star": "紫微",
+    "chart.year_sihua.2.star": "天府",
+    "chart.year_sihua.3.star": "武曲"
+  }
+}

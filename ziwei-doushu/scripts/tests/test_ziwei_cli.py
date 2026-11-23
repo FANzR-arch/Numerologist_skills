@@ -337,6 +337,30 @@ def test_horoscope_layers():
     assert [s["star"] for s in h["yearly"]["sihua"]] == list(z.SIHUA["丙"])
 
 
+class TestSihuaRule:
+    """壬干化科：默认左辅（iztro 等现代通行）；sihua_rule=quanshu 按《紫微斗數全書》卷二「壬梁紫府武」取天府。"""
+
+    def test_default_ren_year_uses_zuofu(self):
+        out = run("1992-08-16 14:30")  # 壬申年
+        assert [s["star"] for s in out["chart"]["year_sihua"]] == ["天梁", "紫微", "左辅", "武曲"]
+        assert out["ruleset"]["sihua_rule"]["id"] == "zuofu"
+
+    def test_quanshu_rule_uses_tianfu_everywhere(self):
+        out = run("1992-08-16 14:30", sihua_rule="quanshu", query_year=2032)  # 2032 壬子流年
+        assert [s["star"] for s in out["chart"]["year_sihua"]] == ["天梁", "紫微", "天府", "武曲"]
+        assert out["horoscope"]["yearly"]["sihua"][2]["star"] == "天府"
+        assert out["ruleset"]["sihua_rule"]["id"] == "quanshu"
+
+    def test_other_stems_unchanged(self):
+        for stem in STEMS:
+            if stem != "壬":
+                assert z.SIHUA_RULES["quanshu"][stem] == z.SIHUA_RULES["zuofu"][stem]
+
+    def test_rejects_unknown_rule(self):
+        with pytest.raises(ValueError, match="sihua_rule"):
+            run("1992-08-16 14:30", sihua_rule="x")
+
+
 # ============================================================
 # 4. 与独立实现 iztro 2.6.2 逐星对照
 # ============================================================

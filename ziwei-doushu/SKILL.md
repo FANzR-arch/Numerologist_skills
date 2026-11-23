@@ -140,6 +140,7 @@ python3 "<skill_dir>/scripts/ziwei_cli.py" \
   "gender": "男|女",
   "late_zi_rule": "next_day|same_day",
   "leap_month_rule": "current|next|split_15",
+  "sihua_rule": "zuofu|quanshu",
   "query_year": 2026,
   "true_solar_time": false,
   "calendar_locale": "cn|vn",
@@ -150,7 +151,8 @@ python3 "<skill_dir>/scripts/ziwei_cli.py" \
 - `birth_time`、`gender` 必填；出生时间缺失或性别缺失时脚本直接报错，不代填。
 - `calendar_type=lunar` 时 `birth_time` 写农历年月日，闰月出生同时传 `"is_leap_month": true`。
 - `late_zi_rule` 默认 `next_day`（23:00 起算次日子时）；只有用户明确沿用不换日的口径时才传 `same_day`。
-- `leap_month_rule` 只在出生于闰月时起作用。不传时默认 `split_15`（闰月十五日及以前按本月，十六日起按下月）；用户已有既定口径时改传 `current`（整月按本月）或 `next`（整月按下月）。输出里 `normalized_input.leap_month_rule_source` 标明是默认（`default`）还是指定（`explicit`），给用户讲口径时照实说明用了哪种算法。
+- `leap_month_rule` 只在出生于闰月时起作用。不传时默认 `split_15`（闰月十五日及以前按本月，十六日起按下月）；用户已有既定口径时改传 `current`（整月按本月）或 `next`（整月按下月）。输出里 `normalized_input.leap_month_rule_source` 标明是默认（`default`）还是指定（`explicit`），给用户讲口径时照实说明用了哪种算法。《紫微斗數全書》卷二原文是整月按下月（`next`），`split_15` 是现代软件常用口径。
+- `sihua_rule` 只影响壬干化科：默认 `zuofu`（左辅化科，现代通行，与 iztro 一致）；用户按《紫微斗數全書》或老师用「壬梁紫府武」时传 `quanshu`（天府化科）。讲到壬年、壬干大限或流年的化科时说明用了哪种。
 - `calendar_locale` 默认 `cn`（中国农历）；越南用户传 `vn`，农历输入与输出的农历日期按越南阴历（1967 年十一月即 1967-12 起按东七区）。越南与中国阴历月界不同时，命宫、身宫与星曜位置会不同。
 - `query_year` 可选，填要看的农历年份，脚本会算出该年虚岁、所在大限及大限四化、流年命宫及流年四化。
 - `true_solar_time` 可选，默认不校正。用户要求真太阳时（或出生地远离时区中央经线，如新疆、西藏）时传 `true`，并必须给出生地经度 `location.longitude`（东经为正）；时区 `location.timezone` 默认 `Asia/Shanghai`。脚本按时区（含夏令时）换回 UTC，再加经度时差与均时差，明细见输出 `normalized_input.true_solar_time`。

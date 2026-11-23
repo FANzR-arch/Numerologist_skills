@@ -90,6 +90,7 @@ def ziwei_chart(
     is_leap_month: bool = False,
     late_zi_rule: LateZi = "next_day",
     leap_month_rule: Literal["split_15", "current", "next"] | None = None,
+    sihua_rule: Literal["zuofu", "quanshu"] = "zuofu",
     query_year: int | None = None,
     true_solar_time: bool = False,
     longitude: float | None = None,
@@ -100,10 +101,11 @@ def ziwei_chart(
 
     birth_time 形如 "1990-05-15 14:30"（calendar_type=lunar 时写农历年月日）。
     leap_month_rule 只对闰月出生有效，不传按 split_15。
+    sihua_rule：壬干化科取左辅（zuofu，默认）或按《紫微斗數全書》取天府（quanshu）。
     """
     return _chart(ziwei_cli.build_output, _payload(
         birth_time=birth_time, gender=gender, calendar_type=calendar_type, is_leap_month=is_leap_month,
-        late_zi_rule=late_zi_rule, leap_month_rule=leap_month_rule, query_year=query_year,
+        late_zi_rule=late_zi_rule, leap_month_rule=leap_month_rule, sihua_rule=sihua_rule, query_year=query_year,
         true_solar_time=true_solar_time, longitude=longitude, timezone=timezone, calendar_locale=calendar_locale,
     ))
 

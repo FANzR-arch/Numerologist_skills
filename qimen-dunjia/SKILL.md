@@ -50,7 +50,7 @@ compatibility: Requires Python 3.11+, lunar_python, and tzdata; run scripts/qime
 - 体系：时家转盘奇门
 - 默认时区：`Asia/Shanghai`
 - 默认适用区域：中国大陆优先
-- 定局：置闰法工程化实现
+- 定局：拆补法（按起局时刻所处节气取局，现代软件通行）。《奇门遁甲统宗》《遁甲演义》用超神接气置闰，符头与节气错开的日子局数可能不同；用户的软件或老师用置闰法时要说明差异。
 - 中宫/寄宫：中宫相关判断一律寄坤处理
 
 详细规则见 `references/ruleset-mainline.md`。

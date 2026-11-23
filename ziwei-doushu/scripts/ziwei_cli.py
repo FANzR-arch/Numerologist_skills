@@ -96,6 +96,13 @@ SIHUA = {
     "壬": ("天梁", "紫微", "左辅", "武曲"),
     "癸": ("破军", "巨门", "太阴", "贪狼"),
 }
+# 壬干化科异说：默认左辅（iztro 与多数现代书）；《紫微斗數全書》卷二「壬梁紫府武」作天府
+DEFAULT_SIHUA_RULE = "zuofu"
+SIHUA_RULES = {"zuofu": SIHUA, "quanshu": {**SIHUA, "壬": ("天梁", "紫微", "天府", "武曲")}}
+SIHUA_RULE_TEXT = {
+    "zuofu": "壬干化科取左辅（现代通行，与 iztro 一致）",
+    "quanshu": "壬干化科取天府（《紫微斗數全書》卷二「壬梁紫府武」）",
+}
 
 # stars.md 十四主星庙旺利平陷表（《紫微斗數全書》卷二总表），列序 子→亥
 BRIGHTNESS = {
@@ -155,6 +162,7 @@ class BirthInfo:
     leap_month_rule: str
     leap_month_rule_source: str  # "default" 或 "explicit"
     late_zi_rule: str
+    sihua_rule: str
     calendar_locale: str
     original_input: Any
     warnings: list[str]
@@ -212,6 +220,9 @@ def normalize_input(payload: dict[str, Any]) -> BirthInfo:
     late_zi_rule = payload.get("late_zi_rule") or "next_day"
     if late_zi_rule not in LATE_ZI_RULES:
         raise ValueError(f"late_zi_rule 只接受 {sorted(LATE_ZI_RULES)}")
+    sihua_rule = payload.get("sihua_rule") or DEFAULT_SIHUA_RULE
+    if sihua_rule not in SIHUA_RULES:
+        raise ValueError(f"sihua_rule 只接受 {sorted(SIHUA_RULES)}")
 
     civil = datetime(solar_date.year, solar_date.month, solar_date.day, raw["hour"], raw["minute"])
     birth, true_solar = apply_true_solar_time(payload, civil)
@@ -229,6 +240,7 @@ def normalize_input(payload: dict[str, Any]) -> BirthInfo:
         leap_month_rule=leap_rule,
         leap_month_rule_source=leap_rule_source,
         late_zi_rule=late_zi_rule,
+        sihua_rule=sihua_rule,
         calendar_locale=locale,
         original_input=raw_input,
         warnings=warnings,
@@ -349,9 +361,9 @@ def place_adjective_stars(year_branch: str, chart_month: int) -> dict[str, int]:
     }
 
 
-def sihua_for_stem(stem: str, star_index: dict[str, int], palace_name_by_branch: dict[int, str]) -> list[dict[str, Any]]:
+def sihua_for_stem(stem: str, star_index: dict[str, int], palace_name_by_branch: dict[int, str], rule: str = DEFAULT_SIHUA_RULE) -> list[dict[str, Any]]:
     result = []
-    for kind, star in zip(SIHUA_TYPES, SIHUA[stem]):
+    for kind, star in zip(SIHUA_TYPES, SIHUA_RULES[rule][stem]):
         idx = star_index[star]
         result.append({"type": kind, "star": star, "branch": BRANCHES[idx], "palace": palace_name_by_branch[idx]})
     return result
@@ -382,7 +394,7 @@ def build_chart(info: BirthInfo) -> dict[str, Any]:
     adjective = place_adjective_stars(year_branch, chart_month)
     star_index = {**major, **minor, **adjective}
 
-    year_sihua = sihua_for_stem(year_stem, star_index, palace_name_by_branch)
+    year_sihua = sihua_for_stem(year_stem, star_index, palace_name_by_branch, info.sihua_rule)
     sihua_by_star = {item["star"]: item["type"] for item in year_sihua}
 
     direction = decadal_direction(year_stem, info.gender)
@@ -425,6 +437,7 @@ def build_chart(info: BirthInfo) -> dict[str, Any]:
         "palace_name_by_branch": palace_name_by_branch,
         "stems_by_branch": stems_by_branch,
         "decadal_by_branch": decadal_by_branch,
+        "sihua_rule": info.sihua_rule,
     }
 
 
@@ -469,7 +482,7 @@ def build_horoscope(chart: dict[str, Any], query_year: int) -> dict[str, Any]:
                  "natal_palace": names[wrap(year_branch_idx - i)]}
                 for i in range(12)
             ],
-            "sihua": sihua_for_stem(year_stem, chart["star_index"], names),
+            "sihua": sihua_for_stem(year_stem, chart["star_index"], names, chart["sihua_rule"]),
         },
         "decadal": None,
     }
@@ -482,7 +495,7 @@ def build_horoscope(chart: dict[str, Any], query_year: int) -> dict[str, Any]:
                 "natal_palace": names[idx],
                 "start_age": span["start_age"],
                 "end_age": span["end_age"],
-                "sihua": sihua_for_stem(stem, chart["star_index"], names),
+                "sihua": sihua_for_stem(stem, chart["star_index"], names, chart["sihua_rule"]),
             }
     return result
 
@@ -540,6 +553,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
                 "description": LEAP_MONTH_RULES[info.leap_month_rule],
                 "applied": cal["is_leap_month"],
             },
+            "sihua_rule": {"id": info.sihua_rule, "description": SIHUA_RULE_TEXT[info.sihua_rule]},
             "age_rule": "大限年龄为虚岁。",
             "time_rule": "按真太阳时排盘（经度时差 + 均时差，见 normalized_input.true_solar_time）。" if info.true_solar_time else "按输入的民用时间排盘，未做真太阳时校正。",
         },
