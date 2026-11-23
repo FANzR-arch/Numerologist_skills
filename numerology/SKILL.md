@@ -22,6 +22,7 @@ Read:
 - Mọi con số lấy từ script. Không tự cộng nhẩm, không sửa kết quả.
 - Thần số học không có cơ sở khoa học. Với sức khỏe, pháp lý, tài chính, chọn nghề hay hôn nhân, chỉ đưa góc nhìn tham khảo và khuyên dựa vào thông tin thực tế.
 - Trả lời bằng ngôn ngữ người dùng dùng (mặc định tiếng Việt).
+- Mục nào trong `references/y-nghia-so.md` ghi "chưa đối chiếu sách" là cách hiểu hiện đại; khi dùng phải nói rõ đó không phải nội dung sách.
 
 ## Bước 1: hỏi thông tin
 
