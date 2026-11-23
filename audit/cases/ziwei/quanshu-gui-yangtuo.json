@@ -1,0 +1,16 @@
+{
+  "source": {
+    "id": "ziwei-quanshu",
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 假如癸禄在子，丑宫安擎羊，亥宫安陀罗. Năm 癸 chọn là 1983 (癸亥)"
+  },
+  "input": {
+    "calendar_type": "lunar",
+    "birth_time": "1983-05-10 12:30",
+    "gender": "男"
+  },
+  "expect": {
+    "chart.star_index.禄存": "子",
+    "chart.star_index.擎羊": "丑",
+    "chart.star_index.陀罗": "亥"
+  }
+}

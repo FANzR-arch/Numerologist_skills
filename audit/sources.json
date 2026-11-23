@@ -209,11 +209,11 @@
     "author": "（传）陈希夷",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "quanshu",
+    "edition": "Bản Wikisource 卷一–卷三 (chữ giản thể, bảng vẽ bằng ký tự)",
+    "access": "https://zh.wikisource.org/wiki/紫微斗數全書; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Bản chép có thể có lỗi chữ (ví dụ nghi '丙丁猪狗位'). 續道藏《紫微斗數》 (陳摶, 3 quyển) trên Wikisource là hệ an sao khác (紫微 theo chi năm, sao 虛貴印壽…), không dùng làm nguồn thứ hai."
   },
   {
     "id": "ziwei-quanji",

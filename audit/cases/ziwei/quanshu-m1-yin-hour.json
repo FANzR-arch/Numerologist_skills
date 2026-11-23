@@ -1,0 +1,15 @@
+{
+  "source": {
+    "id": "ziwei-quanshu",
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 寅时逆转子安命，顺至辰安身"
+  },
+  "input": {
+    "calendar_type": "lunar",
+    "birth_time": "1984-01-01 03:30",
+    "gender": "男"
+  },
+  "expect": {
+    "chart.ming_gong.branch": "子",
+    "chart.shen_gong.branch": "辰"
+  }
+}

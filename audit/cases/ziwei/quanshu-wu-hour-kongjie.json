@@ -1,0 +1,15 @@
+{
+  "source": {
+    "id": "ziwei-quanshu",
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 若午时生者，劫空俱在巳上安之"
+  },
+  "input": {
+    "calendar_type": "lunar",
+    "birth_time": "1984-01-01 11:30",
+    "gender": "男"
+  },
+  "expect": {
+    "chart.star_index.地劫": "巳",
+    "chart.star_index.地空": "巳"
+  }
+}

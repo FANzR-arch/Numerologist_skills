@@ -1,0 +1,42 @@
+{
+  "source": {
+    "id": "ziwei-quanshu",
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 正月生子时就在寅宫安身命; 甲生人安命在寅…丙寅丁卯炉中火…正月初一生者是火局，酉宫起紫微; 文昌 戌、文曲 辰 (子时); 左辅 辰、右弼 戌 (正月); 甲戊庚牛羊; 甲生禄存在寅宫; 禄前擎羊后陀罗; 申子辰人马居寅、火寅铃戌; 子时劫空俱在亥宫; 天刑酉、天姚丑起正月; 天哭天虚起午宫; 卯上起子逆数 (红鸾), 对宫天喜; 甲廉破武阳. Năm 甲 chọn là 1984 (甲子); sách chỉ cho điểm khởi 火铃, việc tính giờ Tý tại điểm khởi là giả định"
+  },
+  "input": {
+    "calendar_type": "lunar",
+    "birth_time": "1984-01-01 00:30",
+    "gender": "男"
+  },
+  "expect": {
+    "chart.ming_gong.branch": "寅",
+    "chart.shen_gong.branch": "寅",
+    "chart.ming_gong.ganzhi": "丙寅",
+    "chart.wuxing_ju.name": "火六局",
+    "chart.star_index.紫微": "酉",
+    "chart.star_index.文昌": "戌",
+    "chart.star_index.文曲": "辰",
+    "chart.star_index.左辅": "辰",
+    "chart.star_index.右弼": "戌",
+    "chart.star_index.天魁": "丑",
+    "chart.star_index.天钺": "未",
+    "chart.star_index.禄存": "寅",
+    "chart.star_index.擎羊": "卯",
+    "chart.star_index.陀罗": "丑",
+    "chart.star_index.天马": "寅",
+    "chart.star_index.火星": "寅",
+    "chart.star_index.铃星": "戌",
+    "chart.star_index.地空": "亥",
+    "chart.star_index.地劫": "亥",
+    "chart.star_index.天刑": "酉",
+    "chart.star_index.天姚": "丑",
+    "chart.star_index.天哭": "午",
+    "chart.star_index.天虚": "午",
+    "chart.star_index.红鸾": "卯",
+    "chart.star_index.天喜": "酉",
+    "chart.year_sihua.0.star": "廉贞",
+    "chart.year_sihua.1.star": "破军",
+    "chart.year_sihua.2.star": "武曲",
+    "chart.year_sihua.3.star": "太阳"
+  }
+}

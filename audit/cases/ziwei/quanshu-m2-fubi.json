@@ -1,0 +1,15 @@
+{
+  "source": {
+    "id": "ziwei-quanshu",
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 左辅二月在巳宫，右弼二月在酉宫"
+  },
+  "input": {
+    "calendar_type": "lunar",
+    "birth_time": "1984-02-01 12:30",
+    "gender": "男"
+  },
+  "expect": {
+    "chart.star_index.左辅": "巳",
+    "chart.star_index.右弼": "酉"
+  }
+}

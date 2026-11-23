@@ -1,0 +1,19 @@
+{
+  "source": {
+    "id": "ziwei-quanshu",
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 丑时逆转丑安命，顺去卯安身; 文昌丑时逆至酉宫; 文曲丑时顺去巳宫; 丑时生者劫顺在子宫，空逆在戌宫"
+  },
+  "input": {
+    "calendar_type": "lunar",
+    "birth_time": "1984-01-01 01:30",
+    "gender": "男"
+  },
+  "expect": {
+    "chart.ming_gong.branch": "丑",
+    "chart.shen_gong.branch": "卯",
+    "chart.star_index.文昌": "酉",
+    "chart.star_index.文曲": "巳",
+    "chart.star_index.地劫": "子",
+    "chart.star_index.地空": "戌"
+  }
+}

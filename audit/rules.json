@@ -2918,10 +2918,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:37",
     "fingerprint": "42318b968c1ca944",
-    "claim": "",
-    "sources": [],
+    "claim": "12 cung xếp nghịch từ mệnh.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安十二宫例: 男女俱从逆转",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Sách gọi 妻妾, 奴仆; code gọi 夫妻, 交友. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -2931,10 +2937,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:43",
     "fingerprint": "8f4c89f2592d054e",
-    "claim": "",
-    "sources": [],
+    "claim": "Định cục bằng số can + số chi, tương đương nạp âm của can chi cung mệnh.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 六十花甲子纳音歌; 丙寅丁卯炉中火…火局",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Script so 58/60 can chi đọc được trong bài nạp âm: cục tính bằng số khớp hành nạp âm. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -2944,10 +2956,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:44",
     "fingerprint": "99ce52862efe8c84",
-    "claim": "",
-    "sources": [],
+    "claim": "Xem ziwei.table.STEM_NUMBER.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 六十花甲子纳音歌",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -2957,10 +2975,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:49",
     "fingerprint": "b04d737d61917b63",
-    "claim": "",
-    "sources": [],
+    "claim": "Xem ziwei.table.STEM_NUMBER.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 六十花甲子纳音歌",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -2970,10 +2994,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:52",
     "fingerprint": "5098a074f510d7d0",
-    "claim": "",
-    "sources": [],
+    "claim": "Khởi can cung 寅 theo can năm (甲己 丙寅…戊癸 甲寅).",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 起五行寅例",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -2983,10 +3013,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:55",
     "fingerprint": "b3ae95aba9b694f7",
-    "claim": "",
-    "sources": [],
+    "claim": "紫微 nghịch: 天机 −1, 太阳 −3, 武曲 −4, 天同 −5, 廉贞 −8.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安南北斗诸星诀: 紫微天机逆行旁，隔一阳武天同当，又隔二位廉贞地",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -2996,10 +3032,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:57",
     "fingerprint": "130984f2cf978191",
-    "claim": "",
-    "sources": [],
+    "claim": "天府 thuận: 太阴 +1 … 七杀 +6, 破军 +10.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安南北斗诸星诀: 天府太阴与贪狼…七杀空三破军位，八星顺数",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3022,10 +3064,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:64",
     "fingerprint": "841ce1082940c2a9",
-    "claim": "",
-    "sources": [],
+    "claim": "Khôi việt: 甲戊庚 丑未, 乙己 子申, 丙丁 亥酉, 辛 午寅, 壬癸 卯巳.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安天魁天钺诀: 甲戊庚牛羊，乙己鼠猴乡，六辛逢虎马，壬癸兔蛇藏，丙丁猪狗位",
+        "stance": "partial"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Bản Wikisource ghi 丙丁猪狗 (亥戌), code 亥酉 (猪鸡); ghi 六辛逢虎马 (thứ tự ngược với code 魁午钺寅). Có thể là lỗi chép hoặc dị bản; cần bản in để quyết.",
     "tests": [],
     "stale": false
   },
@@ -3035,10 +3083,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:72",
     "fingerprint": "b535794c5b559153",
-    "claim": "",
-    "sources": [],
+    "claim": "Lộc tồn theo can năm.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安禄存星诀",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3048,10 +3102,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:75",
     "fingerprint": "9e88c3a00eac5a4f",
-    "claim": "",
-    "sources": [],
+    "claim": "Nhóm tam hợp của chi năm.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安天马星诀; 安火铃二星诀",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3061,10 +3121,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:81",
     "fingerprint": "0650e04d973e1f26",
-    "claim": "",
-    "sources": [],
+    "claim": "Điểm khởi Hỏa tinh theo tam hợp chi năm.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安火铃二星诀: 寅午戌人丑卯方…",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Sách chỉ cho điểm khởi, không nói chiều đếm theo giờ (code đếm thuận). Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3074,10 +3140,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:82",
     "fingerprint": "8c8a9d502df7e32a",
-    "claim": "",
-    "sources": [],
+    "claim": "Điểm khởi Linh tinh theo tam hợp chi năm.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安火铃二星诀",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Sách chỉ cho điểm khởi, không nói chiều đếm theo giờ (code đếm thuận). Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3087,10 +3159,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:83",
     "fingerprint": "09ee2583fa2ebbf4",
-    "claim": "",
-    "sources": [],
+    "claim": "Thiên mã theo tam hợp chi năm.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安天马星诀",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3113,10 +3191,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:87",
     "fingerprint": "4bc4e7a6694748f5",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
+    "claim": "Tứ hóa theo can năm.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安禄权科忌四星变化诀: …壬梁紫府武…",
+        "stance": "partial"
+      }
+    ],
+    "verdict": "conflict",
+    "notes": "Năm 壬: 全書 ghi 天府 hóa khoa, code dùng 左辅 (theo iztro và nhiều sách hiện đại). Chín can còn lại khớp. Chưa sửa: cần thêm nguồn và quyết định phái mặc định.",
     "tests": [],
     "stale": false
   },
@@ -3126,10 +3210,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:101",
     "fingerprint": "e5e72b2f83d707fe",
-    "claim": "",
-    "sources": [],
+    "claim": "Miếu vượng của 14 chính tinh ở 12 cung.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: bảng 庙 旺 得地 利益 平和 不得地 落陷 (cuối 安身命例)",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Script so đủ 168/168 ô, khớp. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3139,10 +3229,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:120",
     "fingerprint": "a14db80231de364a",
-    "claim": "",
-    "sources": [],
+    "claim": "Mệnh chủ theo chi cung mệnh.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安命主",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3152,10 +3248,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:121",
     "fingerprint": "c01bd1ab90f3765c",
-    "claim": "",
-    "sources": [],
+    "claim": "Thân chủ theo chi năm.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安身主 (子午人火铃星 → code 火星)",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3178,10 +3280,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:132",
     "fingerprint": "8a41c42982aca5b9",
-    "claim": "",
-    "sources": [],
+    "claim": "Mặc định split_15.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: tháng nhuận tính cả tháng sau",
+        "stance": "disagree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "全書 dùng 'next'; chưa có nguồn cho split_15. Đổi mặc định là quyết định của người dùng.",
     "tests": [],
     "stale": false
   },
@@ -3191,10 +3299,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:133",
     "fingerprint": "b73fa9728d8ff648",
-    "claim": "",
-    "sources": [],
+    "claim": "Ba cách tính tháng nhuận.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 若闰月正月生者要在二月内起安身命，凡有闰月具要依此为例 (cả tháng nhuận tính tháng sau)",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "全書 ủng hộ cách 'next'. Mặc định split_15 của code chưa có nguồn sách.",
     "tests": [],
     "stale": false
   },
@@ -3308,10 +3422,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:278",
     "fingerprint": "45e259b48199c3ec",
-    "claim": "",
-    "sources": [],
+    "claim": "Can các cung tính tiếp từ cung 寅 theo thứ tự can.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 起五行寅例; ví dụ 甲生人安命在寅…丙寅",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3321,10 +3441,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:284",
     "fingerprint": "992da11345e4938c",
-    "claim": "",
-    "sources": [],
+    "claim": "Ngũ hành cục theo nạp âm can chi cung mệnh.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 纳音歌; ví dụ 丙寅 炉中火 → 火局",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3334,10 +3460,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:291",
     "fingerprint": "b75c45d0ec2af6e7",
-    "claim": "",
-    "sources": [],
+    "claim": "An 紫微 theo cục và ngày sinh.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 正月初一生者是火局，酉宫起紫微",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Mới đối chiếu một ví dụ (火局, mùng 1 → 酉). Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3347,10 +3479,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:303",
     "fingerprint": "e9ba23fb89ea0014",
-    "claim": "",
-    "sources": [],
+    "claim": "天府 đối xứng 紫微 qua trục 寅申.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安天府图: 天府惟寅申二宫紫府同宫…如紫居丑则府居卯",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3360,10 +3498,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:308",
     "fingerprint": "e49221536cabd71a",
-    "claim": "",
-    "sources": [],
+    "claim": "An 14 chính tinh.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安南北斗诸星诀; 安天府图",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3373,10 +3517,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:315",
     "fingerprint": "7f0ccb644241c233",
-    "claim": "",
-    "sources": [],
+    "claim": "昌曲 theo giờ, 輔弼 theo tháng, 魁鉞, 祿存, 羊陀, 火鈴, 空劫, 天馬.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安文昌文曲星诀; 安左辅右弼星诀; 安擎羊陀罗二星诀; 天空地劫诀",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Các ví dụ của sách khớp (ca vàng quanshu-*). Xem ziwei.table.KUI_YUE. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3386,10 +3536,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:338",
     "fingerprint": "df54b086e05b8874",
-    "claim": "",
-    "sources": [],
+    "claim": "天刑, 天姚, 红鸾, 天喜, 天哭, 天虚.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安天刑天姚星诀; 安天哭天虚星诀; 安红鸾天喜诀",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -3399,10 +3555,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:352",
     "fingerprint": "03b8f83b805e66f6",
-    "claim": "",
-    "sources": [],
+    "claim": "Gán tứ hóa vào vị trí sao.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安禄权科忌四星变化诀; ví dụ 甲生人廉贞化禄…",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Xem ziwei.table.SIHUA.",
     "tests": [],
     "stale": false
   },
@@ -3412,10 +3574,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:360",
     "fingerprint": "33df740e9bac3579",
-    "claim": "",
-    "sources": [],
+    "claim": "Đại hạn: dương nam âm nữ thuận, âm nam dương nữ nghịch.",
+    "sources": [
+      {
+        "id": "ziwei-quanshu",
+        "locator": "卷二 安身命例: 安大限诀",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Sách ghi khởi 'từ cung trước mệnh' (父母) khi thuận và 'cung sau mệnh' (兄弟) khi nghịch; code khởi đại hạn đầu ở cung mệnh. Có thể là dị bản hoặc cách đọc khác; chưa sửa. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
