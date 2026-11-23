@@ -1,5 +1,7 @@
 # Hướng dẫn sử dụng
 
+[English](user-guide.md) | Tiếng Việt
+
 Bộ skill gồm 5 hệ: Bát Tự (`bazi`), Tử Vi (`ziwei-doushu`), Kỳ Môn (`qimen-dunjia`), Lục Hào (`liuyao`), Thần số học (`numerology`). Mỗi hệ có một script Python tính toán; mô hình chỉ hỏi thông tin và diễn giải.
 
 Kết quả để tham khảo, không thay cho lời khuyên y tế, pháp lý, tài chính.

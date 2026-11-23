@@ -14,13 +14,15 @@ AI skills for traditional divination systems, built as auditable, reusable engin
 | `liuyao/` | Liu Yao | One question per hexagram, use god, shi/ying, moving lines | Python CLI: `scripts/liuyao_cli.py` |
 | `numerology/` | Pythagorean numerology (Thần số học, Vietnamese) | Life path, birth chart, pinnacles, personal year | Python CLI: `scripts/numerology_cli.py` |
 
+User guide: [docs/user-guide.md](docs/user-guide.md) (Vietnamese: [docs/user-guide.vi.md](docs/user-guide.vi.md)).
+
 ## Repository layout
 
 - `SKILL.md`: skill description, triggers, workflow and output rules
 - `references/`: rule sets, glossaries, examples and conventions; each section is labelled with its source or marked as not yet checked against the classics
 - `scripts/`: deterministic calculation scripts (all five skills)
 - `core/calendar_core.py`: shared input parsing, true solar time and the Vietnamese lunar calendar (`calendar_locale: vn`). `core/thuat-ngu-chung.md`: shared Vietnamese glossary. Each skill's `scripts/calendar_core.py` and `references/thuat-ngu-chung.md` are generated copies so every skill can be installed alone; edit `core/` only, then run `python3 tools/sync_core.py`. CI checks the copies with `--check`.
-- `audit/`: registry that checks each rule against books and standards, with golden cases taken from worked examples in those books (see [audit/README.md](audit/README.md), Vietnamese)
+- `audit/`: registry that checks each rule against books and standards, with golden cases taken from worked examples in those books (see [audit/README.md](audit/README.md) and [docs/source-audit-plan.md](docs/source-audit-plan.md))
 
 ## Design principles
 

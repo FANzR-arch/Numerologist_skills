@@ -28,7 +28,7 @@
 3. 先声明口径，再做结论：流派、换日规则、闰月归属、默认规则都要说清楚。
 4. 只给结构化参考：健康、法律、财务等高风险场景不替代现实专业建议。
 
-越南语使用说明见 [docs/huong-dan-su-dung.md](docs/huong-dan-su-dung.md)；按权威文献审校逻辑的计划见 [docs/ke-hoach-audit-nguon.md](docs/ke-hoach-audit-nguon.md)，登记表与工具见 [audit/README.md](audit/README.md)。
+使用说明见 [docs/user-guide.md](docs/user-guide.md)（英文，越南语版见 [docs/user-guide.vi.md](docs/user-guide.vi.md)）；按权威文献审校逻辑的计划见 [docs/source-audit-plan.md](docs/source-audit-plan.md)，登记表与工具见 [audit/README.md](audit/README.md)。
 
 ## 作为 Claude Code 插件安装
 
