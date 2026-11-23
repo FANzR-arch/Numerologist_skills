@@ -1,0 +1,14 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 74: Arrow of Frustration (ví dụ sinh 1973-12-21); Google Books xem trước, id xogGqJzowKYC"
+  },
+  "input": {
+    "birth_date": "1973-12-21"
+  },
+  "expect": {
+    "birth_chart.arrows.1.status": "empty",
+    "birth_chart.counts.1": 3,
+    "birth_chart.counts.2": 2
+  }
+}

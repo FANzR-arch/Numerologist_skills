@@ -4,6 +4,8 @@ Dùng để diễn giải số chủ đạo, số sứ mệnh, linh hồn, nhân
 
 ## Các số
 
+Phần mạnh/cần rèn dưới đây chưa đối chiếu sách (xem `audit/rules.json`, mục `numerology.doc.y-nghia-so.md`). Khi diễn giải, nói đây là khuynh hướng tham khảo.
+
 ### Số 1
 Mạnh: chủ động, độc lập, dám khởi đầu. Cần rèn: nóng vội, khó nhờ người khác.
 
@@ -32,7 +34,7 @@ Mạnh: tổ chức, quản lý, tài chính, tầm nhìn dài. Cần rèn: nặ
 Mạnh: lý tưởng, nhân ái, tầm nhìn rộng, trách nhiệm với cộng đồng. Cần rèn: ôm đồm, thất vọng khi người khác không như kỳ vọng.
 
 ### Số 10
-Cách gọi riêng của số chủ đạo theo cách tính phổ biến ở Việt Nam (tương ứng 1). Mạnh: thích nghi nhanh, tự tin, dễ bắt đầu lại. Cần rèn: thiếu kiên định, dựa vào cảm hứng.
+Số chủ đạo 10 theo Phillips (tr. 82–83) và cách tính phổ biến ở Việt Nam: không có số chủ đạo 1, tổng 19, 28, 37, 46 thành 10. Mạnh: thích nghi nhanh, tự tin, dễ bắt đầu lại. Cần rèn: thiếu kiên định, dựa vào cảm hứng.
 
 ### Số 11
 Số master (11/2). Mạnh: trực giác, truyền cảm hứng, nhạy bén tinh thần. Cần rèn: căng thẳng thần kinh, kỳ vọng quá cao, dao động giữa 11 và 2.
@@ -41,7 +43,7 @@ Số master (11/2). Mạnh: trực giác, truyền cảm hứng, nhạy bén tin
 Số master. Mạnh: biến ý tưởng lớn thành việc thật, xây hệ thống bền. Cần rèn: áp lực tự đặt, cực đoan giữa làm lớn và lo âu, sống theo mặt 4 khi chưa sẵn sàng.
 
 ### Số 33/6
-Số master, hiếm. Mạnh: phụng sự, nâng đỡ người khác, sáng tạo vì cộng đồng. Cần rèn: hy sinh quá mức, gánh trách nhiệm không phải của mình.
+Decoz (glossary, tr. 262) coi 33 là số master trong trường hợp rất hiếm; Phillips (tr. 83) cho rằng 33 không phải số master và tính là 6. Luật `vn` và `classic` giữ 33, luật `phillips` tính 6. Mạnh: phụng sự, nâng đỡ người khác, sáng tạo vì cộng đồng. Cần rèn: hy sinh quá mức, gánh trách nhiệm không phải của mình.
 
 ## Năm cá nhân (chu kỳ 9 năm)
 
@@ -49,15 +51,19 @@ Số master, hiếm. Mạnh: phụng sự, nâng đỡ người khác, sáng t�
 
 ## Mũi tên trên biểu đồ ngày sinh
 
-Tên gọi khác nhau giữa các nguồn; dưới đây là cách gọi thường gặp trong tài liệu tiếng Việt, chỉ để tham khảo. Script chỉ xuất bộ số và trạng thái (`full` đủ cả 3, `empty` thiếu cả 3).
+Tên mũi tên theo D. A. Phillips, *The Complete Book of Numerology* (Hay House 2005), chương 6, tr. 51–79. Lưới: hàng trên 3-6-9 (Trí tuệ), giữa 2-5-8 (Cảm xúc), dưới 1-4-7 (Thể chất); số 0 không ghi lên lưới. Mũi tên đủ số là điểm mạnh, mũi tên trống là điểm yếu có thể bù bằng các số khác trên biểu đồ. Script chỉ xuất bộ số và trạng thái (`full` đủ cả 3, `empty` thiếu cả 3).
 
 | Bộ số | Khi đủ (full) | Khi trống (empty) |
 |---|---|---|
-| 1-2-3 | Kế hoạch | Thiếu trật tự |
-| 4-5-6 | Ý chí | Uất giận, thất vọng |
-| 7-8-9 | Hoạt động | Thụ động |
-| 1-4-7 | Thực tế, thể chất | Thiếu thực tế |
-| 2-5-8 | Cân bằng cảm xúc | Nhạy cảm, dễ tổn thương |
-| 3-6-9 | Trí tuệ, trí nhớ | Trí nhớ ngắn hạn kém |
-| 1-5-9 | Quyết tâm | Trì hoãn |
-| 3-5-7 | Tâm linh, nhạy bén | Hoài nghi |
+| 1-2-3 | Kế hoạch (Planner) | Không thấy trong các trang đã đọc của Phillips. Ngày sinh từ 1900 đến 2099 luôn có số 1 hoặc 2, nên trên thực tế mũi tên này không xuất hiện. |
+| 4-5-6 | Ý chí (Will) | Uất ức (Frustration) |
+| 7-8-9 | Hoạt động (Activity) | Thụ động (Passivity) |
+| 1-4-7 | Thực tế (Practicality) | Thiếu trật tự (Disorder) |
+| 2-5-8 | Cân bằng cảm xúc (Emotional Balance) | Quá nhạy cảm (Hypersensitivity) |
+| 3-6-9 | Trí tuệ (Intellect) | Trí nhớ kém (Poor Memory) |
+| 1-5-9 | Quyết tâm (Determination) | Trì hoãn (Procrastination) |
+| 3-5-7 | Tâm linh (Spirituality)¹ | Người tìm hiểu (Enquirer). Phillips ban đầu gọi là Hoài nghi (Scepticism), sau đổi tên vì người này hoài nghi đến khi tự kiểm chứng, rồi tin chắc. |
+
+¹ Chưa thấy tiêu đề mục này. Tên lấy từ kết quả tìm "Arrow of Spirituality" trong sách (tr. 55–57) và đoạn tả đường chéo 3-5-7 ở tr. 56. Tương tự, Ý chí 4-5-6 suy từ câu "ba số giữa của mỗi mặt phẳng" (tr. 73), Thiếu trật tự 1-4-7 suy từ tr. 69–70.
+
+Tài liệu tiếng Việt thường gọi 1-4-7 trống là "thiếu thực tế", 3-5-7 trống là "hoài nghi" và có thêm 1-2-3 trống. Đó là cách gọi chưa có nguồn sách; nếu dùng thì nói rõ.

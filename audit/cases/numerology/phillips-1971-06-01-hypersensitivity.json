@@ -1,0 +1,12 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 65: Arrow of Hypersensitivity (ví dụ sinh 1971-06-01); Google Books xem trước, id xogGqJzowKYC; đọc từ đoạn trích tìm kiếm"
+  },
+  "input": {
+    "birth_date": "1971-06-01"
+  },
+  "expect": {
+    "birth_chart.arrows.4.status": "empty"
+  }
+}

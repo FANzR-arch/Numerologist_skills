@@ -84,7 +84,7 @@ Các trường phái tính khác nhau ở một số điểm. Script có mặc �
 | Giờ Tý (`late_zi_rule`) | Bát Tự, Tử Vi, Lục Hào | 23:00 tính sang ngày mới | Thầy/phần mềm của bạn dùng "dạ Tý" (23:00–24:00 vẫn là ngày cũ). |
 | Giờ mặt trời thực (`true_solar_time`) | Bát Tự, Tử Vi, Kỳ Môn | tắt | Sinh xa kinh tuyến múi giờ (Tây Bắc VN, Tân Cương…) hoặc thầy yêu cầu; cần kinh độ nơi sinh. |
 | Tháng nhuận (`leap_month_rule`) | Tử Vi | ngày 1–15 tính tháng này, 16 trở đi tính tháng sau | Theo cách của phần mềm bạn đang đối chiếu. |
-| Rút gọn số chủ đạo (`life_path_rule`) | Thần số học | `vn`: 2–11, 22/4, 33/6 | `classic` nếu theo sách phương Tây (1–9, 11, 22, 33). |
+| Rút gọn số chủ đạo (`life_path_rule`) | Thần số học | `vn`: 2–11, 22/4, 33/6 | `classic` nếu theo sách phương Tây (1–9, 11, 22, 33); `phillips` nếu theo đúng sách Phillips (33 tính là 6, tuổi đỉnh cao đầu = 36 − 10 hoặc 11). |
 | Cách cộng (`life_path_method`) | Thần số học | cộng mọi chữ số | Kết quả lệch với app khác thì thử cách rút gọn riêng ngày/tháng/năm. |
 
 Cảnh báo thường gặp trong kết quả (Claude sẽ nói lại):

@@ -1,0 +1,12 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 67: Arrow of Practicality (ví dụ sinh 1987-04-23); Google Books xem trước, id xogGqJzowKYC; đọc từ đoạn trích tìm kiếm"
+  },
+  "input": {
+    "birth_date": "1987-04-23"
+  },
+  "expect": {
+    "birth_chart.arrows.3.status": "full"
+  }
+}

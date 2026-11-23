@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 53: Arrow of Determination (ví dụ sinh 1950-03-31); Google Books xem trước, id xogGqJzowKYC"
+  },
+  "input": {
+    "birth_date": "1950-03-31"
+  },
+  "expect": {
+    "birth_chart.arrows.6.status": "full",
+    "birth_chart.counts.3": 2,
+    "birth_chart.counts.1": 2,
+    "birth_chart.counts.9": 1,
+    "birth_chart.counts.5": 1,
+    "birth_chart.counts.2": 0
+  }
+}

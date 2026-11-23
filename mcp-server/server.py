@@ -137,14 +137,14 @@ def numerology_chart(
     birth_date: str,
     full_name: str | None = None,
     query_year: int | None = None,
-    life_path_rule: Literal["vn", "classic"] = "vn",
+    life_path_rule: Literal["vn", "classic", "phillips"] = "vn",
     life_path_method: Literal["digits", "components"] = "digits",
     y_as_vowel: bool = True,
 ) -> dict[str, Any]:
     """Thần số học Pythagoras：số chủ đạo、số ngày sinh、biểu đồ ngày sinh và mũi tên、4 đỉnh cao/thử thách；
     给 full_name 时加算 số sứ mệnh / linh hồn / nhân cách / trưởng thành，给 query_year 时加算 năm cá nhân。
 
-    birth_date 为公历 "YYYY-MM-DD"。life_path_rule：vn（2–11、22/4、33/6，越南常用）或 classic（1–9 与 11/22/33）。
+    birth_date 为公历 "YYYY-MM-DD"。life_path_rule：vn（2–11、22/4、33/6，越南常用）、classic（1–9 与 11/22/33）或 phillips（2–11、22/4；33 归为 6）。
     """
     return _chart(numerology_cli.build_output, _payload(
         birth_date=birth_date, full_name=full_name, query_year=query_year, life_path_rule=life_path_rule,

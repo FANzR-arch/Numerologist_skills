@@ -1,6 +1,6 @@
 # Kế hoạch audit logic theo nguồn tài liệu đáng tin cậy
 
-Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2–A7 chưa bắt đầu.
+Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2 làm được phần đọc được trên Google Books 2026-11-23; A3–A7 chưa bắt đầu.
 
 ## Mục tiêu
 
@@ -165,7 +165,7 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 |---|---|---|
 | A0. Khung ✅ | `audit/`, `tools/audit.py sync/check`, loader ca vàng, CI | Xong 2026-11-23: 231 đơn vị (bảng, hàm, mục `ruleset`, tài liệu) được trích tự động; 19 mục `not_applicable` có lý do; còn lại `unverified`; 37 nguồn ✓ trong `sources.json` (chưa xác minh ấn bản) |
 | A1. Lịch pháp (phần công khai ✅) | Đã đọc nguyên văn: Aslaksen (bản nháp 2010), bảng HKO 1985/2007/2024/2033, ytliu0 (theo GB/T 33661), NOAA, tzdb 2026f, Hồ Ngọc Đức calrules_en.html (bản Wayback 2008). Chưa đọc được: GB/T 33661 nguyên văn, bảng NAOJ | core: 6 `confirmed` (đánh số tháng, tháng nhuận, ngày sóc, tiết khí, đổi ngày cn và vn từ 1967), 1 `conflict` (âm lịch VN trước 1967: Aslaksen nói kinh tuyến Bắc Kinh, code dùng 120°Đ; Hồ Ngọc Đức không nói về giai đoạn này), còn lại `unverified`; 19 ca vàng. Đã sửa: phương trình thời gian theo NOAA (366 ngày năm nhuận, giờ UTC); cảnh báo miền Nam dừng ở 13/6/1975 theo tzdb |
-| A2. Thần số học | Sách Phillips và 2 sách phương Tây; viết lại `y-nghia-so.md` theo nguồn | Không còn nội dung nào chỉ có nguồn blog; tên mũi tên có nguồn |
+| A2. Thần số học (phần xem trước ✅) | Đã đọc bản xem trước Google Books: Phillips (Hay House 2005) chương 6–7 và đoạn trích chương 11, 13; Decoz (Perigee 2001) tr. 6, 20–21, 220, 262–263. Chưa đọc: Goodwin, Jordan, bản dịch tiếng Việt, chương ý nghĩa từng số của Phillips | Tên mũi tên có nguồn (Phillips). Thêm luật `phillips` (33 tính là 6, tuổi đỉnh đầu 36 − 10/11). 21 ca vàng. 1 `conflict` (số trưởng thành: Decoz nói rút về một chữ số). Chưa có mục nào `confirmed` vì Thần số học chưa có nguồn T1/T2. Còn thiếu nguồn: ý nghĩa từng số, năm cá nhân, quy tắc chữ Y, luật `vn` giữ 33 |
 | A3. Lục Hào | 京氏易传, 增删卜易, 卜筮正宗; ca vàng là quẻ mẫu trong sách | Bảng 64 quẻ, nạp giáp, bát cung, phục thần `confirmed`; ≥10 ca vàng |
 | A4. Bát Tự | Các kinh điển và chú giải của 徐乐吾; mệnh lệ in trong sách | Bảng tàng can, thập thần, khởi vận `confirmed`; ≥10 mệnh lệ |
 | A5. Tử Vi | 全书/全集, 王亭之, Thái Thứ Lang | Cách an sao `confirmed`; điểm khác giữa phái Việt Nam và Tam Hợp được liệt kê và có nguồn (mở đường cho tham số `school: vn`) |

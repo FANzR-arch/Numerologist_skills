@@ -1,0 +1,16 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 71: Arrow of the Planner (ví dụ sinh 1991-03-12); Google Books xem trước, id xogGqJzowKYC"
+  },
+  "input": {
+    "birth_date": "1991-03-12"
+  },
+  "expect": {
+    "birth_chart.arrows.0.status": "full",
+    "birth_chart.counts.1": 3,
+    "birth_chart.counts.2": 1,
+    "birth_chart.counts.3": 1,
+    "birth_chart.counts.9": 2
+  }
+}

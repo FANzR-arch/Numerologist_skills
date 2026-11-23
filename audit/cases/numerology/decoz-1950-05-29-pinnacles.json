@@ -1,0 +1,22 @@
+{
+  "source": {
+    "id": "decoz-numerology",
+    "locator": "Perigee 2001, Google Books xem trước, id IKC38ldPLakC, tr. 220: Figure 6.1 The Birth Day Chart with Pinnacles"
+  },
+  "input": {
+    "birth_date": "1950-05-29",
+    "life_path_rule": "classic",
+    "life_path_method": "components"
+  },
+  "expect": {
+    "life_path.value": 22,
+    "pinnacles.0.value": 7,
+    "pinnacles.1.value": 8,
+    "pinnacles.2.value": 6,
+    "pinnacles.3.value": 11,
+    "challenges.0": 3,
+    "challenges.1": 4,
+    "challenges.2": 1,
+    "challenges.3": 1
+  }
+}

@@ -21,6 +21,7 @@ ARROWS = [(1, 2, 3), (4, 5, 6), (7, 8, 9), (1, 4, 7), (2, 5, 8), (3, 6, 9), (1, 
 LIFE_PATH_RULES = {
     "vn": "Rút gọn đến 2–11, giữ 22 và 33 (cách phổ biến ở Việt Nam: không có số chủ đạo 1, thay bằng 10).",
     "classic": "Rút gọn đến 1–9, giữ số master 11, 22, 33 (cách phương Tây).",
+    "phillips": "Theo D. A. Phillips: rút gọn đến 2–11 hoặc 22/4; không có 1, thay bằng 10; 33 không phải số master, thành 6.",
 }
 LIFE_PATH_METHODS = {
     "digits": "Cộng tất cả chữ số của ngày, tháng, năm sinh rồi rút gọn.",
@@ -41,7 +42,7 @@ def reduce_number(n: int, keep_masters: bool = True) -> int:
 def reduce_life_path(n: int, rule: str) -> int:
     if rule == "classic":
         return reduce_number(n)
-    while n > 11 and n not in (22, 33):
+    while n > 11 and n not in ((22,) if rule == "phillips" else (22, 33)):
         n = digit_sum(n)
     return n
 
@@ -89,12 +90,13 @@ def birth_chart(birth: date) -> dict[str, Any]:
     }
 
 
-def pinnacles_and_challenges(birth: date, life_path: int) -> tuple[list[dict[str, Any]], list[int]]:
+def pinnacles_and_challenges(birth: date, life_path: int, rule: str) -> tuple[list[dict[str, Any]], list[int]]:
     month, day, year = (reduce_number(digit_sum(v), keep_masters=False) for v in (birth.month, birth.day, birth.year))
     first = reduce_number(month + day)
     second = reduce_number(day + year)
     values = [first, second, reduce_number(first + second), reduce_number(month + year)]
-    first_end = 36 - reduce_number(life_path, keep_masters=False)
+    # Phillips 用 36 − 主导数本身（10→26、11→25），22/4 取 4；其余口径先把主导数化成个位数
+    first_end = 36 - (life_path if rule == "phillips" and life_path in (10, 11) else reduce_number(life_path, keep_masters=False))
     spans = [(0, first_end), (first_end + 1, first_end + 9), (first_end + 10, first_end + 18), (first_end + 19, None)]
     pinnacles = [{"index": i + 1, **number(v), "start_age": a, "end_age": b} for i, (v, (a, b)) in enumerate(zip(values, spans))]
     c1, c2 = abs(month - day), abs(day - year)
@@ -124,7 +126,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
     digits_total = digit_sum(int(birth.strftime("%Y%m%d")))
     components_total = sum(reduce_number(v) for v in (birth.day, birth.month, birth.year))
     life_path = reduce_life_path(components_total if method == "components" else digits_total, rule)
-    pinnacles, challenges = pinnacles_and_challenges(birth, life_path)
+    pinnacles, challenges = pinnacles_and_challenges(birth, life_path, rule)
 
     output: dict[str, Any] = {
         "normalized_input": {
@@ -143,7 +145,7 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
             "name_rule": "Cộng toàn bộ chữ cái của họ tên rồi rút gọn (giữ 11/22/33). Nguyên âm: A E I O U" + (" và Y." if y_as_vowel else "; Y tính là phụ âm."),
             "birthday_rule": "Số ngày sinh: rút gọn ngày sinh, giữ 11 và 22.",
             "personal_year_rule": "Năm cá nhân: cộng chữ số của ngày, tháng sinh và năm cần xem, rút gọn về 1–9.",
-            "pinnacle_rule": "Ngày, tháng, năm rút về 1–9; đỉnh 1 = tháng + ngày, đỉnh 2 = ngày + năm, đỉnh 3 = đỉnh 1 + đỉnh 2, đỉnh 4 = tháng + năm (giữ 11/22/33). Đỉnh 1 kết thúc ở tuổi 36 − số chủ đạo rút về 1–9; đỉnh 2, 3 mỗi đỉnh 9 năm. Thử thách: |tháng − ngày|, |ngày − năm|, |thử thách 1 − thử thách 2|, |tháng − năm|.",
+            "pinnacle_rule": "Ngày, tháng, năm rút về 1–9; đỉnh 1 = tháng + ngày, đỉnh 2 = ngày + năm, đỉnh 3 = đỉnh 1 + đỉnh 2, đỉnh 4 = tháng + năm (giữ 11/22/33). Đỉnh 1 kết thúc ở tuổi 36 − số chủ đạo rút về 1–9 (luật phillips: 36 − 10 = 26, 36 − 11 = 25, 22/4 tính 4); đỉnh 2, 3 mỗi đỉnh 9 năm. Thử thách: |tháng − ngày|, |ngày − năm|, |thử thách 1 − thử thách 2|, |tháng − năm|.",
             "maturity_rule": "Số trưởng thành = số chủ đạo rút về 1–9 + số sứ mệnh, rút gọn (giữ 11/22/33).",
             "birth_chart_rule": "Biểu đồ ngày sinh: đếm chữ số 1–9 trong DDMMYYYY (bỏ số 0) trên lưới 3-6-9 / 2-5-8 / 1-4-7; mũi tên full khi đủ cả 3 số, empty khi thiếu cả 3.",
         },

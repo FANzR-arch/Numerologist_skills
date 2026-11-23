@@ -33,7 +33,7 @@ Cần:
 
 Hỏi thêm khi người dùng đã quen một cách tính:
 
-- Số chủ đạo theo cách Việt Nam phổ biến (2–11, 22/4, 33/6; không có 1, thay bằng 10) hay cách phương Tây (1–9, 11, 22, 33): `life_path_rule` = `vn` (mặc định) / `classic`.
+- Số chủ đạo theo cách Việt Nam phổ biến (2–11, 22/4, 33/6; không có 1, thay bằng 10), cách phương Tây (1–9, 11, 22, 33) hay đúng sách Phillips (2–11, 22/4; 33 tính là 6): `life_path_rule` = `vn` (mặc định) / `classic` / `phillips`.
 - Cộng tất cả chữ số (mặc định) hay rút gọn riêng ngày, tháng, năm rồi cộng: `life_path_method` = `digits` / `components`. Hai cách có thể ra số khác nhau (ví dụ 6/7/1989: `digits` ra 4, `components` ra 22/4). Kết quả lệch với app người dùng đang xem thì thử cách còn lại và nói rõ.
 - Chữ Y tính là nguyên âm (mặc định, hợp với tên tiếng Việt như Huy, Thủy) hay phụ âm: `y_as_vowel`.
 

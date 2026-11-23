@@ -1229,10 +1229,21 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:15",
     "fingerprint": "3586ec271abd3226",
-    "claim": "",
-    "sources": [],
+    "claim": "Số master 11, 22, 33.",
+    "sources": [
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, glossary tr. 262: 11, 22, và hiếm khi 33",
+        "stance": "agree"
+      },
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 83: 33 không phải số master",
+        "stance": "disagree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Hai nguồn khác nhau về 33; luật phillips tính 33 là 6. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1242,10 +1253,16 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:16",
     "fingerprint": "9ad8f75b40843adf",
-    "claim": "",
-    "sources": [],
+    "claim": "Bảng Pythagoras A–I = 1–9, J–R = 1–9, S–Z = 1–8.",
+    "sources": [
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, tr. 6, bảng chữ cái",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Khớp Decoz. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed. Chưa đọc chương tên của Phillips (tr. 229).",
     "tests": [],
     "stale": false
   },
@@ -1268,10 +1285,16 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:19",
     "fingerprint": "38d5f0aefb522eaa",
-    "claim": "",
-    "sources": [],
+    "claim": "Lưới 3×3: hàng trên 3-6-9, giữa 2-5-8, dưới 1-4-7; số 0 không ghi.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 53 (hình 3/31/1950), tr. 56, tr. 60",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Khớp các hình trong chương 6 của Phillips. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1281,10 +1304,16 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:20",
     "fingerprint": "0de5ebcd95c05c5c",
-    "claim": "",
-    "sources": [],
+    "claim": "8 mũi tên: 3 hàng, 3 cột, 2 đường chéo của lưới.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, chương 6, tr. 51–79",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Các tiêu đề đã đọc: 8 mũi tên đủ số và 7 mũi tên trống; chưa thấy mục lục mũi tên, chưa thấy mũi tên trống 1-2-3. Tên Spirituality (3-5-7), Will (4-5-6), Disorder (1-4-7 trống) có phần suy luận, xem chú thích trong y-nghia-so.md. 13 ca vàng trong audit/cases/numerology. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1293,11 +1322,22 @@
     "engine": "numerology",
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:21",
-    "fingerprint": "c7a7a0c79a2ff71f",
-    "claim": "",
-    "sources": [],
+    "fingerprint": "15aa549d9d489461",
+    "claim": "vn: 2–11, 22, 33; classic: 1–9, 11, 22, 33; phillips: 2–11, 22.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 82–83 (danh sách 11 Ruling Number, không có 1, 33/6 là 6)",
+        "stance": "agree"
+      },
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, tr. 20–21 và glossary tr. 262",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Luật phillips khớp Phillips; classic khớp Decoz. Luật vn (giữ 33) chưa có nguồn sách, chỉ là cách gọi phổ biến trên mạng. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1305,12 +1345,23 @@
     "id": "numerology.table.LIFE_PATH_METHODS",
     "engine": "numerology",
     "kind": "table",
-    "location": "numerology/scripts/numerology_cli.py:25",
+    "location": "numerology/scripts/numerology_cli.py:26",
     "fingerprint": "72247f3af97e43cf",
-    "claim": "",
-    "sources": [],
+    "claim": "digits: cộng mọi chữ số; components: rút gọn riêng tháng, ngày, năm (giữ 11/22) rồi cộng.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 82: cộng từng chữ số của ngày sinh",
+        "stance": "agree"
+      },
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, tr. 20–21: chỉ cách components là đúng",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Hai sách dùng hai cách khác nhau; code để cả hai làm tham số, mặc định digits (theo Phillips). Decoz gọi cách cộng cả số nguyên rồi rút gọn là sai; code không có cách đó. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1318,7 +1369,7 @@
     "id": "numerology.function.digit_sum",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:31",
+    "location": "numerology/scripts/numerology_cli.py:32",
     "fingerprint": "4672942e0122a187",
     "claim": "",
     "sources": [],
@@ -1331,7 +1382,7 @@
     "id": "numerology.function.reduce_number",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:35",
+    "location": "numerology/scripts/numerology_cli.py:36",
     "fingerprint": "04936f3a113a2748",
     "claim": "",
     "sources": [],
@@ -1344,12 +1395,23 @@
     "id": "numerology.function.reduce_life_path",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:41",
-    "fingerprint": "d75da720360007a0",
-    "claim": "",
-    "sources": [],
+    "location": "numerology/scripts/numerology_cli.py:42",
+    "fingerprint": "8c6ef275244aefc9",
+    "claim": "Rút gọn tổng theo từng luật vn / classic / phillips.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 82–84",
+        "stance": "agree"
+      },
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, tr. 20–21",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Xem numerology.table.LIFE_PATH_RULES. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1357,7 +1419,7 @@
     "id": "numerology.function.number",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:49",
+    "location": "numerology/scripts/numerology_cli.py:50",
     "fingerprint": "27476dca284f84c2",
     "claim": "",
     "sources": [],
@@ -1370,7 +1432,7 @@
     "id": "numerology.function.normalize_name",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:55",
+    "location": "numerology/scripts/numerology_cli.py:56",
     "fingerprint": "dbac88014f142525",
     "claim": "",
     "sources": [],
@@ -1383,12 +1445,23 @@
     "id": "numerology.function.name_numbers",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:64",
+    "location": "numerology/scripts/numerology_cli.py:65",
     "fingerprint": "8d13b320d5ddef6e",
-    "claim": "",
-    "sources": [],
+    "claim": "Sứ mệnh = tổng mọi chữ cái họ tên khai sinh; linh hồn = nguyên âm; nhân cách = phụ âm.",
+    "sources": [
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, glossary tr. 262: Expression, Heart's Desire (Soul Urge)",
+        "stance": "agree"
+      },
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 233 (đoạn trích): Soul Urge là tổng nguyên âm",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Quy tắc chữ Y chưa có nguồn. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1396,12 +1469,18 @@
     "id": "numerology.function.birth_chart",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:77",
+    "location": "numerology/scripts/numerology_cli.py:78",
     "fingerprint": "7c44278314c21102",
-    "claim": "",
-    "sources": [],
+    "claim": "Đếm chữ số 1–9 của ngày sinh (bỏ 0) lên lưới; mũi tên full khi đủ 3 số, empty khi thiếu cả 3.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 52: mũi tên là ba số thẳng hàng hoặc ba ô trống thẳng hàng; tr. 53–78 các ví dụ",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "13 ca vàng khớp. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1409,12 +1488,23 @@
     "id": "numerology.function.pinnacles_and_challenges",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:92",
-    "fingerprint": "e2b7e9285709b024",
-    "claim": "",
-    "sources": [],
+    "location": "numerology/scripts/numerology_cli.py:93",
+    "fingerprint": "c63642e63b60c744",
+    "claim": "Giá trị đỉnh: tháng+ngày, ngày+năm, đỉnh1+đỉnh2, tháng+năm; thử thách: |tháng−ngày|, |ngày−năm|, |TT1−TT2|, |tháng−năm|. Tuổi đỉnh 1: 36 − số chủ đạo (rút về 1–9; luật phillips giữ 10, 11).",
+    "sources": [
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, tr. 220 (Figure 6.1) và glossary tr. 262 (thử thách 1, 4, chính)",
+        "stance": "agree"
+      },
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 175, 177, 179 (đoạn trích): đỉnh đầu ở tuổi 36 − Ruling Number; bảng tuổi cho 10, 11, 22/4",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Giá trị khớp ví dụ Decoz 29/5/1950. Tuổi theo Phillips chỉ đúng với luật phillips; cách rút 10→1, 11→2 của luật vn/classic chưa có nguồn. Phillips coi đỉnh là thời điểm, script vẫn xuất khoảng tuổi. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1422,8 +1512,8 @@
     "id": "numerology.function.build_output",
     "engine": "numerology",
     "kind": "function",
-    "location": "numerology/scripts/numerology_cli.py:104",
-    "fingerprint": "357a9488ccf30d75",
+    "location": "numerology/scripts/numerology_cli.py:106",
+    "fingerprint": "07450882fca37610",
     "claim": "",
     "sources": [],
     "verdict": "unverified",
@@ -1435,12 +1525,23 @@
     "id": "numerology.ruleset.life_path_rule",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:140",
+    "location": "numerology/scripts/numerology_cli.py:142",
     "fingerprint": "9f1339378e6f941b",
-    "claim": "",
-    "sources": [],
+    "claim": "Mô tả luật rút gọn số chủ đạo.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 82–83",
+        "stance": "agree"
+      },
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, glossary tr. 262",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Xem numerology.table.LIFE_PATH_RULES. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1448,12 +1549,23 @@
     "id": "numerology.ruleset.life_path_method",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:141",
+    "location": "numerology/scripts/numerology_cli.py:143",
     "fingerprint": "e091cc1c075d49c0",
-    "claim": "",
-    "sources": [],
+    "claim": "Mô tả cách cộng.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 82",
+        "stance": "agree"
+      },
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, tr. 20–21",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Xem numerology.table.LIFE_PATH_METHODS. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1461,7 +1573,7 @@
     "id": "numerology.ruleset.letter_values",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:142",
+    "location": "numerology/scripts/numerology_cli.py:144",
     "fingerprint": "3347e17d9e9f0928",
     "claim": "",
     "sources": [],
@@ -1474,12 +1586,18 @@
     "id": "numerology.ruleset.name_rule",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:143",
+    "location": "numerology/scripts/numerology_cli.py:145",
     "fingerprint": "4dac3f584ee0faeb",
-    "claim": "",
-    "sources": [],
+    "claim": "Mô tả cách tính số tên.",
+    "sources": [
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, glossary tr. 262",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Quy tắc chữ Y chưa có nguồn. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1487,7 +1605,7 @@
     "id": "numerology.ruleset.birthday_rule",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:144",
+    "location": "numerology/scripts/numerology_cli.py:146",
     "fingerprint": "feb84566d5468f3f",
     "claim": "",
     "sources": [],
@@ -1500,7 +1618,7 @@
     "id": "numerology.ruleset.personal_year_rule",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:145",
+    "location": "numerology/scripts/numerology_cli.py:147",
     "fingerprint": "7af7c210152c6118",
     "claim": "",
     "sources": [],
@@ -1513,12 +1631,23 @@
     "id": "numerology.ruleset.pinnacle_rule",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:146",
-    "fingerprint": "ef677ac5b5f1f40f",
-    "claim": "",
-    "sources": [],
+    "location": "numerology/scripts/numerology_cli.py:148",
+    "fingerprint": "7ab3b0e3120d712c",
+    "claim": "Mô tả cách tính đỉnh và thử thách.",
+    "sources": [
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, tr. 220, 262",
+        "stance": "agree"
+      },
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 177, 179 (đoạn trích)",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Xem numerology.function.pinnacles_and_challenges. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1526,12 +1655,18 @@
     "id": "numerology.ruleset.maturity_rule",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:147",
+    "location": "numerology/scripts/numerology_cli.py:149",
     "fingerprint": "de69a5199b8ad1de",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
+    "claim": "Số trưởng thành = số chủ đạo rút về 1–9 + số sứ mệnh, rút gọn giữ 11/22/33.",
+    "sources": [
+      {
+        "id": "decoz-numerology",
+        "locator": "Perigee 2001, glossary tr. 262–263: cộng Expression với Life Path rồi rút về một chữ số",
+        "stance": "disagree"
+      }
+    ],
+    "verdict": "conflict",
+    "notes": "Glossary của Decoz nói rút về một chữ số; code giữ 11/22/33 và rút số chủ đạo trước khi cộng. Chưa sửa: glossary có thể chỉ viết gọn, cần đọc chương chính về Maturity.",
     "tests": [],
     "stale": false
   },
@@ -1539,12 +1674,18 @@
     "id": "numerology.ruleset.birth_chart_rule",
     "engine": "numerology",
     "kind": "ruleset",
-    "location": "numerology/scripts/numerology_cli.py:148",
+    "location": "numerology/scripts/numerology_cli.py:150",
     "fingerprint": "6bd9d8c4f23c865d",
-    "claim": "",
-    "sources": [],
+    "claim": "Mô tả biểu đồ ngày sinh.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, tr. 52–53",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
     "tests": [],
     "stale": false
   },
@@ -1553,7 +1694,7 @@
     "engine": "numerology",
     "kind": "doc",
     "location": "numerology/SKILL.md",
-    "fingerprint": "3464570d52df831e",
+    "fingerprint": "d1d7bd23a6db19c2",
     "claim": "",
     "sources": [],
     "verdict": "unverified",
@@ -1566,11 +1707,17 @@
     "engine": "numerology",
     "kind": "doc",
     "location": "numerology/references/y-nghia-so.md",
-    "fingerprint": "aae9137476c96780",
-    "claim": "",
-    "sources": [],
+    "fingerprint": "432583d59e9a290c",
+    "claim": "Bảng tên mũi tên theo Phillips; số 10, 33 có nguồn; phần mạnh/cần rèn của từng số chưa đối chiếu.",
+    "sources": [
+      {
+        "id": "phillips-complete-numerology",
+        "locator": "Hay House 2005, chương 6 tr. 51–79; tr. 82–83",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Phần ý nghĩa từng số và năm cá nhân vẫn chưa có nguồn: chương Ruling Number (tr. 84–117) phần lớn không có bản xem trước.",
     "tests": [],
     "stale": false
   },

@@ -1,0 +1,13 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 82: 1/3/1960 = 20/2; Google Books xem trước, id xogGqJzowKYC"
+  },
+  "input": {
+    "birth_date": "1960-01-03",
+    "life_path_rule": "phillips"
+  },
+  "expect": {
+    "life_path.value": 2
+  }
+}

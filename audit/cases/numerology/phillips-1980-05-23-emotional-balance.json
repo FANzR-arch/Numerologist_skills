@@ -1,0 +1,12 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 63: Arrow of Emotional Balance (ví dụ sinh 1980-05-23); Google Books xem trước, id xogGqJzowKYC; đọc từ đoạn trích tìm kiếm"
+  },
+  "input": {
+    "birth_date": "1980-05-23"
+  },
+  "expect": {
+    "birth_chart.arrows.4.status": "full"
+  }
+}

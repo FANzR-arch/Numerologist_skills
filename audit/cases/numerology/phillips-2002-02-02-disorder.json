@@ -1,0 +1,12 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 69–70: Arrow of Disorder (ví dụ sinh 2002-02-02); Google Books xem trước, id xogGqJzowKYC; tr. 69 từ đoạn trích; tr. 70 nói về Mặt phẳng Thể chất trống"
+  },
+  "input": {
+    "birth_date": "2002-02-02"
+  },
+  "expect": {
+    "birth_chart.arrows.3.status": "empty"
+  }
+}

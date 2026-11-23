@@ -1,0 +1,14 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 82, 179: 5/1/1949 = 29/11; tr. 179 (đoạn trích): Ruling 11 đạt đỉnh đầu ở tuổi 25; Google Books xem trước, id xogGqJzowKYC"
+  },
+  "input": {
+    "birth_date": "1949-05-01",
+    "life_path_rule": "phillips"
+  },
+  "expect": {
+    "life_path.value": 11,
+    "pinnacles.0.end_age": 25
+  }
+}

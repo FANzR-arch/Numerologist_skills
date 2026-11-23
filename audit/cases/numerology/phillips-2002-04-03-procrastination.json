@@ -1,0 +1,15 @@
+{
+  "source": {
+    "id": "phillips-complete-numerology",
+    "locator": "Hay House 2005, tr. 55: Arrow of Procrastination (ví dụ sinh 2002-04-03); Google Books xem trước, id xogGqJzowKYC"
+  },
+  "input": {
+    "birth_date": "2002-04-03"
+  },
+  "expect": {
+    "birth_chart.arrows.6.status": "empty",
+    "birth_chart.counts.3": 1,
+    "birth_chart.counts.2": 2,
+    "birth_chart.counts.4": 1
+  }
+}

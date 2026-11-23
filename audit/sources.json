@@ -401,11 +401,11 @@
     "author": "David A. Phillips",
     "language": "en",
     "tier": "T3",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": "据称是越南流行算法（生日图、箭头）的来源，待核实"
+    "lineage": "phillips-templeton",
+    "edition": "Hay House 2005 (ISBN 9781401907273)",
+    "access": "Google Books, bản xem trước có giới hạn (id xogGqJzowKYC), đọc qua Chrome 2026-11-23; một số trang chỉ đọc được đoạn trích tìm kiếm",
+    "verified": true,
+    "note": "Có một bản PDF không rõ bản quyền trên archive.org; không dùng. Phillips ghi các mũi tên học từ Hettie Templeton (tr. 51). Số trang ghi theo tham số pg=PA<n> của Google Books khi mở trang."
   },
   {
     "id": "decoz-numerology",
@@ -413,11 +413,11 @@
     "author": "Hans Decoz",
     "language": "en",
     "tier": "T3",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "decoz",
+    "edition": "Perigee 2001 (Google Books ghi tên: Numerology: A Complete Guide to Understanding and Using Your Numbers of Destiny)",
+    "access": "Google Books, bản xem trước có giới hạn (id IKC38ldPLakC), đọc qua Chrome 2026-11-23",
+    "verified": true,
+    "note": "Chưa đối chiếu với ấn bản Avery 1994 mang tên Numerology: Key to Your Inner Self. Số trang ghi theo tham số pg=PA<n> của Google Books khi mở trang."
   },
   {
     "id": "goodwin-numerology",
