@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "aslaksen-chinese-calendar",
-    "locator": "Draft 2010-07-17, tr. 29 (Tết miền Bắc 29/1/1968, lịch UTC+7)"
+    "locator": "Draft 2010-07-17, p. 29 (northern Tet 29 Jan 1968, UTC+7 calendar)"
   },
   "input": {
     "calendar_type": "solar",

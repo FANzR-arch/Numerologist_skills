@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "hko-calendar-tables",
-    "locator": "T2033e.txt, dòng 2033/11/22 (11th Lunar Month, Light Snow)"
+    "locator": "T2033e.txt, line 2033/11/22 (11th Lunar Month, Light Snow)"
   },
   "input": {
     "calendar_type": "solar",

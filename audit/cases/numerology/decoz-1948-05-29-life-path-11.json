@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "decoz-numerology",
-    "locator": "Perigee 2001, Google Books xem trước, id IKC38ldPLakC, tr. 21: 5 + 11 + 22 = 38 → 11, giữ số master"
+    "locator": "Perigee 2001, Google Books preview, id IKC38ldPLakC, p. 21: 5 + 11 + 22 = 38 → 11, keeping master numbers"
   },
   "input": {
     "birth_date": "1948-05-29",

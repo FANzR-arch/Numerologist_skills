@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "dunjia-yanyi",
-    "locator": "zh.wikisource 遁甲演義 (四庫全書本)/卷2 (đoạn 人遁): 假如陽遁七局乙庚日丙子時天任為直符加時干六丙於五宫生門為直使加臨一宫即休門與六丁星竒下臨直符前二六宫太隂中也. Ngày giờ dựng lại có cùng cục và giờ; sách ghi 五宫, code đặt trực phù ở cung 2 (trung cung gửi Khôn)"
+    "locator": "zh.wikisource 遁甲演義 (四庫全書本)/卷2 (section 人遁): 假如陽遁七局乙庚日丙子時天任為直符加時干六丙於五宫生門為直使加臨一宫即休門與六丁星竒下臨直符前二六宫太隂中也. Reconstructed date and time with the same ju and hour; the book says 五宫, the code places the zhifu in palace 2 (center lodges with Kun)"
   },
   "input": {
     "time_input": "2024-03-07 00:30",

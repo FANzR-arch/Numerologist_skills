@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "hko-calendar-tables",
-    "locator": "T2007e.txt, dòng 2007/02/18 (1st Lunar month)"
+    "locator": "T2007e.txt, line 2007/02/18 (1st Lunar month)"
   },
   "input": {
     "calendar_type": "solar",

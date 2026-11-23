@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "ho-ngoc-duc-amlich",
-    "locator": "calrules_en.html (Wayback 2008-08-03), mục Why 1985 has a leap lunar month: tháng 21/03–19/04/1985 không có trung khí, là tháng nhuận; số 2 suy từ quy tắc 4 (tháng 1 từ 21/01, tháng 2 từ 20/02)"
+    "locator": "calrules_en.html (Wayback 2008-08-03), section Why 1985 has a leap lunar month: the month 21 Mar–19 Apr 1985 has no principal term and is the leap month; the number 2 is inferred from rule 4 (month 1 from 21 Jan, month 2 from 20 Feb)"
   },
   "input": {
     "calendar_type": "solar",

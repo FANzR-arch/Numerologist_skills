@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "hko-calendar-tables",
-    "locator": "T1985e.txt, dòng 1985/01/25 (5)"
+    "locator": "T1985e.txt, line 1985/01/25 (5)"
   },
   "input": {
     "calendar_type": "solar",

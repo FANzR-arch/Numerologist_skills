@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "sanming-tonghui",
-    "locator": "zh.wikisource 三命通會/卷二, 论大运: ví dụ 甲子 dương nam, sinh trước lập xuân 5 ngày 3 canh giờ, khởi vận 1 tuổi lẻ 9 tháng, vận trước khi giao là 丁丑. Ngày giờ dựng lại: 5 ngày 6 giờ trước lập xuân 1685-02-03 09:42"
+    "locator": "zh.wikisource 三命通會/卷二, 论大运: example 甲子 yang male born 5 days 3 shichen before Lichun; luck starts at 1 year 9 months; the period before it is 丁丑. Reconstructed date and time: 5 days 6 hours before Lichun 1685-02-03 09:42"
   },
   "input": {
     "birth_time": "1685-01-29 03:42",

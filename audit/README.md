@@ -55,7 +55,7 @@ Rules:
 - Blogs are not sources.
 - Once a specific edition is in hand, fill in `edition` and `access` in `sources.json` and set `verified: true`.
 
-Some existing `claim`, `notes` and `locator` values are in Vietnamese; new entries can be written in English.
+Write `claim`, `notes` and `locator` in English; keep proper names and quoted classical text as in the source.
 
 ## Golden cases
 

@@ -60,7 +60,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "Mô tả nhánh vn đã ghi rõ phần chưa khớp nguồn; xem core.table.VN_UTC7_FROM_SUI.",
+    "notes": "The vn-branch description already states which part does not match the sources; see core.table.VN_UTC7_FROM_SUI.",
     "tests": [],
     "stale": false
   },
@@ -96,21 +96,21 @@
     "kind": "table",
     "location": "core/calendar_core.py:40",
     "fingerprint": "bd0559d532b28559",
-    "claim": "Âm lịch Việt Nam tính theo UTC+7 từ tuế 1967 (tháng 11 âm ≈ 12/1967); trước đó script tính như lịch Trung Quốc 120°Đ.",
+    "claim": "The Vietnamese lunar calendar uses UTC+7 from the sui of 1967 (lunar month 11 ≈ Dec 1967); before that the script computes it like the Chinese calendar at 120°E.",
     "sources": [
       {
         "id": "aslaksen-chinese-calendar",
-        "locator": "Draft 2010-07-17, tr. 29: Việt Nam theo truyền thống dùng lịch TQ theo kinh tuyến Bắc Kinh (116°25′Đ); chính phủ miền Bắc duyệt lịch UTC+7 ngày 8/8/1967",
+        "locator": "Draft 2010-07-17, p. 29: Vietnam traditionally used the Chinese calendar on the Beijing meridian (116°25′E); the northern government approved a UTC+7 calendar on 8 Aug 1967",
         "stance": "disagree"
       },
       {
         "id": "ho-ngoc-duc-amlich",
-        "locator": "calrules_en.html (Wayback 2008-08-03), mục Vietnamese calendar rules, quy tắc cuối: tính theo kinh tuyến 105°Đ (chỉ xác nhận 105°Đ, không nói năm áp dụng hay giai đoạn trước 1967)",
+        "locator": "calrules_en.html (Wayback 2008-08-03), section Vietnamese calendar rules, last rule: calculations are based on the meridian 105°E (confirms 105°E only; says nothing about the year it applies from or the period before 1967)",
         "stance": "partial"
       }
     ],
     "verdict": "conflict",
-    "notes": "Hồ Ngọc Đức xác nhận lịch Việt Nam tính theo 105°Đ (UTC+7) nhưng không nói từ năm nào và không nói gì về trước 1967. Mâu thuẫn còn nguyên: Aslaksen tr. 29 nói trước 1967 Việt Nam dùng kinh tuyến Bắc Kinh, không phải 120°Đ, nên có thể lệch một ngày. Mốc 'tuế 1967' suy ra từ ngày duyệt 8/8/1967 và Tết 1968, nguồn không ghi trực tiếp. Chưa sửa code: phần trước 1967 vẫn chỉ có 1 nguồn.",
+    "notes": "Ho Ngoc Duc confirms the Vietnamese calendar uses 105°E (UTC+7) but does not say from which year and says nothing about the period before 1967. The conflict remains: Aslaksen p. 29 says that before 1967 Vietnam used the Beijing meridian, not 120°E, so dates may differ by one day. The 'sui of 1967' cut-off is inferred from the 8 Aug 1967 approval and Tet 1968; the source does not state it directly. Code not changed: the pre-1967 part still has only one source.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -161,16 +161,16 @@
     "kind": "function",
     "location": "core/calendar_core.py:75",
     "fingerprint": "2489b53c00c74042",
-    "claim": "Báo lỗi khi năm âm lịch TQ không có tháng nhuận được yêu cầu.",
+    "claim": "Raises an error when the requested leap month does not exist in that Chinese lunar year.",
     "sources": [
       {
         "id": "hko-calendar-tables",
-        "locator": "T2033e.txt, dòng 2033/12/22 (một ví dụ)",
+        "locator": "T2033e.txt, line 2033/12/22 (one example)",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Mới có 1 ví dụ; lunar_python là thư viện chính của code nên không tính là nguồn.",
+    "notes": "Only one example so far; lunar_python is the code's own library, so it does not count as a source.",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar"
     ],
@@ -221,16 +221,16 @@
     "kind": "function",
     "location": "core/calendar_core.py:99",
     "fingerprint": "fbe80ca4f41536fa",
-    "claim": "Cảnh báo giờ mùa hè và giờ không tồn tại/lặp theo dữ liệu tzdb (TQ 1986–1991).",
+    "claim": "Warns about daylight saving time and non-existent/repeated clock times from tzdb data (China 1986–1991).",
     "sources": [
       {
         "id": "iana-tzdb",
-        "locator": "asia, Rule PRC dòng 448–450 và chú thích trích thông báo chính phủ",
+        "locator": "asia, Rule PRC lines 448–450 and the comment quoting the government notice",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "zoneinfo dùng chính tzdb nên chưa có nguồn độc lập thứ hai.",
+    "notes": "zoneinfo uses tzdb itself, so there is no second independent source yet.",
     "tests": [
       "core/tests/test_calendar_core.py::TestClockWarnings"
     ],
@@ -242,16 +242,16 @@
     "kind": "function",
     "location": "core/calendar_core.py:117",
     "fingerprint": "784cf4fb68c95eb9",
-    "claim": "Phương trình thời gian theo công thức NOAA: γ = 2π/365 (366 năm nhuận)·(ngày trong năm − 1 + (giờ UTC − 12)/24), eqtime = 229.18·(…).",
+    "claim": "Equation of time per the NOAA formula: γ = 2π/365 (366 in leap years)·(day of year − 1 + (UTC hour − 12)/24), eqtime = 229.18·(…).",
     "sources": [
       {
         "id": "noaa-solar-calculations",
-        "locator": "tr. 1, mục fractional year và eqtime",
+        "locator": "p. 1, fractional year and eqtime",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Đã sửa code cho khớp NOAA (trước đây luôn dùng 365 và giờ địa phương). Tài liệu NOAA không ghi tác giả công thức hay độ chính xác; cần nguồn thứ hai.",
+    "notes": "Code changed to match NOAA (it previously always used 365 and local time). The NOAA document gives neither the formula's author nor its accuracy; a second source is needed.",
     "tests": [
       "core/tests/test_calendar_core.py::TestAgainstSources"
     ],
@@ -263,7 +263,7 @@
     "kind": "function",
     "location": "core/calendar_core.py:126",
     "fingerprint": "57c3de0e1f059c9d",
-    "claim": "Giờ mặt trời thực = giờ UTC + 4·kinh độ (phút, Đông dương) + phương trình thời gian; UTC lấy theo múi giờ có giờ mùa hè.",
+    "claim": "True solar time = UTC + 4·longitude (minutes, east positive) + equation of time; UTC is derived from the time zone including daylight saving time.",
     "sources": [
       {
         "id": "noaa-solar-calculations",
@@ -272,7 +272,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Mới có 1 nguồn.",
+    "notes": "Only one source so far.",
     "tests": [
       "core/tests/test_calendar_core.py::TestAgainstSources"
     ],
@@ -323,7 +323,7 @@
     "kind": "function",
     "location": "core/calendar_core.py:184",
     "fingerprint": "39cf742552b828a7",
-    "claim": "Ngày sóc tính theo giờ địa phương của kinh tuyến lịch: 120°Đ (UTC+8) cho lịch Trung Quốc từ 1929; dời theo múi giờ cho lịch khác. Thời điểm sóc lấy từ ShouXingUtil.shuoHigh của lunar_python.",
+    "claim": "The new-moon day is computed in the local time of the calendar meridian: 120°E (UTC+8) for the Chinese calendar since 1929, shifted by time zone for other calendars. New-moon instants come from lunar_python's ShouXingUtil.shuoHigh.",
     "sources": [
       {
         "id": "aslaksen-chinese-calendar",
@@ -337,12 +337,12 @@
       },
       {
         "id": "hko-calendar-tables",
-        "locator": "bảng 1985, 2007, 2024, 2033",
+        "locator": "tables 1985, 2007, 2024, 2033",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Độ chính xác ephemeris kiểm gián tiếp qua ca vàng HKO; chưa đối chiếu thời điểm sóc từng phút.",
+    "notes": "Ephemeris accuracy is checked only indirectly through the HKO golden cases; new-moon instants have not been compared minute by minute.",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar",
       "audit/tests/test_golden_cases.py"
@@ -355,11 +355,11 @@
     "kind": "function",
     "location": "core/calendar_core.py:190",
     "fingerprint": "2434353b10a313cd",
-    "claim": "Ngày tiết khí/trung khí tính theo giờ địa phương của kinh tuyến lịch (UTC+8 cho lịch TQ); thời điểm lấy từ ShouXingUtil.qiHigh.",
+    "claim": "Solar term and principal term days are computed in the local time of the calendar meridian (UTC+8 for the Chinese calendar); instants come from ShouXingUtil.qiHigh.",
     "sources": [
       {
         "id": "ytliu0-chinese-calendar",
-        "locator": "rules.html (thời gian theo China standard time UTC+08:00)",
+        "locator": "rules.html (times in China standard time, UTC+08:00)",
         "stance": "agree"
       },
       {
@@ -369,7 +369,7 @@
       }
     ],
     "verdict": "confirmed",
-    "notes": "Mới kiểm tới mức ngày; chưa có nguồn T1 cho thời điểm tới phút (bảng NAOJ chưa đọc).",
+    "notes": "Checked to the day only; no T1 source yet for instants to the minute (NAOJ tables not read).",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar",
       "audit/tests/test_golden_cases.py"
@@ -395,7 +395,7 @@
     "kind": "function",
     "location": "core/calendar_core.py:205",
     "fingerprint": "bbbedc5a2595e4b8",
-    "claim": "Tháng chứa Đông chí là tháng 11; tuế (từ tháng 11 tới tháng 11 năm sau) có 13 tháng thì tháng đầu tiên sau tháng 11 không chứa trung khí là tháng nhuận, mang số của tháng trước.",
+    "claim": "The month containing the winter solstice is month 11; when a sui (from month 11 to the next month 11) has 13 months, the first month after month 11 without a principal term is the leap month and takes the number of the previous month.",
     "sources": [
       {
         "id": "aslaksen-chinese-calendar",
@@ -409,17 +409,17 @@
       },
       {
         "id": "hko-calendar-tables",
-        "locator": "T2033e.txt: 11th Lunar Month lặp ở 2033/11/22 và 2033/12/22",
+        "locator": "T2033e.txt: '11th Lunar Month' repeats at 2033/11/22 and 2033/12/22",
         "stance": "agree"
       },
       {
         "id": "ho-ngoc-duc-amlich",
-        "locator": "calrules_en.html (Wayback 2008-08-03), mục Vietnamese calendar rules, quy tắc 3–4; mục Why 1985 has a leap lunar month",
+        "locator": "calrules_en.html (Wayback 2008-08-03), section Vietnamese calendar rules, rules 3–4; section Why 1985 has a leap lunar month",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Ca vàng 2033 (nhuận tháng 11) khớp HKO; ytliu0 examples.html 'Example 2: N2033' cùng kết quả. Hồ Ngọc Đức: ca nhuận tháng 2 năm 1985 (lịch VN) và tháng nhuận TQ 23/11–21/12/1984 khớp; số tháng 10 lấy từ HKO T1984e.txt.",
+    "notes": "The 2033 golden case (leap month 11) matches HKO; ytliu0 examples.html 'Example 2: N2033' gives the same result. Ho Ngoc Duc: the 1985 leap month 2 (Vietnamese calendar) and the Chinese leap month 23 Nov–21 Dec 1984 match; the month number 10 comes from HKO T1984e.txt.",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar",
       "audit/tests/test_golden_cases.py"
@@ -432,7 +432,7 @@
     "kind": "function",
     "location": "core/calendar_core.py:225",
     "fingerprint": "b53bf0e97ffab859",
-    "claim": "Ngày có sóc là mùng 1 của tháng.",
+    "claim": "The day of the new moon is day 1 of the month.",
     "sources": [
       {
         "id": "aslaksen-chinese-calendar",
@@ -451,12 +451,12 @@
       },
       {
         "id": "ho-ngoc-duc-amlich",
-        "locator": "calrules_en.html (Wayback 2008-08-03), mục Vietnamese calendar rules, quy tắc 1",
+        "locator": "calrules_en.html (Wayback 2008-08-03), section Vietnamese calendar rules, rule 1",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Cách gán năm âm lịch (tháng 11, 12 thuộc năm trước) chưa có câu nguồn trực tiếp; chỉ khớp dữ liệu HKO.",
+    "notes": "How lunar years are assigned (months 11 and 12 belong to the previous year) has no direct source sentence yet; it only matches the HKO data.",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar",
       "audit/tests/test_golden_cases.py"
@@ -469,26 +469,26 @@
     "kind": "function",
     "location": "core/calendar_core.py:235",
     "fingerprint": "6d552d7f46b91378",
-    "claim": "calendar_locale=cn trả âm lịch Trung Quốc (kinh tuyến 120°Đ) khớp bảng HKO. calendar_locale=vn tính theo UTC+7 (105°Đ), khớp lịch miền Bắc từ 1967 và các ngày Tết, tháng nhuận Việt Nam do Hồ Ngọc Đức nêu (1985, 2007, 2030, 2053).",
+    "claim": "calendar_locale=cn returns the Chinese lunar calendar (120°E meridian), matching the HKO tables. calendar_locale=vn computes at UTC+7 (105°E), matching the northern calendar from 1967 and the Vietnamese Tet dates and leap months given by Ho Ngoc Duc (1985, 2007, 2030, 2053).",
     "sources": [
       {
         "id": "hko-calendar-tables",
-        "locator": "T1985e.txt, T2007e.txt, T2024e.txt, T2033e.txt (các dòng trong audit/cases/ziwei)",
+        "locator": "T1985e.txt, T2007e.txt, T2024e.txt, T2033e.txt (lines in audit/cases/ziwei)",
         "stance": "agree"
       },
       {
         "id": "aslaksen-chinese-calendar",
-        "locator": "Draft 2010-07-17, tr. 18–23 (Rule 1, 3, 4, 5); tr. 29 (lịch Việt Nam UTC+7 từ 1967)",
+        "locator": "Draft 2010-07-17, pp. 18–23 (Rules 1, 3, 4, 5); p. 29 (Vietnamese calendar at UTC+7 from 1967)",
         "stance": "agree"
       },
       {
         "id": "ho-ngoc-duc-amlich",
-        "locator": "calrules_en.html (Wayback 2008-08-03), mục Comparison with Chinese calendar và Why 1985 has a leap lunar month (các ca trong audit/cases/ziwei)",
+        "locator": "calrules_en.html (Wayback 2008-08-03), sections Comparison with Chinese calendar and Why 1985 has a leap lunar month (cases in audit/cases/ziwei)",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Nhánh vn chỉ xác nhận cho lịch miền Bắc từ 1967 và lịch cả nước sau thống nhất. Miền Nam 1967–1975 không thuộc phạm vi này (xem core.function.calendar_locale_warnings); trước 1967 xem core.table.VN_UTC7_FROM_SUI (conflict). Hai nguồn cho nhánh vn: Hồ Ngọc Đức (105°Đ, các ví dụ) và Aslaksen tr. 29 (miền Bắc duyệt lịch UTC+7 ngày 8/8/1967, Tết 1968 miền Bắc). Chưa kiểm Aslaksen có dựa trên Explanatory Supplement hay không; nếu có thì hai nguồn kém độc lập hơn.",
+    "notes": "The vn branch is confirmed only for the northern calendar from 1967 and the national calendar after reunification. The South in 1967–1975 is out of scope (see core.function.calendar_locale_warnings); for dates before 1967 see core.table.VN_UTC7_FROM_SUI (conflict). Two sources for the vn branch: Ho Ngoc Duc (105°E, examples) and Aslaksen p. 29 (the North approved the UTC+7 calendar on 8 Aug 1967; northern Tet 1968). Not yet checked whether Aslaksen relies on the Explanatory Supplement; if so, the two sources are less independent.",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar",
       "audit/tests/test_golden_cases.py"
@@ -501,7 +501,7 @@
     "kind": "function",
     "location": "core/calendar_core.py:243",
     "fingerprint": "a2eba8f003c59460",
-    "claim": "Phép ngược của solar_to_lunar theo cùng quy tắc; báo lỗi khi tháng nhuận/ngày không tồn tại.",
+    "claim": "The inverse of solar_to_lunar under the same rules; raises an error when the leap month or day does not exist.",
     "sources": [
       {
         "id": "aslaksen-chinese-calendar",
@@ -510,12 +510,12 @@
       },
       {
         "id": "hko-calendar-tables",
-        "locator": "bảng 1985, 2007, 2033",
+        "locator": "tables 1985, 2007, 2033",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Đổi qua đổi lại khớp mọi ngày 1967–2100 (test vn_round_trip).",
+    "notes": "Round trips match for every day 1967–2100 (test vn_round_trip).",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar"
     ],
@@ -527,21 +527,21 @@
     "kind": "function",
     "location": "core/calendar_core.py:264",
     "fingerprint": "feb5f8f6beaed738",
-    "claim": "Cảnh báo khi lịch VN và TQ khác nhau ở ngày đó; với ngày từ 12/1967 đến trước 13/6/1975 thì cảnh báo miền Nam dùng giờ đồng hồ UTC+8 và âm lịch truyền thống.",
+    "claim": "Warns when the Vietnamese and Chinese calendars differ on that date; for dates from Dec 1967 to before 13 Jun 1975, warns that the South used UTC+8 clock time and the traditional lunar calendar.",
     "sources": [
       {
         "id": "aslaksen-chinese-calendar",
-        "locator": "Draft 2010-07-17, tr. 29: Tết 1968 Bắc 29/1, Nam 30/1 (Nam theo lịch truyền thống)",
+        "locator": "Draft 2010-07-17, p. 29: Tet 1968 was 29 Jan in the North and 30 Jan in the South (the South followed the traditional calendar)",
         "stance": "agree"
       },
       {
         "id": "iana-tzdb",
-        "locator": "asia, dòng 4192–4194 (South Vietnam +07 từ 1955-07-01, +08 từ 1959-12-31, +07 từ 1975-06-13)",
+        "locator": "asia, lines 4192–4194 (South Vietnam +07 from 1955-07-01, +08 from 1959-12-31, +07 from 1975-06-13)",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Mỗi nguồn chỉ chứng minh một phần: tzdb là giờ đồng hồ, Aslaksen chỉ có năm 1968. Âm lịch miền Nam 1969–1975 chưa có nguồn.",
+    "notes": "Each source proves only part: tzdb covers clock time, Aslaksen covers only 1968. The South's lunar calendar in 1969–1975 has no source yet.",
     "tests": [
       "core/tests/test_calendar_core.py::TestAgainstSources"
     ],
@@ -592,7 +592,7 @@
     "kind": "table",
     "location": "bazi/scripts/bazi_cli.py:29",
     "fingerprint": "20ad319adfcd324e",
-    "claim": "Thứ tự 10 thiên can; can lẻ (甲丙戊庚壬) là dương, can chẵn là âm.",
+    "claim": "Order of the 10 heavenly stems; odd stems (甲丙戊庚壬) are yang, even stems are yin.",
     "sources": [
       {
         "id": "sanming-tonghui",
@@ -601,7 +601,7 @@
       },
       {
         "id": "yuanhai-ziping",
-        "locator": "基础: 五干属阳 (lấy 甲 làm ví dụ), 五干属阴 (lấy 乙 làm ví dụ); không liệt kê đủ",
+        "locator": "基础: 五干属阳 (with 甲 as the example), 五干属阴 (with 乙 as the example); not listed in full",
         "stance": "agree"
       }
     ],
@@ -616,11 +616,11 @@
     "kind": "table",
     "location": "bazi/scripts/bazi_cli.py:30",
     "fingerprint": "25dc3ca37e409286",
-    "claim": "Ngũ hành thiên can: 甲乙 mộc, 丙丁 hỏa, 戊己 thổ, 庚辛 kim, 壬癸 thủy.",
+    "claim": "Elements of the stems: 甲乙 wood, 丙丁 fire, 戊己 earth, 庚辛 metal, 壬癸 water.",
     "sources": [
       {
         "id": "sanming-tonghui",
-        "locator": "卷二 论天干阴阳生死 và 论十干合 (甲乙木, 丙丁火, 戊己土, 庚辛金, 壬癸水)",
+        "locator": "卷二 论天干阴阳生死 and 论十干合 (甲乙木, 丙丁火, 戊己土, 庚辛金, 壬癸水)",
         "stance": "agree"
       },
       {
@@ -718,21 +718,21 @@
     "kind": "function",
     "location": "bazi/scripts/bazi_cli.py:90",
     "fingerprint": "5750ec5df24a13a4",
-    "claim": "Mỗi trụ: can chi, ngũ hành, âm dương, thập thần của can, tàng can kèm thập thần (lấy từ lunar_python).",
+    "claim": "Each pillar: stem-branch, elements, yin/yang, the stem's ten god, hidden stems with their ten gods (from lunar_python).",
     "sources": [
       {
         "id": "yuanhai-ziping",
-        "locator": "又地支藏遁歌; 基础 (thập thần)",
+        "locator": "又地支藏遁歌; 基础 (ten gods)",
         "stance": "agree"
       },
       {
         "id": "shenfeng-tongkao",
-        "locator": "thập thần: 甲见庚为杀，辛为官，见丙为食，丁为伤; 食神者，我生彼之谓也。阳见阳干",
+        "locator": "ten gods: 甲见庚为杀，辛为官，见丙为食，丁为伤; 食神者，我生彼之谓也。阳见阳干",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Tàng can khớp về tập hợp với 淵海子平; thứ tự trong output là của lunar_python, sách không nói thứ tự. Thập thần khớp 淵海 (甲, 乙) và 神峰. Nạp âm, trường sinh (địa thế), tuần không chưa đối chiếu.",
+    "notes": "Hidden stems match 淵海子平 as sets; the order in the output is lunar_python's, and the book gives no order. Ten gods match 淵海 (甲, 乙) and 神峰. Nayin, twelve stages (dishi) and xunkong not yet checked.",
     "tests": [
       "bazi/scripts/tests/test_bazi_cli.py::TestReferenceConsistency"
     ],
@@ -744,11 +744,11 @@
     "kind": "function",
     "location": "bazi/scripts/bazi_cli.py:115",
     "fingerprint": "d274477ee7e4443d",
-    "claim": "Ráp tứ trụ, cảnh báo, đại vận (dãy 60 hoa giáp tính từ trụ tháng; trước khi giao vận lấy trụ tháng), lưu niên.",
+    "claim": "Builds the four pillars, warnings, luck periods (the 60-cycle sequence starting from the month pillar; the month pillar before the first period) and annual pillars.",
     "sources": [
       {
         "id": "sanming-tonghui",
-        "locator": "卷二 论大运: vận trước khi giao là 丁丑 (trụ tháng) trong ví dụ",
+        "locator": "卷二 论大运: in the example the period before the first luck period is 丁丑 (the month pillar)",
         "stance": "agree"
       },
       {
@@ -758,12 +758,12 @@
       },
       {
         "id": "ditian-sui-chanwei",
-        "locator": "lọc bằng script: 416/502 chuỗi ≥10 can chi trong sách có dãy sau 4 trụ liền kề trụ tháng (thuận hoặc nghịch); không phải mọi lá số, 86 chuỗi còn lại chưa xem",
+        "locator": "filtered by script: 416 of 502 runs of ≥10 stem-branches in the book have the sequence after the four pillars adjacent to the month pillar (forward or backward); not every chart, and the other 86 runs were not inspected",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Phần đại vận khớp nguồn. Mốc đổi năm tại lập xuân, đổi tháng tại tiết, giờ Tý muộn, lưu niên chưa có câu nguồn trực tiếp.",
+    "notes": "The luck-period part matches the sources. Year change at Lichun, month change at solar terms, the late Zi hour and annual pillars have no direct source sentence yet.",
     "tests": [],
     "stale": false
   },
@@ -825,21 +825,21 @@
     "kind": "ruleset",
     "location": "bazi/scripts/bazi_cli.py:173",
     "fingerprint": "70462bbf00f27a6b",
-    "claim": "Đại vận: dương nam âm nữ thuận, âm nam dương nữ nghịch; khởi vận = số ngày tới tiết kế tiếp (thuận) hoặc tiết trước (nghịch) ÷ 3 (3 ngày 1 năm, 1 canh giờ 10 ngày).",
+    "claim": "Luck periods: yang male / yin female run forward, yin male / yang female run backward; starting age = days to the next solar term (forward) or the previous one (backward) ÷ 3 (3 days = 1 year, 1 shichen = 10 days).",
     "sources": [
       {
         "id": "sanming-tonghui",
-        "locator": "卷二 论大运: 阳男阴女…顺而行之；阴男阳女…逆而行之; 折除以三日为年, 三千六百日为一辰之十岁; ví dụ 甲子 dương nam 1 tuổi 9 tháng",
+        "locator": "卷二 论大运: 阳男阴女…顺而行之；阴男阳女…逆而行之; 折除以三日为年, 三千六百日为一辰之十岁; example: 甲子 yang male, 1 year 9 months",
         "stance": "agree"
       },
       {
         "id": "shenfeng-tongkao",
-        "locator": "起大运法 阳男阴女 / 阴男阳女: 折除三日为一岁; 4 ví dụ (甲子 nam 丁卯, 乙丑 nữ 四岁 己卯, 乙丑 nam 五岁 逆, 甲子 nữ 三岁 逆)",
+        "locator": "起大运法 阳男阴女 / 阴男阳女: 折除三日为一岁; 4 examples (甲子 male 丁卯, 乙丑 female 四岁 己卯, 乙丑 male 五岁 backward, 甲子 female 三岁 backward)",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "5 ca vàng dựng lại từ ví dụ trong sách (audit/cases/bazi); ngày giờ do dựng lại, không có trong sách.",
+    "notes": "5 golden cases rebuilt from examples in the books (audit/cases/bazi); the dates and times are reconstructed, not given in the books.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -880,7 +880,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them.",
     "tests": [],
     "stale": false
   },
@@ -893,7 +893,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Tài liệu quy trình do dự án viết, không chứa quy tắc thuật số cần nguồn; đã ghi chú ở đầu file (A7).",
+    "notes": "Process document written by the project; contains no divination rules that need sources; noted at the top of the file (A7).",
     "tests": [],
     "stale": false
   },
@@ -906,7 +906,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Bảng dịch thuật ngữ Hán–Việt, không phải khẳng định diễn giải (A7). Âm Hán Việt chưa đối chiếu từ điển.",
+    "notes": "Sino-Vietnamese glossary, not an interpretive claim (A7). Sino-Vietnamese readings not checked against a dictionary.",
     "tests": [],
     "stale": false
   },
@@ -916,11 +916,11 @@
     "kind": "doc",
     "location": "bazi/references/tiangan-dizhi.md",
     "fingerprint": "d265a69089185334",
-    "claim": "Bảng thiên can, địa chi, tàng can, thập thần, ngũ hổ độn, ngũ thử độn, đại vận, xung hình hợp.",
+    "claim": "Tables of heavenly stems, earthly branches, hidden stems, ten gods, month and hour stem derivation (五虎遁, 五鼠遁), luck periods, clashes, punishments and combinations.",
     "sources": [
       {
         "id": "yuanhai-ziping",
-        "locator": "又地支藏遁歌 (tàng can đủ 12 chi); 基础 (thập thần của 甲, 乙)",
+        "locator": "又地支藏遁歌 (hidden stems for all 12 branches); 基础 (ten gods for 甲, 乙)",
         "stance": "agree"
       },
       {
@@ -930,17 +930,17 @@
       },
       {
         "id": "shenfeng-tongkao",
-        "locator": "起八字诀 (年上遁月, 日上遁时); thập thần: 甲见庚为杀，辛为官，见丙为食，丁为伤; 偏官为阳见阳",
+        "locator": "起八字诀 (年上遁月, 日上遁时); ten gods: 甲见庚为杀，辛为官，见丙为食，丁为伤; 偏官为阳见阳",
         "stance": "agree"
       },
       {
         "id": "ditian-sui-chanwei",
-        "locator": "lời bình: 辰中癸水, 丑中蓄水含金, 未中木火, 寅中丙火, 申中壬水",
+        "locator": "commentary: 辰中癸水, 丑中蓄水含金, 未中木火, 寅中丙火, 申中壬水",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Tất cả các mục có nguồn trừ hành của lục hợp, thứ tự tàng can, giờ của chi.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. Every section is sourced except the elements of the six combinations, the order of hidden stems and the hours of each branch.",
     "tests": [
       "bazi/scripts/tests/test_bazi_cli.py::TestReferenceConsistency"
     ],
@@ -968,7 +968,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Thứ tự 12 địa chi chuẩn, chỉ dùng để tính xung (cách 6 chi); không phải quy tắc riêng của Lục Hào.",
+    "notes": "Standard order of the 12 earthly branches, used only to compute clashes (6 branches apart); not a Liu Yao rule of its own.",
     "tests": [],
     "stale": false
   },
@@ -978,16 +978,16 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:19",
     "fingerprint": "b4be7351322fa5e9",
-    "claim": "Ngũ hành địa chi: 寅卯 mộc, 巳午 hỏa, 申酉 kim, 亥子 thủy, 辰戌丑未 thổ.",
+    "claim": "Elements of the branches: 寅卯 wood, 巳午 fire, 申酉 metal, 亥子 water, 辰戌丑未 earth.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 4 (mỗi chi kèm hành)",
+        "locator": "ch. 4 (each branch with its element)",
         "stance": "agree"
       },
       {
         "id": "huozhu-lin",
-        "locator": "phần 財官輔助 (vượng tướng theo mùa)",
+        "locator": "section 財官輔助 (seasonal strength)",
         "stance": "agree"
       }
     ],
@@ -1004,21 +1004,21 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:21",
     "fingerprint": "9497630208804690",
-    "claim": "Nét quẻ đơn (dưới lên, 1 = dương) và ngũ hành: 乾兌 kim, 離 hỏa, 震巽 mộc, 坎 thủy, 艮坤 thổ. Không gồm tên tiếng Việt.",
+    "claim": "Trigram lines (bottom up, 1 = yang) and elements: 乾兌 metal, 離 fire, 震巽 wood, 坎 water, 艮坤 earth. Vietnamese names not included.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 2 卦象圖 (乾三連…巽下斷); ch. 5 六親歌 (ngũ hành từng cung)",
+        "locator": "ch. 2 卦象圖 (乾三連…巽下斷); ch. 5 六親歌 (element of each palace)",
         "stance": "agree"
       },
       {
         "id": "jingshi-yizhuan",
-        "locator": "卷上–卷中: nêu rõ hành của 乾 (屬金), 震 (木徳), 坤 (屬土), 兌 (純金), 離 (為火); 坎, 艮, 巽 không nêu trực tiếp",
+        "locator": "卷上–卷中: states the element of 乾 (屬金), 震 (木徳), 坤 (屬土), 兌 (純金), 離 (為火); 坎, 艮, 巽 not stated directly",
         "stance": "agree"
       },
       {
         "id": "huozhu-lin",
-        "locator": "các ví dụ: 乾宮屬金, 艮宮屬土, 坤宮屬土, 震巽屬木, 離屬火",
+        "locator": "examples: 乾宮屬金, 艮宮屬土, 坤宮屬土, 震巽屬木, 離屬火",
         "stance": "agree"
       }
     ],
@@ -1035,7 +1035,7 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:31",
     "fingerprint": "205950845bd10682",
-    "claim": "Tra ngược của TRIGRAMS.",
+    "claim": "Reverse lookup of TRIGRAMS.",
     "sources": [
       {
         "id": "zengshan-buyi",
@@ -1049,7 +1049,7 @@
       }
     ],
     "verdict": "confirmed",
-    "notes": "Suy trực tiếp từ TRIGRAMS.",
+    "notes": "Derived directly from TRIGRAMS.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -1061,26 +1061,26 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:33",
     "fingerprint": "80644985fe06ce84",
-    "claim": "Nạp giáp: can 乾 甲/壬, 坤 乙/癸, 震 庚, 巽 辛, 坎 戊, 離 己, 艮 丙, 兌 丁; chi nội/ngoại quái như bảng trong code.",
+    "claim": "Najia: stems 乾 甲/壬, 坤 乙/癸, 震 庚, 巽 辛, 坎 戊, 離 己, 艮 丙, 兌 丁; inner/outer trigram branches as in the code table.",
     "sources": [
       {
         "id": "jingshi-yizhuan",
-        "locator": "卷下: 乾坤配甲乙壬癸，震巽配庚辛，坎離配戊己，艮兌配丙丁 (chỉ ghép can với quẻ); 卷上: 乾 甲壬配外内; các đoạn từng quẻ ghi can chi hào thế cạnh câu 為飛伏: 63/64 khớp (師 ghi sai thứ tự)",
+        "locator": "卷下: 乾坤配甲乙壬癸，震巽配庚辛，坎離配戊己，艮兌配丙丁 (only pairs stems with trigrams); 卷上: 乾 甲壬配外内; each hexagram paragraph gives the stem-branch of the shi line next to 為飛伏: 63/64 match (師 is out of order)",
         "stance": "agree"
       },
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 4 渾天甲子章 (chi của 8 quẻ đơn, nội/ngoại); ch. 3 八宮圖 (64 quẻ)",
+        "locator": "ch. 4 渾天甲子章 (branches of the 8 trigrams, inner/outer); ch. 3 八宮圖 (64 hexagrams)",
         "stance": "agree"
       },
       {
         "id": "huozhu-lin",
-        "locator": "ví dụ: 乾初爻甲子, 遁二爻丙午化辛亥 (姤), 世持辛丑 (姤), 壬申金, 既濟己亥持世",
+        "locator": "examples: 乾初爻甲子, 遁二爻丙午化辛亥 (姤), 世持辛丑 (姤), 壬申金, 既濟己亥持世",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Bảng ch. 3 có lỗi chép ở 困 hào 1 (卯, đúng là 寅 theo ch. 4); xem sources.json.",
+    "notes": "The ch. 3 table has a transcription error at 困 line 1 (卯; it is 寅 per ch. 4); see sources.json.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -1092,21 +1092,21 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:44",
     "fingerprint": "59cfa3c05ff87e22",
-    "claim": "Thứ tự Văn Vương 1–64 và tên đủ của 64 quẻ (tiếng Hán). Không gồm tên tiếng Việt.",
+    "claim": "King Wen order 1–64 and the full names of the 64 hexagrams (Chinese). Vietnamese names not included.",
     "sources": [
       {
         "id": "zhouyi-xugua",
-        "locator": "序卦傳, toàn văn: thứ tự 64 quẻ",
+        "locator": "序卦傳, full text: order of the 64 hexagrams",
         "stance": "agree"
       },
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 3 八宮圖: tên đủ của 64 quẻ",
+        "locator": "ch. 3 八宮圖: full names of the 64 hexagrams",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Thứ tự 1–64 chỉ có một dòng nguồn (序卦傳); 增刪 ch. 3 và 京氏 xếp theo cung nên chỉ xác nhận tên và quẻ đơn ghép thành. Tên tiếng Việt chưa đối chiếu.",
+    "notes": "The 1–64 order has only one source lineage (序卦傳); 增刪 ch. 3 and 京氏 order by palace, so they confirm only the names and the trigram composition. Vietnamese names not checked.",
     "tests": [],
     "stale": false
   },
@@ -1116,16 +1116,16 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:79",
     "fingerprint": "1fd4b9fbac992267",
-    "claim": "8 quẻ mỗi cung: thuần, nhất–ngũ thế (biến dần từ hào 1), du hồn (từ ngũ thế đổi lại hào 4), quy hồn (nội quái trở về quẻ thuần). Thế: 6, 1–5, 4, 3.",
+    "claim": "8 hexagrams per palace: pure, first to fifth generation (changing from line 1 upward), wandering soul (line 4 changed back from the fifth generation), returning soul (inner trigram returns to the pure hexagram's). Shi line: 6, 1–5, 4, 3.",
     "sources": [
       {
         "id": "jingshi-yizhuan",
-        "locator": "卷上–卷下: thứ tự 降入 và tước vị 元士/大夫/三公/諸侯/天子/宗廟 cho từng quẻ; đủ 64 quẻ",
+        "locator": "卷上–卷下: the 降入 order and the ranks 元士/大夫/三公/諸侯/天子/宗廟 for each hexagram; all 64 hexagrams",
         "stance": "agree"
       },
       {
         "id": "huang-zongxi-xiangshulun",
-        "locator": "曰世應: quy tắc dựng cung, 遊魂以四爻爲世，歸魂以三爻爲世",
+        "locator": "曰世應: how palaces are built, 遊魂以四爻爲世，歸魂以三爻爲世",
         "stance": "agree"
       },
       {
@@ -1147,11 +1147,11 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:83",
     "fingerprint": "6e41f2a1aff37685",
-    "claim": "Thứ tự lục thần: 青龍 朱雀 勾陳 螣蛇 白虎 玄武.",
+    "claim": "Order of the six spirits: 青龍 朱雀 勾陳 螣蛇 白虎 玄武.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 18 六神章 (bảng; sách viết 滕蛇, 元武)",
+        "locator": "ch. 18 六神章 (table; the book writes 滕蛇, 元武)",
         "stance": "agree"
       },
       {
@@ -1161,7 +1161,7 @@
       }
     ],
     "verdict": "confirmed",
-    "notes": "Hai ví dụ trong ch. 18 (剝之觀 ngày 戊子, 屯之震 ngày 甲辰) xếp 滕蛇 dưới 勾陳, ngược với bảng cùng chương và với 黃宗羲; có thể là lỗi chép. Code theo bảng.",
+    "notes": "Two examples in ch. 18 (剝之觀 on a 戊子 day, 屯之震 on a 甲辰 day) put 滕蛇 below 勾陳, contrary to the table in the same chapter and to 黃宗羲; possibly a transcription error. The code follows the table.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -1173,11 +1173,11 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:84",
     "fingerprint": "c567ab10807b16c6",
-    "claim": "Khởi từ hào 1 theo can ngày: 甲乙 青龍, 丙丁 朱雀, 戊 勾陳, 己 螣蛇, 庚辛 白虎, 壬癸 玄武.",
+    "claim": "Starting at line 1 by day stem: 甲乙 青龍, 丙丁 朱雀, 戊 勾陳, 己 螣蛇, 庚辛 白虎, 壬癸 玄武.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 18 六神章, bảng",
+        "locator": "ch. 18 六神章, table",
         "stance": "agree"
       },
       {
@@ -1187,7 +1187,7 @@
       }
     ],
     "verdict": "confirmed",
-    "notes": "Xem ghi chú ở liuyao.table.LIUSHEN.",
+    "notes": "See the note on liuyao.table.LIUSHEN.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -1199,7 +1199,7 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:85",
     "fingerprint": "33b2493195707ee4",
-    "claim": "Tương sinh: 金生水，水生木，木生火，火生土，土生金.",
+    "claim": "Generating cycle: 金生水，水生木，木生火，火生土，土生金.",
     "sources": [
       {
         "id": "zengshan-buyi",
@@ -1208,7 +1208,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chưa có nguồn thứ hai trong sổ (quy tắc ngũ hành phổ quát).",
+    "notes": "No second source in the registry yet (a universal five-element rule).",
     "tests": [],
     "stale": false
   },
@@ -1218,7 +1218,7 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:86",
     "fingerprint": "81d8cfaf3e53eb86",
-    "claim": "Tương khắc: 金克木，木克土，土克水，水克火，火克金.",
+    "claim": "Controlling cycle: 金克木，木克土，土克水，水克火，火克金.",
     "sources": [
       {
         "id": "zengshan-buyi",
@@ -1227,7 +1227,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chưa có nguồn thứ hai trong sổ (quy tắc ngũ hành phổ quát).",
+    "notes": "No second source in the registry yet (a universal five-element rule).",
     "tests": [],
     "stale": false
   },
@@ -1250,16 +1250,16 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:90",
     "fingerprint": "d5fbd97178a94495",
-    "claim": "Dựng 64 quẻ theo 8 cung, kèm cung, ngũ hành cung, thế, ứng (cách thế 2 hào).",
+    "claim": "Builds the 64 hexagrams by the 8 palaces, with palace, palace element, shi and ying (ying is 2 lines from shi).",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 3 八宮圖: đủ 64 quẻ, đối chiếu tự động từng hào",
+        "locator": "ch. 3 八宮圖: all 64 hexagrams, compared line by line by script",
         "stance": "agree"
       },
       {
         "id": "jingshi-yizhuan",
-        "locator": "卷上–卷下: 64 quẻ, thứ tự và vị trí thế",
+        "locator": "卷上–卷下: 64 hexagrams, order and shi position",
         "stance": "agree"
       },
       {
@@ -1269,7 +1269,7 @@
       }
     ],
     "verdict": "confirmed",
-    "notes": "Đối chiếu tự động bằng script; 3 chỗ lệch đều là lỗi chép của bản Wikisource.",
+    "notes": "Compared automatically by script; the 3 mismatches are all transcription errors in the Wikisource copy.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -1281,7 +1281,7 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:107",
     "fingerprint": "11c5834d5bd48a16",
-    "claim": "Bảng 64 quẻ sinh từ _build_hexagrams: cung, ngũ hành cung, thế, ứng. Số thứ tự xem liuyao.table.KING_WEN.",
+    "claim": "The 64-hexagram table built by _build_hexagrams: palace, palace element, shi, ying. For numbering see liuyao.table.KING_WEN.",
     "sources": [
       {
         "id": "zengshan-buyi",
@@ -1307,11 +1307,11 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:110",
     "fingerprint": "126cd00f5b8425cd",
-    "claim": "Lục thân theo ngũ hành của cung: sinh ta 父母, ta sinh 子孫, khắc ta 官鬼, ta khắc 妻財, đồng hành 兄弟.",
+    "claim": "Six relations by the palace element: what generates me 父母, what I generate 子孫, what controls me 官鬼, what I control 妻財, same element 兄弟.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 5 六親歌章 (bảng theo từng cung)",
+        "locator": "ch. 5 六親歌章 (table per palace)",
         "stance": "agree"
       },
       {
@@ -1333,11 +1333,11 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:122",
     "fingerprint": "bec10f6aac1fb45a",
-    "claim": "Nạp giáp nội quái lấy phần nội, ngoại quái lấy phần ngoại của từng quẻ đơn.",
+    "claim": "Najia: the inner trigram takes each trigram's inner part, the outer trigram its outer part.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 4: ví dụ 天風姤",
+        "locator": "ch. 4: example 天風姤",
         "stance": "agree"
       },
       {
@@ -1359,10 +1359,10 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:127",
     "fingerprint": "fca3e44e7d6c9e58",
-    "claim": "Gieo 3 xu: mặt chữ 3, mặt lưng 2; tổng 6/7/8/9.",
+    "claim": "Toss 3 coins: inscribed face 3, back 2; totals 6/7/8/9.",
     "sources": [],
     "verdict": "unverified",
-    "notes": "Chưa đọc được câu gốc. Quy ước 單/拆/重/交 phổ biến (một lưng là 單, ba lưng là 重 lão dương) cho ra lưng = 3, chữ = 2, ngược với code; đoạn 占卦法 trên Wikisource 增刪卜易 ch. 2 nói vậy nhưng bị đánh dấu là người chép thêm. Cần nguồn gốc (賈公彥《儀禮疏》, 卜筮正宗) trước khi sửa. Không ảnh hưởng khi người dùng tự đưa 6/7/8/9.",
+    "notes": "No primary sentence found yet. The common 單/拆/重/交 convention (one back is 單, three backs is 重, old yang) gives back = 3, inscription = 2, the reverse of the code; the 占卦法 passage in Wikisource 增刪卜易 ch. 2 says so, but the editor marks it as a transcriber's addition. A primary source (賈公彥《儀禮疏》, 卜筮正宗) is needed before changing anything. No effect when users enter 6/7/8/9 themselves.",
     "tests": [],
     "stale": false
   },
@@ -1385,21 +1385,21 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:143",
     "fingerprint": "02d6cc8f9e8dc0c4",
-    "claim": "Ráp quẻ: quẻ biến, lục thân hào biến theo cung quẻ gốc, lục thần, phục thần, tuần không, nguyệt phá, nhật xung.",
+    "claim": "Builds the reading: changed hexagram, relations of changed lines by the original palace, six spirits, hidden spirits, xunkong, month break, day clash.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 7 動變章: 變出之爻安六親者仍照正卦而推; ch. 28 飛伏神章: phục thần lấy ở quẻ đầu cung, cùng vị trí",
+        "locator": "ch. 7 動變章: 變出之爻安六親者仍照正卦而推; ch. 28 飛伏神章: the hidden spirit comes from the palace's first hexagram, same line",
         "stance": "agree"
       },
       {
         "id": "huozhu-lin",
-        "locator": "phần 出现伏藏 và hỏi đáp: 本宫之六亲在飞象之下…为之伏神",
+        "locator": "section 出现伏藏 and the Q&A: 本宫之六亲在飞象之下…为之伏神",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Phần quẻ biến, lục thân hào biến, phục thần khớp nguồn (ca vàng ch. 7, 11, 12, 28). Tuần không, nguyệt phá, nhật xung chưa đối chiếu. Phục thần theo phép thuật số (增刪, 火珠林); Kinh Phòng dùng 飛伏 theo hào thế, khác cách này (黃宗羲, 曰飛伏).",
+    "notes": "The changed hexagram, relations of changed lines and hidden spirits match the sources (golden cases ch. 7, 11, 12, 28). Xunkong, month break and day clash not yet checked. Hidden spirits follow the practitioners' method (增刪, 火珠林); Jing Fang's 飛伏 is based on the shi line and differs (黃宗羲, 曰飛伏).",
     "tests": [],
     "stale": false
   },
@@ -1409,31 +1409,31 @@
     "kind": "ruleset",
     "location": "liuyao/scripts/liuyao_cli.py:223",
     "fingerprint": "b1fa15b2d0efb118",
-    "claim": "Mô tả hệ: thế ứng theo 8 cung, lục thân theo cung, lục thần theo can ngày, phục thần lấy hào cùng vị trí của quẻ thuần.",
+    "claim": "System description: shi/ying by the 8 palaces, relations by palace, six spirits by day stem, hidden spirit from the same line of the pure hexagram.",
     "sources": [
       {
         "id": "zengshan-buyi",
-        "locator": "ch. 3, 5, 6, 18; ch. 28 飛伏神章 (phục thần lấy ở quẻ đầu cung)",
+        "locator": "ch. 3, 5, 6, 18; ch. 28 飛伏神章 (hidden spirit from the palace's first hexagram)",
         "stance": "agree"
       },
       {
         "id": "huozhu-lin",
-        "locator": "hỏi đáp: 本宫之六亲在飞象之下…为之伏神",
+        "locator": "Q&A: 本宫之六亲在飞象之下…为之伏神",
         "stance": "agree"
       },
       {
         "id": "jingshi-yizhuan",
-        "locator": "卷上–卷下: thế ứng theo 8 cung (không gồm phục thần)",
+        "locator": "卷上–卷下: shi/ying by the 8 palaces (hidden spirits not included)",
         "stance": "agree"
       },
       {
         "id": "huang-zongxi-xiangshulun",
-        "locator": "曰世應; 六神 (không gồm phục thần: Kinh Phòng dùng 飛伏 khác)",
+        "locator": "曰世應; 六神 (hidden spirits not included: Jing Fang's 飛伏 differs)",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Phục thần là phép thuật số, không phải 飛伏 của Kinh Phòng; xem liuyao.function.build_output.",
+    "notes": "The hidden spirit is the practitioners' method, not Jing Fang's 飛伏; see liuyao.function.build_output.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -1487,7 +1487,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them.",
     "tests": [],
     "stale": false
   },
@@ -1500,7 +1500,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Bảng dịch thuật ngữ Hán–Việt, không phải khẳng định diễn giải (A7). Âm Hán Việt chưa đối chiếu từ điển.",
+    "notes": "Sino-Vietnamese glossary, not an interpretive claim (A7). Sino-Vietnamese readings not checked against a dictionary.",
     "tests": [],
     "stale": false
   },
@@ -1513,7 +1513,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Bảng dụng thần và nguyên/kỵ/cừu thần theo 增刪 ch. 8–10; vài dòng hiện đại đã chỉ ra.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. The use-god table and yuan/ji/chou gods follow 增刪 ch. 8–10; a few modern rows are flagged.",
     "tests": [],
     "stale": false
   },
@@ -1536,21 +1536,21 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:15",
     "fingerprint": "3586ec271abd3226",
-    "claim": "Số master 11, 22, 33.",
+    "claim": "Master numbers 11, 22, 33.",
     "sources": [
       {
         "id": "decoz-numerology",
-        "locator": "Perigee 2001, glossary tr. 262: 11, 22, và hiếm khi 33",
+        "locator": "Perigee 2001, glossary p. 262: 11, 22, and in rare cases 33",
         "stance": "agree"
       },
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 83: 33 không phải số master",
+        "locator": "Hay House 2005, p. 83: 33 is not a master number",
         "stance": "disagree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Hai nguồn khác nhau về 33; luật phillips tính 33 là 6. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "The two sources disagree on 33; the phillips rule counts 33 as 6. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1560,16 +1560,16 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:16",
     "fingerprint": "9ad8f75b40843adf",
-    "claim": "Bảng Pythagoras A–I = 1–9, J–R = 1–9, S–Z = 1–8.",
+    "claim": "Pythagorean table: A–I = 1–9, J–R = 1–9, S–Z = 1–8.",
     "sources": [
       {
         "id": "decoz-numerology",
-        "locator": "Perigee 2001, tr. 6, bảng chữ cái",
+        "locator": "Perigee 2001, p. 6, letter table",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Khớp Decoz. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed. Chưa đọc chương tên của Phillips (tr. 229).",
+    "notes": "Matches Decoz. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet. Phillips's chapter on names (p. 229) not read.",
     "tests": [],
     "stale": false
   },
@@ -1592,16 +1592,16 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:19",
     "fingerprint": "38d5f0aefb522eaa",
-    "claim": "Lưới 3×3: hàng trên 3-6-9, giữa 2-5-8, dưới 1-4-7; số 0 không ghi.",
+    "claim": "3×3 grid: top row 3-6-9, middle 2-5-8, bottom 1-4-7; zeros are not recorded.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 53 (hình 3/31/1950), tr. 56, tr. 60",
+        "locator": "Hay House 2005, p. 53 (figure 3/31/1950), p. 56, p. 60",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Khớp các hình trong chương 6 của Phillips. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "Matches the figures in Phillips chapter 6. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1611,16 +1611,16 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:20",
     "fingerprint": "0de5ebcd95c05c5c",
-    "claim": "8 mũi tên: 3 hàng, 3 cột, 2 đường chéo của lưới.",
+    "claim": "8 arrows: the grid's 3 rows, 3 columns and 2 diagonals.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, chương 6, tr. 51–79",
+        "locator": "Hay House 2005, chapter 6, pp. 51–79",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Các tiêu đề đã đọc: 8 mũi tên đủ số và 7 mũi tên trống; chưa thấy mục lục mũi tên, chưa thấy mũi tên trống 1-2-3. Tên Spirituality (3-5-7), Will (4-5-6), Disorder (1-4-7 trống) có phần suy luận, xem chú thích trong y-nghia-so.md. 13 ca vàng trong audit/cases/numerology. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "Headings read: 8 full arrows and 7 empty arrows; no list of arrows seen, and no empty 1-2-3 arrow seen. The names Spirituality (3-5-7), Will (4-5-6) and Disorder (empty 1-4-7) are partly inferred; see the footnote in y-nghia-so.md. 13 golden cases in audit/cases/numerology. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1634,17 +1634,17 @@
     "sources": [
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 82–83 (danh sách 11 Ruling Number, không có 1, 33/6 là 6)",
+        "locator": "Hay House 2005, pp. 82–83 (list of 11 Ruling Numbers, no 1, 33/6 is 6)",
         "stance": "agree"
       },
       {
         "id": "decoz-numerology",
-        "locator": "Perigee 2001, tr. 20–21 và glossary tr. 262",
+        "locator": "Perigee 2001, pp. 20–21 and glossary p. 262",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Luật phillips khớp Phillips; classic khớp Decoz. Luật vn (giữ 33) chưa có nguồn sách, chỉ là cách gọi phổ biến trên mạng. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed. Quyết định 2026-11-23: giữ mặc định vn vì người dùng Việt Nam thường đối chiếu với app trong nước; ai theo sách thì dùng phillips.",
+    "notes": "The phillips rule matches Phillips; classic matches Decoz. The vn rule (keeping 33) has no book source; it is only common online usage. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet. Decision 2026-11-23: keep vn as the default because Vietnamese users usually compare with local apps; use phillips to follow the book.",
     "tests": [],
     "stale": false
   },
@@ -1654,21 +1654,21 @@
     "kind": "table",
     "location": "numerology/scripts/numerology_cli.py:26",
     "fingerprint": "72247f3af97e43cf",
-    "claim": "digits: cộng mọi chữ số; components: rút gọn riêng tháng, ngày, năm (giữ 11/22) rồi cộng.",
+    "claim": "digits: add every digit; components: reduce month, day and year separately (keeping 11/22), then add.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 82: cộng từng chữ số của ngày sinh",
+        "locator": "Hay House 2005, p. 82: add each digit of the birth date",
         "stance": "agree"
       },
       {
         "id": "decoz-numerology",
-        "locator": "Perigee 2001, tr. 20–21: chỉ cách components là đúng",
+        "locator": "Perigee 2001, pp. 20–21: only the components method is correct",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Hai sách dùng hai cách khác nhau; code để cả hai làm tham số, mặc định digits (theo Phillips). Decoz gọi cách cộng cả số nguyên rồi rút gọn là sai; code không có cách đó. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "The two books use different methods; the code offers both as a parameter, defaulting to digits (as Phillips). Decoz calls adding the whole numbers and then reducing wrong; the code does not offer that method. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1704,7 +1704,7 @@
     "kind": "function",
     "location": "numerology/scripts/numerology_cli.py:42",
     "fingerprint": "8c6ef275244aefc9",
-    "claim": "Rút gọn tổng theo từng luật vn / classic / phillips.",
+    "claim": "Reduces the total under the vn / classic / phillips rule.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
@@ -1718,7 +1718,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Xem numerology.table.LIFE_PATH_RULES. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "See numerology.table.LIFE_PATH_RULES. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1754,7 +1754,7 @@
     "kind": "function",
     "location": "numerology/scripts/numerology_cli.py:65",
     "fingerprint": "8d13b320d5ddef6e",
-    "claim": "Sứ mệnh = tổng mọi chữ cái họ tên khai sinh; linh hồn = nguyên âm; nhân cách = phụ âm.",
+    "claim": "Expression = sum of all letters of the full birth name; soul urge = vowels; personality = consonants.",
     "sources": [
       {
         "id": "decoz-numerology",
@@ -1763,12 +1763,12 @@
       },
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 233 (đoạn trích): Soul Urge là tổng nguyên âm",
+        "locator": "Hay House 2005, p. 233 (search excerpt): the Soul Urge is the sum of the vowels",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Quy tắc chữ Y chưa có nguồn. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "The Y rule has no source. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1778,16 +1778,16 @@
     "kind": "function",
     "location": "numerology/scripts/numerology_cli.py:78",
     "fingerprint": "7c44278314c21102",
-    "claim": "Đếm chữ số 1–9 của ngày sinh (bỏ 0) lên lưới; mũi tên full khi đủ 3 số, empty khi thiếu cả 3.",
+    "claim": "Counts the digits 1–9 of the birth date (zeros dropped) onto the grid; an arrow is full when all 3 digits are present, empty when all 3 are missing.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 52: mũi tên là ba số thẳng hàng hoặc ba ô trống thẳng hàng; tr. 53–78 các ví dụ",
+        "locator": "Hay House 2005, p. 52: an arrow is three numbers in a line or three empty squares in a line; pp. 53–78 examples",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "13 ca vàng khớp. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "13 golden cases match. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1797,21 +1797,21 @@
     "kind": "function",
     "location": "numerology/scripts/numerology_cli.py:93",
     "fingerprint": "c63642e63b60c744",
-    "claim": "Giá trị đỉnh: tháng+ngày, ngày+năm, đỉnh1+đỉnh2, tháng+năm; thử thách: |tháng−ngày|, |ngày−năm|, |TT1−TT2|, |tháng−năm|. Tuổi đỉnh 1: 36 − số chủ đạo (rút về 1–9; luật phillips giữ 10, 11).",
+    "claim": "Pinnacle values: month+day, day+year, P1+P2, month+year; challenges: |month−day|, |day−year|, |C1−C2|, |month−year|. Age of pinnacle 1: 36 − life path (reduced to 1–9; the phillips rule keeps 10 and 11).",
     "sources": [
       {
         "id": "decoz-numerology",
-        "locator": "Perigee 2001, tr. 220 (Figure 6.1) và glossary tr. 262 (thử thách 1, 4, chính)",
+        "locator": "Perigee 2001, p. 220 (Figure 6.1) and glossary p. 262 (challenges 1, 4, main)",
         "stance": "agree"
       },
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 175, 177, 179 (đoạn trích): đỉnh đầu ở tuổi 36 − Ruling Number; bảng tuổi cho 10, 11, 22/4",
+        "locator": "Hay House 2005, pp. 175, 177, 179 (search excerpts): first peak at age 36 − Ruling Number; age table for 10, 11, 22/4",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Giá trị khớp ví dụ Decoz 29/5/1950. Tuổi theo Phillips chỉ đúng với luật phillips; cách rút 10→1, 11→2 của luật vn/classic chưa có nguồn. Phillips coi đỉnh là thời điểm, script vẫn xuất khoảng tuổi. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "Values match Decoz's example of 29 May 1950. Phillips's ages apply only to the phillips rule; the vn/classic reduction 10→1, 11→2 has no source. Phillips treats peaks as points in time; the script still outputs age ranges. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1834,7 +1834,7 @@
     "kind": "ruleset",
     "location": "numerology/scripts/numerology_cli.py:142",
     "fingerprint": "9f1339378e6f941b",
-    "claim": "Mô tả luật rút gọn số chủ đạo.",
+    "claim": "Describes the life path reduction rule.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
@@ -1848,7 +1848,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Xem numerology.table.LIFE_PATH_RULES. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "See numerology.table.LIFE_PATH_RULES. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1858,7 +1858,7 @@
     "kind": "ruleset",
     "location": "numerology/scripts/numerology_cli.py:143",
     "fingerprint": "e091cc1c075d49c0",
-    "claim": "Mô tả cách cộng.",
+    "claim": "Describes the summing method.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
@@ -1872,7 +1872,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Xem numerology.table.LIFE_PATH_METHODS. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "See numerology.table.LIFE_PATH_METHODS. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1895,7 +1895,7 @@
     "kind": "ruleset",
     "location": "numerology/scripts/numerology_cli.py:145",
     "fingerprint": "4dac3f584ee0faeb",
-    "claim": "Mô tả cách tính số tên.",
+    "claim": "Describes how the name numbers are computed.",
     "sources": [
       {
         "id": "decoz-numerology",
@@ -1904,7 +1904,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Quy tắc chữ Y chưa có nguồn. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "The Y rule has no source. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1940,7 +1940,7 @@
     "kind": "ruleset",
     "location": "numerology/scripts/numerology_cli.py:148",
     "fingerprint": "7ab3b0e3120d712c",
-    "claim": "Mô tả cách tính đỉnh và thử thách.",
+    "claim": "Describes how pinnacles and challenges are computed.",
     "sources": [
       {
         "id": "decoz-numerology",
@@ -1949,12 +1949,12 @@
       },
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, tr. 177, 179 (đoạn trích)",
+        "locator": "Hay House 2005, pp. 177, 179 (search excerpts)",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Xem numerology.function.pinnacles_and_challenges. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "See numerology.function.pinnacles_and_challenges. Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -1964,16 +1964,16 @@
     "kind": "ruleset",
     "location": "numerology/scripts/numerology_cli.py:149",
     "fingerprint": "de69a5199b8ad1de",
-    "claim": "Số trưởng thành = số chủ đạo rút về 1–9 + số sứ mệnh, rút gọn giữ 11/22/33.",
+    "claim": "Maturity number = life path reduced to 1–9 + expression, reduced keeping 11/22/33.",
     "sources": [
       {
         "id": "decoz-numerology",
-        "locator": "Perigee 2001, glossary tr. 262–263: cộng Expression với Life Path rồi rút về một chữ số",
+        "locator": "Perigee 2001, glossary pp. 262–263: add Expression and Life Path, then reduce to a single digit",
         "stance": "disagree"
       }
     ],
     "verdict": "conflict",
-    "notes": "Glossary của Decoz nói rút về một chữ số; code giữ 11/22/33 và rút số chủ đạo trước khi cộng. Chưa sửa: glossary có thể chỉ viết gọn, cần đọc chương chính về Maturity.",
+    "notes": "Decoz's glossary says reduce to a single digit; the code keeps 11/22/33 and reduces the life path before adding. Not changed: the glossary may be abbreviated; the main chapter on Maturity needs reading.",
     "tests": [],
     "stale": false
   },
@@ -1983,7 +1983,7 @@
     "kind": "ruleset",
     "location": "numerology/scripts/numerology_cli.py:150",
     "fingerprint": "6bd9d8c4f23c865d",
-    "claim": "Mô tả biểu đồ ngày sinh.",
+    "claim": "Describes the birth chart.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
@@ -1992,7 +1992,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "Numerology has no T1/T2 source in the registry, so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -2005,7 +2005,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them.",
     "tests": [],
     "stale": false
   },
@@ -2015,16 +2015,16 @@
     "kind": "doc",
     "location": "numerology/references/y-nghia-so.md",
     "fingerprint": "432583d59e9a290c",
-    "claim": "Bảng tên mũi tên theo Phillips; số 10, 33 có nguồn; phần mạnh/cần rèn của từng số chưa đối chiếu.",
+    "claim": "Arrow names follow Phillips; numbers 10 and 33 are sourced; the strengths/challenges of each number are not checked.",
     "sources": [
       {
         "id": "phillips-complete-numerology",
-        "locator": "Hay House 2005, chương 6 tr. 51–79; tr. 82–83",
+        "locator": "Hay House 2005, chapter 6 pp. 51–79; pp. 82–83",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. (đã gắn nhãn ở A2) Phần ý nghĩa từng số và năm cá nhân vẫn chưa có nguồn: chương Ruling Number (tr. 84–117) phần lớn không có bản xem trước.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. (labelled in A2) The meaning of each number and the personal year still have no source: most of the Ruling Number chapter (pp. 84–117) have no preview.",
     "tests": [],
     "stale": false
   },
@@ -2086,7 +2086,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:37",
     "fingerprint": "388c13814b585b4b",
-    "claim": "Dương độn từ 冬至 tới 芒种, âm độn từ 夏至 tới 大雪.",
+    "claim": "Yang dun from 冬至 to 芒种, yin dun from 夏至 to 大雪.",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2110,21 +2110,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:42",
     "fingerprint": "e10855c23e787534",
-    "claim": "Cục số thượng/trung/hạ nguyên của 24 tiết khí.",
+    "claim": "Upper/middle/lower yuan ju numbers for the 24 solar terms.",
     "sources": [
       {
         "id": "qimen-tongzong",
-        "locator": "卷一 阴阳二遁顺逆起例: 冬至惊蜇一七四，夏至白露九三六…立冬寒露六九三 (so tự động 24/24)",
+        "locator": "卷一 阴阳二遁顺逆起例: 冬至惊蜇一七四，夏至白露九三六…立冬寒露六九三 (compared automatically, 24/24)",
         "stance": "agree"
       },
       {
         "id": "dunjia-yanyi",
-        "locator": "卷2: ví dụ 陽遁上元一局, 隂遁上元九局 (gián tiếp)",
+        "locator": "卷2: examples 陽遁上元一局, 隂遁上元九局 (indirect)",
         "stance": "partial"
       }
     ],
     "verdict": "unverified",
-    "notes": "Bài cục số chỉ đọc được trong 統宗; 遁甲演義 chỉ có ví dụ, không có bài. Bản 煙波釣叟歌 trên Wikisource thiếu câu này.",
+    "notes": "The ju-number verse was readable only in 統宗; 遁甲演義 has examples but not the verse. The Wikisource copy of 煙波釣叟歌 lacks this line.",
     "tests": [],
     "stale": false
   },
@@ -2134,7 +2134,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:73",
     "fingerprint": "9ab5176eec9d0cc0",
-    "claim": "Địa bàn: dương độn thuận lục nghi nghịch tam kỳ, âm độn nghịch lục nghi thuận tam kỳ.",
+    "claim": "Earth plate: yang dun places the six yi forward and the three qi backward; yin dun the reverse.",
     "sources": [
       {
         "id": "yanbo-diaosou-ge",
@@ -2143,7 +2143,7 @@
       },
       {
         "id": "qimen-tongzong",
-        "locator": "卷二 阳遁 / 阴遁: ví dụ cục 1 và cục 9",
+        "locator": "卷二 阳遁 / 阴遁: examples for ju 1 and ju 9",
         "stance": "agree"
       }
     ],
@@ -2171,7 +2171,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:83",
     "fingerprint": "9f3c3eff3eafdaa4",
-    "claim": "Cửu tinh và cung gốc: 蓬1 任8 冲3 辅4 英9 芮2 柱7 心6, 禽5.",
+    "claim": "Nine stars and home palaces: 蓬1 任8 冲3 辅4 英9 芮2 柱7 心6, 禽5.",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2185,7 +2185,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "8/9 sao có hai nguồn; 天柱 ở cung 7 chỉ thấy trong 統宗.",
+    "notes": "8 of the 9 stars have two sources; 天柱 in palace 7 appears only in 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2195,7 +2195,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:86",
     "fingerprint": "13cd6dc932c2a0c5",
-    "claim": "Bát môn và cung gốc: 休1 生8 伤3 杜4 景9 死2 惊7 开6.",
+    "claim": "Eight doors and home palaces: 休1 生8 伤3 杜4 景9 死2 惊7 开6.",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2209,7 +2209,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "生, 景, 驚 chỉ thấy trong 統宗.",
+    "notes": "生, 景, 驚 appear only in 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2233,7 +2233,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "8/9 sao có hai nguồn; 天柱 ở cung 7 chỉ thấy trong 統宗.",
+    "notes": "8 of the 9 stars have two sources; 天柱 in palace 7 appears only in 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2252,7 +2252,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Danh sách đủ chỉ ở 統宗.",
+    "notes": "The full list appears only in 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2275,7 +2275,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:95",
     "fingerprint": "a2ed64d19993314f",
-    "claim": "Bát thần dương độn: 值符, 螣蛇, 太阴, 六合, 白虎 (勾陈), 玄武 (朱雀), 九地, 九天.",
+    "claim": "Eight gods, yang dun: 值符, 螣蛇, 太阴, 六合, 白虎 (勾陈), 玄武 (朱雀), 九地, 九天.",
     "sources": [
       {
         "id": "yanbo-diaosou-ge",
@@ -2294,7 +2294,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Vị trí 值符, 太陰, 六合, 九天, 九地 có hai nguồn (煙波 hoặc 遁甲演義 卷2, cùng 統宗); 遁甲演義 chép lại 煙波 nên ví dụ của nó chỉ minh họa cùng quy tắc. 螣蛇 và hai vị trí 5, 6 chỉ có 統宗, và 統宗 gọi là 勾陈/朱雀, 白虎/玄武 chỉ là tên thay (code dùng tên thay).",
+    "notes": "The positions of 值符, 太陰, 六合, 九天, 九地 have two sources (煙波 or 遁甲演義 卷2, plus 統宗); 遁甲演義 copies 煙波, so its examples only illustrate the same rule. 螣蛇 and positions 5 and 6 appear only in 統宗, which names them 勾陈/朱雀, with 白虎/玄武 only as alternate names (the code uses the alternates).",
     "tests": [],
     "stale": false
   },
@@ -2304,7 +2304,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:96",
     "fingerprint": "69219facd10a21c4",
-    "claim": "Bát thần âm độn: 值符, 九天, 九地, 玄武 (朱雀), 白虎 (勾陈), 六合, 太阴, 螣蛇 (theo chiều ROTATION_RING).",
+    "claim": "Eight gods, yin dun: 值符, 九天, 九地, 玄武 (朱雀), 白虎 (勾陈), 六合, 太阴, 螣蛇 (in ROTATION_RING order).",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2318,7 +2318,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Vị trí 值符, 太陰, 六合, 九天, 九地 có hai nguồn (煙波 hoặc 遁甲演義 卷2, cùng 統宗); 遁甲演義 chép lại 煙波 nên ví dụ của nó chỉ minh họa cùng quy tắc. 螣蛇 và hai vị trí 5, 6 chỉ có 統宗, và 統宗 gọi là 勾陈/朱雀, 白虎/玄武 chỉ là tên thay (code dùng tên thay).",
+    "notes": "The positions of 值符, 太陰, 六合, 九天, 九地 have two sources (煙波 or 遁甲演義 卷2, plus 統宗); 遁甲演義 copies 煙波, so its examples only illustrate the same rule. 螣蛇 and positions 5 and 6 appear only in 統宗, which names them 勾陈/朱雀, with 白虎/玄武 only as alternate names (the code uses the alternates).",
     "tests": [],
     "stale": false
   },
@@ -2328,7 +2328,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:98",
     "fingerprint": "124de4ba318f3742",
-    "claim": "Lục giáp ẩn dưới lục nghi: 甲子戊, 甲戌己, 甲申庚, 甲午辛, 甲辰壬, 甲寅癸.",
+    "claim": "The six jia hidden under the six yi: 甲子戊, 甲戌己, 甲申庚, 甲午辛, 甲辰壬, 甲寅癸.",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2443,7 +2443,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:161",
     "fingerprint": "ef995699d1a7c319",
-    "claim": "Ngũ hành cửu tinh theo cung gốc.",
+    "claim": "Elements of the nine stars by home palace.",
     "sources": [
       {
         "id": "yanbo-diaosou-ge",
@@ -2467,21 +2467,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:168",
     "fingerprint": "31399fefdf5f9017",
-    "claim": "Ngũ hành bát môn theo cung gốc.",
+    "claim": "Elements of the eight doors by home palace.",
     "sources": [
       {
         "id": "yanbo-diaosou-ge",
-        "locator": "ngũ hành các cung (坎水 離火 坤艮土 乾兌金 震巽木)",
+        "locator": "elements of the palaces (坎水 離火 坤艮土 乾兌金 震巽木)",
         "stance": "agree"
       },
       {
         "id": "qimen-tongzong",
-        "locator": "八门: cung gốc của từng môn",
+        "locator": "八门: home palace of each door",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Suy từ cung gốc; hai nguồn không ghi hành của từng môn.",
+    "notes": "Inferred from the home palace; neither source states each door's element.",
     "tests": [],
     "stale": false
   },
@@ -2491,7 +2491,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:174",
     "fingerprint": "f0bb9b0d73c89262",
-    "claim": "Tam kỳ: 乙丙丁.",
+    "claim": "Three qi: 乙丙丁.",
     "sources": [
       {
         "id": "yanbo-diaosou-ge",
@@ -2515,7 +2515,7 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:176",
     "fingerprint": "21f85bf76e9fa6e1",
-    "claim": "Cát môn: 开, 休, 生.",
+    "claim": "Auspicious doors: 开, 休, 生.",
     "sources": [
       {
         "id": "yanbo-diaosou-ge",
@@ -2524,12 +2524,12 @@
       },
       {
         "id": "dunjia-yanyi",
-        "locator": "卷2 (chép 煙波 cùng câu)",
+        "locator": "卷2 (copies the same line from 煙波)",
         "stance": "partial"
       }
     ],
     "verdict": "unverified",
-    "notes": "遁甲演義 chỉ chép lại 煙波 nên không tính là nguồn độc lập.",
+    "notes": "遁甲演義 only copies 煙波, so it does not count as an independent source.",
     "tests": [],
     "stale": false
   },
@@ -2617,7 +2617,7 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:316",
     "fingerprint": "a2b4fa2b19c8fde7",
-    "claim": "Tiết khí dùng để định cục là tiết khí ngay trước thời điểm xem (phép 拆補).",
+    "claim": "The solar term used to set the ju is the term just before the time of casting (the 拆補 method).",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2631,7 +2631,7 @@
       }
     ],
     "verdict": "conflict",
-    "notes": "Cả 統宗 và 遁甲演義 dạy phép 超神接氣置閏 (theo phù đầu). 遁甲演義 dùng 拆補 như một phần của bước 'tiếp khí' và bác bỏ việc dùng 拆補 đứng riêng. Code thực tế là 拆補 đứng riêng: active_jie lấy tiết khí ngay trước thời điểm, compute_yuan theo ngày (qimen_cli.py dòng 316–327). Hai phép cho cục khác nhau khi phù đầu và tiết khí lệch nhau. Chưa sửa: cần quyết định phái mặc định hoặc thêm tham số. Quyết định 2026-11-23: giữ 拆補 làm mặc định; ruleset.ju_rule và SKILL.md ghi rõ khác biệt (SKILL.md trước đó ghi nhầm là 置闰).",
+    "notes": "Both 統宗 and 遁甲演義 teach 超神接氣置閏 (by fu tou). 遁甲演義 uses 拆補 as part of the 'jie qi' step and rejects using 拆補 on its own. The code is in fact standalone 拆補: active_jie takes the term just before the casting time and compute_yuan works by day (qimen_cli.py lines 316–327). The two methods give different ju when the fu tou and the solar term fall apart. Not changed: needs a decision on the default school or a parameter. Decision 2026-11-23: keep 拆補 as the default; ruleset.ju_rule and SKILL.md state the difference (SKILL.md previously said 置闰 by mistake).",
     "tests": [],
     "stale": false
   },
@@ -2641,7 +2641,7 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:325",
     "fingerprint": "c4f8f1987ee9db7a",
-    "claim": "Tam nguyên theo phù đầu 甲/己: rơi vào 子午卯酉 là thượng, 寅申巳亥 trung, 辰戌丑未 hạ; mỗi nguyên 5 ngày.",
+    "claim": "Three yuan by the fu tou 甲/己: on 子午卯酉 it is upper, 寅申巳亥 middle, 辰戌丑未 lower; each yuan lasts 5 days.",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2667,7 +2667,7 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:330",
     "fingerprint": "362ca6bf9f51e457",
-    "claim": "Bày địa bàn từ cung cục số.",
+    "claim": "Lays out the earth plate from the ju palace.",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2706,7 +2706,7 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:344",
     "fingerprint": "65e3eb095693ded3",
-    "claim": "Trung cung 5 gửi về Khôn 2 (cả hai độn).",
+    "claim": "The center palace 5 lodges with Kun 2 (both dun).",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -2715,12 +2715,12 @@
       },
       {
         "id": "dunjia-yanyi",
-        "locator": "卷1 時家竒門: 陽遁一局 甲辰在五天禽為直符死門為直使 (chỉ dương độn)",
+        "locator": "卷1 時家竒門: 陽遁一局 甲辰在五天禽為直符死門為直使 (yang dun only)",
         "stance": "partial"
       }
     ],
     "verdict": "unverified",
-    "notes": "Dương độn gửi Khôn có hai nguồn; âm độn chỉ 統宗, và 統宗 ghi cả dị bản gửi Cấn. 遁甲演義 卷2 ví dụ ghi trực phù 'ở cung 5', code ghi cung 2.",
+    "notes": "Lodging with Kun in yang dun has two sources; yin dun only 統宗, which also records a variant lodging with Gen. 遁甲演義 卷2 puts the zhifu 'in palace 5' in its example; the code uses palace 2.",
     "tests": [],
     "stale": false
   },
@@ -2834,11 +2834,11 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:513",
     "fingerprint": "9dcd7d19441289c3",
-    "claim": "Ráp chart: trực phù theo tuần thủ, trực phù đến can giờ, trực sứ, bát thần.",
+    "claim": "Builds the chart: zhifu by xun shou, zhifu to the hour stem, zhishi, eight gods.",
     "sources": [
       {
         "id": "dunjia-yanyi",
-        "locator": "卷2: 3 ví dụ (陽遁七局, 陽遁上元一局, 隂遁上元九局)",
+        "locator": "卷2: 3 examples (陽遁七局, 陽遁上元一局, 隂遁上元九局)",
         "stance": "agree"
       },
       {
@@ -2848,7 +2848,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "3 ca vàng khớp. Các cách cục (detect_patterns) chưa đối chiếu từng cái.",
+    "notes": "3 golden cases match. The patterns (detect_patterns) have not been checked one by one.",
     "tests": [],
     "stale": false
   },
@@ -2923,7 +2923,7 @@
     "kind": "ruleset",
     "location": "qimen-dunjia/scripts/qimen_cli.py:793",
     "fingerprint": "af973a984743dc9e",
-    "claim": "Mô tả cách định tam nguyên.",
+    "claim": "Describes how the three yuan are set.",
     "sources": [
       {
         "id": "qimen-tongzong",
@@ -3002,7 +3002,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them.",
     "tests": [],
     "stale": false
   },
@@ -3015,7 +3015,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Tài liệu quy trình do dự án viết, không chứa quy tắc thuật số cần nguồn; đã ghi chú ở đầu file (A7).",
+    "notes": "Process document written by the project; contains no divination rules that need sources; noted at the top of the file (A7).",
     "tests": [],
     "stale": false
   },
@@ -3028,7 +3028,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Định nghĩa môn bách, phản ngâm phục ngâm, tam kỳ cát môn có nguồn (煙波); lời giải thích bằng lời thường chưa có nguồn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. Definitions of men po, fanyin/fuyin and three qi with auspicious doors are sourced (煙波); the plain-language explanations are not.",
     "tests": [],
     "stale": false
   },
@@ -3041,7 +3041,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Tài liệu quy trình do dự án viết, không chứa quy tắc thuật số cần nguồn; đã ghi chú ở đầu file (A7).",
+    "notes": "Process document written by the project; contains no divination rules that need sources; noted at the top of the file (A7).",
     "tests": [],
     "stale": false
   },
@@ -3054,7 +3054,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Ghi rõ xung đột 拆補 với 統宗/遁甲演義.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. States the 拆補 conflict with 統宗/遁甲演義.",
     "tests": [],
     "stale": false
   },
@@ -3067,7 +3067,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Bảng dịch thuật ngữ Hán–Việt, không phải khẳng định diễn giải (A7). Âm Hán Việt chưa đối chiếu từ điển.",
+    "notes": "Sino-Vietnamese glossary, not an interpretive claim (A7). Sino-Vietnamese readings not checked against a dictionary.",
     "tests": [],
     "stale": false
   },
@@ -3080,7 +3080,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Cả file chưa có nguồn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. The whole file is unsourced.",
     "tests": [],
     "stale": false
   },
@@ -3142,7 +3142,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:37",
     "fingerprint": "42318b968c1ca944",
-    "claim": "12 cung xếp nghịch từ mệnh.",
+    "claim": "The 12 palaces run backward from the Life palace.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3151,7 +3151,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Sách gọi 妻妾, 奴仆; code gọi 夫妻, 交友. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "The book says 妻妾, 奴仆; the code says 夫妻, 交友. Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3161,7 +3161,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:43",
     "fingerprint": "8f4c89f2592d054e",
-    "claim": "Định cục bằng số can + số chi, tương đương nạp âm của can chi cung mệnh.",
+    "claim": "Sets the bureau by stem number + branch number, equivalent to the nayin of the Life palace's stem-branch.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3170,7 +3170,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Script so 58/60 can chi đọc được trong bài nạp âm: cục tính bằng số khớp hành nạp âm. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Script compared the 58 of 60 stem-branches readable in the nayin verse: the numeric bureau matches the nayin element. Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3189,7 +3189,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3208,7 +3208,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3218,7 +3218,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:52",
     "fingerprint": "5098a074f510d7d0",
-    "claim": "Khởi can cung 寅 theo can năm (甲己 丙寅…戊癸 甲寅).",
+    "claim": "Stem of the 寅 palace by year stem (甲己 丙寅…戊癸 甲寅).",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3227,7 +3227,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3237,7 +3237,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:55",
     "fingerprint": "b3ae95aba9b694f7",
-    "claim": "紫微 nghịch: 天机 −1, 太阳 −3, 武曲 −4, 天同 −5, 廉贞 −8.",
+    "claim": "From 紫微 backward: 天机 −1, 太阳 −3, 武曲 −4, 天同 −5, 廉贞 −8.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3246,7 +3246,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3256,7 +3256,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:57",
     "fingerprint": "130984f2cf978191",
-    "claim": "天府 thuận: 太阴 +1 … 七杀 +6, 破军 +10.",
+    "claim": "From 天府 forward: 太阴 +1 … 七杀 +6, 破军 +10.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3265,7 +3265,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3288,7 +3288,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:64",
     "fingerprint": "841ce1082940c2a9",
-    "claim": "Khôi việt: 甲戊庚 丑未, 乙己 子申, 丙丁 亥酉, 辛 午寅, 壬癸 卯巳.",
+    "claim": "Kui/Yue: 甲戊庚 丑未, 乙己 子申, 丙丁 亥酉, 辛 午寅, 壬癸 卯巳.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3297,7 +3297,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Bản Wikisource ghi 丙丁猪狗 (亥戌), code 亥酉 (猪鸡); ghi 六辛逢虎马 (thứ tự ngược với code 魁午钺寅). Có thể là lỗi chép hoặc dị bản; cần bản in để quyết.",
+    "notes": "The Wikisource copy says 丙丁猪狗 (亥戌), the code 亥酉 (猪鸡); it says 六辛逢虎马 (the reverse of the code's 魁午钺寅). Possibly a transcription error or a variant; a printed edition is needed to decide.",
     "tests": [],
     "stale": false
   },
@@ -3307,7 +3307,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:72",
     "fingerprint": "b535794c5b559153",
-    "claim": "Lộc tồn theo can năm.",
+    "claim": "Lucun by year stem.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3316,7 +3316,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3326,7 +3326,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:75",
     "fingerprint": "9e88c3a00eac5a4f",
-    "claim": "Nhóm tam hợp của chi năm.",
+    "claim": "San he group of the year branch.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3335,7 +3335,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3345,7 +3345,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:81",
     "fingerprint": "0650e04d973e1f26",
-    "claim": "Điểm khởi Hỏa tinh theo tam hợp chi năm.",
+    "claim": "Starting point of Huoxing by the year branch's san he group.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3354,7 +3354,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Sách chỉ cho điểm khởi, không nói chiều đếm theo giờ (code đếm thuận). Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "The book gives only the starting point, not the direction of counting by hour (the code counts forward). Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3364,7 +3364,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:82",
     "fingerprint": "8c8a9d502df7e32a",
-    "claim": "Điểm khởi Linh tinh theo tam hợp chi năm.",
+    "claim": "Starting point of Lingxing by the year branch's san he group.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3373,7 +3373,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Sách chỉ cho điểm khởi, không nói chiều đếm theo giờ (code đếm thuận). Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "The book gives only the starting point, not the direction of counting by hour (the code counts forward). Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3383,7 +3383,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:83",
     "fingerprint": "09ee2583fa2ebbf4",
-    "claim": "Thiên mã theo tam hợp chi năm.",
+    "claim": "Tianma by the year branch's san he group.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3392,7 +3392,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3415,7 +3415,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:87",
     "fingerprint": "4bc4e7a6694748f5",
-    "claim": "Tứ hóa theo can năm; năm 壬 có hai cách, chọn bằng sihua_rule (mặc định zuofu: 左辅 hóa khoa; quanshu: 天府 hóa khoa).",
+    "claim": "Four transformations by year stem; Ren years have two variants, selected by sihua_rule (default zuofu: 左辅 takes hua ke; quanshu: 天府 takes hua ke).",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3424,7 +3424,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Quyết định 2026-11-23: giữ mặc định 左辅 (khớp iztro và app phổ biến), thêm sihua_rule=quanshu theo 全書. Phía 左辅 chưa có nguồn sách trong sổ, nên chưa thể ghi variant. Ca vàng quanshu-ren-sihua.",
+    "notes": "Decision 2026-11-23: keep 左辅 as the default (matches iztro and common apps) and add sihua_rule=quanshu per 全書. The 左辅 side has no book source in the registry, so it cannot be recorded as variant yet. Golden case quanshu-ren-sihua.",
     "tests": [
       "ziwei-doushu/scripts/tests/test_ziwei_cli.py::TestSihuaRule",
       "audit/tests/test_golden_cases.py"
@@ -3476,16 +3476,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:108",
     "fingerprint": "e5e72b2f83d707fe",
-    "claim": "Miếu vượng của 14 chính tinh ở 12 cung.",
+    "claim": "Brightness of the 14 major stars in the 12 palaces.",
     "sources": [
       {
         "id": "ziwei-quanshu",
-        "locator": "卷二 安身命例: bảng 庙 旺 得地 利益 平和 不得地 落陷 (cuối 安身命例)",
+        "locator": "卷二 安身命例: the table 庙 旺 得地 利益 平和 不得地 落陷 (end of 安身命例)",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Script so đủ 168/168 ô, khớp. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Script compared all 168/168 cells: they match. Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3495,7 +3495,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:127",
     "fingerprint": "a14db80231de364a",
-    "claim": "Mệnh chủ theo chi cung mệnh.",
+    "claim": "Life lord by the Life palace branch.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3504,7 +3504,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3514,7 +3514,7 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:128",
     "fingerprint": "c01bd1ab90f3765c",
-    "claim": "Thân chủ theo chi năm.",
+    "claim": "Body lord by the year branch.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3523,7 +3523,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3546,16 +3546,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:139",
     "fingerprint": "8a41c42982aca5b9",
-    "claim": "Mặc định split_15.",
+    "claim": "Default split_15.",
     "sources": [
       {
         "id": "ziwei-quanshu",
-        "locator": "卷二 安身命例: tháng nhuận tính cả tháng sau",
+        "locator": "卷二 安身命例: the whole leap month counts as the next month",
         "stance": "disagree"
       }
     ],
     "verdict": "unverified",
-    "notes": "全書 dùng 'next'; chưa có nguồn cho split_15. Đổi mặc định là quyết định của người dùng. Quyết định 2026-11-23: giữ split_15 (thông dụng trong phần mềm hiện đại); SKILL.md và hướng dẫn ghi rõ 全書 dùng next.",
+    "notes": "全書 uses 'next'; there is no source for split_15. Changing the default is the user's decision. Decision 2026-11-23: keep split_15 (common in modern software); SKILL.md and the user guide state that 全書 uses next.",
     "tests": [],
     "stale": false
   },
@@ -3565,16 +3565,16 @@
     "kind": "table",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:140",
     "fingerprint": "b73fa9728d8ff648",
-    "claim": "Ba cách tính tháng nhuận.",
+    "claim": "Three ways to handle the leap month.",
     "sources": [
       {
         "id": "ziwei-quanshu",
-        "locator": "卷二 安身命例: 若闰月正月生者要在二月内起安身命，凡有闰月具要依此为例 (cả tháng nhuận tính tháng sau)",
+        "locator": "卷二 安身命例: 若闰月正月生者要在二月内起安身命，凡有闰月具要依此为例 (the whole leap month counts as the next month)",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "全書 ủng hộ cách 'next'. Mặc định split_15 của code chưa có nguồn sách.",
+    "notes": "全書 supports 'next'. The code's split_15 default has no book source.",
     "tests": [],
     "stale": false
   },
@@ -3688,16 +3688,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:290",
     "fingerprint": "45e259b48199c3ec",
-    "claim": "Can các cung tính tiếp từ cung 寅 theo thứ tự can.",
+    "claim": "Palace stems continue from the 寅 palace in stem order.",
     "sources": [
       {
         "id": "ziwei-quanshu",
-        "locator": "卷二 安身命例: 起五行寅例; ví dụ 甲生人安命在寅…丙寅",
+        "locator": "卷二 安身命例: 起五行寅例; example 甲生人安命在寅…丙寅",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3707,16 +3707,16 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:296",
     "fingerprint": "992da11345e4938c",
-    "claim": "Ngũ hành cục theo nạp âm can chi cung mệnh.",
+    "claim": "Five-element bureau from the nayin of the Life palace's stem-branch.",
     "sources": [
       {
         "id": "ziwei-quanshu",
-        "locator": "卷二 安身命例: 纳音歌; ví dụ 丙寅 炉中火 → 火局",
+        "locator": "卷二 安身命例: 纳音歌; example 丙寅 炉中火 → 火局",
         "stance": "agree"
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3726,7 +3726,7 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:303",
     "fingerprint": "b75c45d0ec2af6e7",
-    "claim": "An 紫微 theo cục và ngày sinh.",
+    "claim": "Places 紫微 by bureau and birth day.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3735,7 +3735,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Mới đối chiếu một ví dụ (火局, mùng 1 → 酉). Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one example checked so far (fire bureau, day 1 → 酉). Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3745,7 +3745,7 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:315",
     "fingerprint": "e9ba23fb89ea0014",
-    "claim": "天府 đối xứng 紫微 qua trục 寅申.",
+    "claim": "天府 mirrors 紫微 across the 寅申 axis.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3754,7 +3754,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3764,7 +3764,7 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:320",
     "fingerprint": "e49221536cabd71a",
-    "claim": "An 14 chính tinh.",
+    "claim": "Places the 14 major stars.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3773,7 +3773,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3783,7 +3783,7 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:327",
     "fingerprint": "7f0ccb644241c233",
-    "claim": "昌曲 theo giờ, 輔弼 theo tháng, 魁鉞, 祿存, 羊陀, 火鈴, 空劫, 天馬.",
+    "claim": "昌曲 by hour, 輔弼 by month, 魁鉞, 祿存, 羊陀, 火鈴, 空劫, 天馬.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3792,7 +3792,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Các ví dụ của sách khớp (ca vàng quanshu-*). Xem ziwei.table.KUI_YUE. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "The book's examples match (golden cases quanshu-*). See ziwei.table.KUI_YUE. Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3811,7 +3811,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3821,11 +3821,11 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:364",
     "fingerprint": "76aafb9ec0e2f5d4",
-    "claim": "Gán tứ hóa vào vị trí sao.",
+    "claim": "Assigns the four transformations to star positions.",
     "sources": [
       {
         "id": "ziwei-quanshu",
-        "locator": "卷二 安身命例: 安禄权科忌四星变化诀; ví dụ 甲生人廉贞化禄…",
+        "locator": "卷二 安身命例: 安禄权科忌四星变化诀; example 甲生人廉贞化禄…",
         "stance": "agree"
       }
     ],
@@ -3840,7 +3840,7 @@
     "kind": "function",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:372",
     "fingerprint": "33df740e9bac3579",
-    "claim": "Đại hạn: dương nam âm nữ thuận, âm nam dương nữ nghịch.",
+    "claim": "Decade periods: yang male / yin female run forward, yin male / yang female run backward.",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -3849,7 +3849,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Sách ghi khởi 'từ cung trước mệnh' (父母) khi thuận và 'cung sau mệnh' (兄弟) khi nghịch; code khởi đại hạn đầu ở cung mệnh. Có thể là dị bản hoặc cách đọc khác; chưa sửa. Chỉ có một dòng nguồn sách (全書); iztro là phần mềm (T4) nên chưa thể confirmed.",
+    "notes": "The book starts 'from the palace before Life' (父母) when running forward and 'the palace after Life' (兄弟) when running backward; the code starts the first decade at the Life palace. Possibly a variant or a different reading; not changed. Only one book lineage (全書); iztro is software (T4), so nothing can be confirmed yet.",
     "tests": [],
     "stale": false
   },
@@ -3963,7 +3963,7 @@
     "kind": "ruleset",
     "location": "ziwei-doushu/scripts/ziwei_cli.py:556",
     "fingerprint": "24602509fb901c4e",
-    "claim": "Mô tả cách chọn hóa khoa năm 壬 (zuofu: 左辅; quanshu: 天府 theo 全書).",
+    "claim": "Describes how the Ren-year hua ke is chosen (zuofu: 左辅; quanshu: 天府 per 全書).",
     "sources": [
       {
         "id": "ziwei-quanshu",
@@ -4011,7 +4011,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them.",
     "tests": [],
     "stale": false
   },
@@ -4024,7 +4024,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Các mục an sao trỏ về 全書 卷二 và các điểm lệch đã ghi ở A5.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. Star-placement sections point to 全書 卷二 and the differences recorded in A5.",
     "tests": [],
     "stale": false
   },
@@ -4037,7 +4037,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. 12/18 cách cục có câu trong 全書 (một phần hoặc đủ); 6 chưa có nguồn.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. 12 of 18 patterns have a passage in 全書 (partial or full); 6 are unsourced.",
     "tests": [],
     "stale": false
   },
@@ -4050,7 +4050,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Tứ hóa nhập cung, vận hạn tứ hóa, phi tinh: chưa có nguồn (phép hiện đại).",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. Transformations entering palaces, period transformations and flying stars: unsourced (modern techniques).",
     "tests": [],
     "stale": false
   },
@@ -4063,7 +4063,7 @@
     "claim": "",
     "sources": [],
     "verdict": "unverified",
-    "notes": "A7 (2026-11-23): từng mục đã gắn nhãn 出处 (có nguồn / 部分 / 未核对古籍); SKILL.md dặn mô hình nói rõ phần chưa có nguồn. Nhãn là kết quả đối chiếu thủ công, chưa có reviewer chuyên môn. Phát hiện: nhãn 北斗/南斗 trong bảng tổng quan khác 全書 (天機, 天同… thuộc 南斗); đã ghi chú, chưa đổi tên nhóm.",
+    "notes": "A7 (2026-11-23): every section is labelled 出处 (sourced / 部分 / 未核对古籍); SKILL.md tells the model to say when material is unsourced. The labels come from manual comparison; no subject-matter expert has reviewed them. Finding: the 北斗/南斗 labels in the overview table differ from 全書 (天機, 天同… belong to 南斗); noted, group names not changed.",
     "tests": [],
     "stale": false
   },
@@ -4076,7 +4076,7 @@
     "claim": "",
     "sources": [],
     "verdict": "not_applicable",
-    "notes": "Bảng dịch thuật ngữ Hán–Việt, không phải khẳng định diễn giải (A7). Âm Hán Việt chưa đối chiếu từ điển.",
+    "notes": "Sino-Vietnamese glossary, not an interpretive claim (A7). Sino-Vietnamese readings not checked against a dictionary.",
     "tests": [],
     "stale": false
   }

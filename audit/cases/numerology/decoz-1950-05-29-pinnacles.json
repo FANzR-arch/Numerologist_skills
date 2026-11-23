@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "decoz-numerology",
-    "locator": "Perigee 2001, Google Books xem trước, id IKC38ldPLakC, tr. 220: Figure 6.1 The Birth Day Chart with Pinnacles"
+    "locator": "Perigee 2001, Google Books preview, id IKC38ldPLakC, p. 220: Figure 6.1 The Birth Day Chart with Pinnacles"
   },
   "input": {
     "birth_date": "1950-05-29",

@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "hko-calendar-tables",
-    "locator": "T2033e.txt, dòng 2033/12/22: '11th Lunar Month' lặp lại (HKO không ghi chữ 'leap'; suy ra tháng nhuận, khớp ytliu0 examples.html Example 2)"
+    "locator": "T2033e.txt, line 2033/12/22: '11th Lunar Month' repeats (HKO does not write 'leap'; the leap month is inferred and matches ytliu0 examples.html Example 2)"
   },
   "input": {
     "calendar_type": "solar",

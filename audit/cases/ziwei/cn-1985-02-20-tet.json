@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "hko-calendar-tables",
-    "locator": "T1985e.txt, dòng 1985/02/20 (1st Lunar month)"
+    "locator": "T1985e.txt, line 1985/02/20 (1st Lunar month)"
   },
   "input": {
     "calendar_type": "solar",

@@ -1,7 +1,7 @@
 {
   "source": {
     "id": "ziwei-quanshu",
-    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 正月生子时就在寅宫安身命; 甲生人安命在寅…丙寅丁卯炉中火…正月初一生者是火局，酉宫起紫微; 文昌 戌、文曲 辰 (子时); 左辅 辰、右弼 戌 (正月); 甲戊庚牛羊; 甲生禄存在寅宫; 禄前擎羊后陀罗; 申子辰人马居寅、火寅铃戌; 子时劫空俱在亥宫; 天刑酉、天姚丑起正月; 天哭天虚起午宫; 卯上起子逆数 (红鸾), 对宫天喜; 甲廉破武阳. Năm 甲 chọn là 1984 (甲子); sách chỉ cho điểm khởi 火铃, việc tính giờ Tý tại điểm khởi là giả định"
+    "locator": "zh.wikisource 紫微斗數全書/卷二, 安身命例: 正月生子时就在寅宫安身命; 甲生人安命在寅…丙寅丁卯炉中火…正月初一生者是火局，酉宫起紫微; 文昌 戌、文曲 辰 (子时); 左辅 辰、右弼 戌 (正月); 甲戊庚牛羊; 甲生禄存在寅宫; 禄前擎羊后陀罗; 申子辰人马居寅、火寅铃戌; 子时劫空俱在亥宫; 天刑酉、天姚丑起正月; 天哭天虚起午宫; 卯上起子逆数 (红鸾), 对宫天喜; 甲廉破武阳. 甲 year chosen: 1984 (甲子); the book gives only the starting points of 火铃, so placing the Zi hour at the starting point is an assumption"
   },
   "input": {
     "calendar_type": "lunar",

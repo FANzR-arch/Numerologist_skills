@@ -9,7 +9,7 @@
     "edition": null,
     "access": null,
     "verified": false,
-    "note": "Chưa đọc được nguyên văn (chỉ có bản bán hoặc hệ thống công bố toàn văn); các quy tắc đang dựa trên nguồn thứ cấp nói là theo tiêu chuẩn này"
+    "note": "Full text not read (only sold copies or the official full-text system); the rules currently rely on secondary sources that say they follow this standard"
   },
   {
     "id": "aslaksen-chinese-calendar",
@@ -19,7 +19,7 @@
     "tier": "T2",
     "lineage": "aslaksen",
     "edition": "Draft: July 17, 2010 (52 tr.)",
-    "access": "https://www.gwern.net/doc/science/2010-aslaksen.pdf (bản NUS gốc www.math.nus.edu.sg/aslaksen/calendar/cal.pdf trả 404 ngày 2026-11-23); đọc 2026-11-23",
+    "access": "https://www.gwern.net/doc/science/2010-aslaksen.pdf (the original NUS copy www.math.nus.edu.sg/aslaksen/calendar/cal.pdf returned 404 on 2026-11-23); read 2026-11-23",
     "verified": true,
     "note": ""
   },
@@ -42,10 +42,10 @@
     "language": "en",
     "tier": "T2",
     "lineage": "explanatory-supplement",
-    "edition": "Bản lưu Wayback Machine ngày 2008-08-03",
-    "access": "https://web.archive.org/web/20080803075933/http://www.informatik.uni-leipzig.de/~duc/amlich/calrules_en.html; đọc qua Chrome 2026-11-23",
+    "edition": "Wayback Machine copy of 2008-08-03",
+    "access": "https://web.archive.org/web/20080803075933/http://www.informatik.uni-leipzig.de/~duc/amlich/calrules_en.html; read via Chrome 2026-11-23",
     "verified": true,
-    "note": "Bản gốc Leipzig trả 404. Trang ghi quy tắc phỏng theo Explanatory Supplement to the Astronomical Almanac (Seidelmann), nên lineage ghi theo nguồn đó. Trang không nói về giai đoạn trước 1967."
+    "note": "The original Leipzig page returns 404. The page says its rules are adapted from the Explanatory Supplement to the Astronomical Almanac (Seidelmann), so the lineage is recorded under that source. The page says nothing about the period before 1967."
   },
   {
     "id": "hko-calendar-tables",
@@ -54,8 +54,8 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "hko",
-    "edition": "Bảng text năm 1984, 1985, 2007, 2024, 2033",
-    "access": "https://www.hko.gov.hk/en/gts/time/calendar/text/files/T<năm>e.txt; đọc 2026-11-23",
+    "edition": "Text tables for 1984, 1985, 2007, 2024, 2033",
+    "access": "https://www.hko.gov.hk/en/gts/time/calendar/text/files/T<year>e.txt; read 2026-11-23",
     "verified": true,
     "note": ""
   },
@@ -102,10 +102,10 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "yuanhai",
-    "edition": "Bản Wikisource (楊淙 biên, chữ giản thể, {{No source}})",
-    "access": "https://zh.wikisource.org/wiki/淵海子平; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy (edited by 楊淙, simplified characters, {{No source}})",
+    "access": "https://zh.wikisource.org/wiki/淵海子平; raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Bản Wikisource không ghi bản gốc."
+    "note": "The Wikisource copy does not name its base edition."
   },
   {
     "id": "sanming-tonghui",
@@ -114,8 +114,8 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "sanming",
-    "edition": "Bản Wikisource, 卷一–卷四 (bản không chú thích, không phải bản 四庫)",
-    "access": "https://zh.wikisource.org/wiki/三命通會; tải 卷一–卷四 bản raw 2026-11-23",
+    "edition": "Wikisource copy, 卷一–卷四 (unannotated, not the 四庫 edition)",
+    "access": "https://zh.wikisource.org/wiki/三命通會; 卷一–卷四 raw text downloaded 2026-11-23",
     "verified": true,
     "note": ""
   },
@@ -174,10 +174,10 @@
     "language": "zh",
     "tier": "T2",
     "lineage": "ditiansui-ren",
-    "edition": "Bản Wikisource (任鐵樵 增注)",
-    "access": "https://zh.wikisource.org/wiki/滴天髓闡微; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy (with 任鐵樵's commentary)",
+    "access": "https://zh.wikisource.org/wiki/滴天髓闡微; raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Không có bảng tàng can; chỉ nhắc rải rác trong lời bình mệnh lệ."
+    "note": "No hidden-stem table; only scattered mentions in the commentary on cases."
   },
   {
     "id": "abe-taizan",
@@ -210,10 +210,10 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "quanshu",
-    "edition": "Bản Wikisource 卷一–卷三 (chữ giản thể, bảng vẽ bằng ký tự)",
-    "access": "https://zh.wikisource.org/wiki/紫微斗數全書; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy 卷一–卷三 (simplified characters, tables drawn in text)",
+    "access": "https://zh.wikisource.org/wiki/紫微斗數全書; raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Bản chép có thể có lỗi chữ (ví dụ nghi '丙丁猪狗位'). 續道藏《紫微斗數》 (陳摶, 3 quyển) trên Wikisource là hệ an sao khác (紫微 theo chi năm, sao 虛貴印壽…), không dùng làm nguồn thứ hai."
+    "note": "The transcription may contain character errors (e.g. '丙丁猪狗位' is suspect). The 續道藏《紫微斗數》 (陳摶, 3 volumes) on Wikisource is a different placement system (紫微 by year branch, stars 虛貴印壽…) and is not used as a second source."
   },
   {
     "id": "ziwei-quanji",
@@ -282,10 +282,10 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "yanbo",
-    "edition": "Bản Wikisource (thiếu bài cục số)",
-    "access": "https://zh.wikisource.org/wiki/煙波釣叟歌; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy (without the ju-number verse)",
+    "access": "https://zh.wikisource.org/wiki/煙波釣叟歌; raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Bản này không có câu 冬至驚蟄一七四…; 統宗 và 遁甲演義 có chép lại toàn văn bài ca."
+    "note": "This copy lacks the line 冬至驚蟄一七四…; 統宗 and 遁甲演義 quote the whole verse."
   },
   {
     "id": "qimen-tongzong",
@@ -294,8 +294,8 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "tongzong",
-    "edition": "Bản Wikisource (chữ giản thể)",
-    "access": "https://zh.wikisource.org/wiki/奇門遁甲統宗; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy (simplified characters)",
+    "access": "https://zh.wikisource.org/wiki/奇門遁甲統宗; raw text downloaded 2026-11-23",
     "verified": true,
     "note": ""
   },
@@ -343,9 +343,9 @@
     "tier": "T1",
     "lineage": "jingfang",
     "edition": "四庫全書本，卷上、卷中、卷下",
-    "access": "https://zh.wikisource.org/wiki/京氏易傳_(四庫全書本); tải bản raw 2026-11-23",
+    "access": "https://zh.wikisource.org/wiki/京氏易傳_(四庫全書本); raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Bản Wikisource có chỗ gộp đoạn (vài quẻ nằm chung một đoạn) nhưng thứ tự 降入 vẫn đúng."
+    "note": "The Wikisource copy merges some paragraphs (several hexagrams in one paragraph), but the 降入 order is intact."
   },
   {
     "id": "huozhu-lin",
@@ -354,10 +354,10 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "huozhulin",
-    "edition": "Bản Wikisource (chữ giản thể)",
-    "access": "https://zh.wikisource.org/wiki/火珠林; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy (simplified characters)",
+    "access": "https://zh.wikisource.org/wiki/火珠林; raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Không có bảng nạp giáp hay quy tắc khởi lục thần; chỉ dùng các ví dụ quẻ có nêu can chi."
+    "note": "No najia table or rule for starting the six spirits; only hexagram examples that give stem-branches are used."
   },
   {
     "id": "zengshan-buyi",
@@ -366,10 +366,10 @@
     "language": "zh",
     "tier": "T2",
     "lineage": "yehe",
-    "edition": "Bản Wikisource do 原劍 chép (Textquality 50%)",
-    "access": "https://zh.wikisource.org/wiki/增刪卜易; tải các chương 1–7, 11, 12, 18, 26又4, 28 bản raw 2026-11-23",
+    "edition": "Wikisource copy transcribed by 原劍 (Textquality 50%)",
+    "access": "https://zh.wikisource.org/wiki/增刪卜易; chapters 1–7, 11, 12, 18, 26又4, 28 raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Phần đầu trang (納甲歌, 起六神訣, 安世應要領…) do người chép thêm, không dùng làm nguồn. Đoạn 占卦法 ở chương 2 bị chính người biên tập nghi là thêm vào. Có lỗi chép: ch. 4 '辰在內' là 艮; bảng ch. 3 quẻ 困 hào 1 ghi 卯 (theo ch. 4 là 寅), 明夷 hào 4 ghi '五上' (丑土), 夬 hào 4 thiếu nét."
+    "note": "The top of the page (納甲歌, 起六神訣, 安世應要領…) was added by the transcriber and is not used as a source. The 占卦法 passage in ch. 2 is itself flagged by the editor as an addition. Transcription errors: ch. 4 '辰在內' should be 艮; in the ch. 3 table, 困 line 1 reads 卯 (寅 per ch. 4), 明夷 line 4 reads '五上' (丑土), 夬 line 4 is missing its line mark."
   },
   {
     "id": "bushi-zhengzong",
@@ -403,9 +403,9 @@
     "tier": "T3",
     "lineage": "phillips-templeton",
     "edition": "Hay House 2005 (ISBN 9781401907273)",
-    "access": "Google Books, bản xem trước có giới hạn (id xogGqJzowKYC), đọc qua Chrome 2026-11-23; một số trang chỉ đọc được đoạn trích tìm kiếm",
+    "access": "Google Books limited preview (id xogGqJzowKYC), read via Chrome 2026-11-23; some pages only as search excerpts",
     "verified": true,
-    "note": "Có một bản PDF không rõ bản quyền trên archive.org; không dùng. Phillips ghi các mũi tên học từ Hettie Templeton (tr. 51). Số trang ghi theo tham số pg=PA<n> của Google Books khi mở trang."
+    "note": "There is a PDF of unclear copyright status on archive.org; not used. Phillips says he learned the arrows from Hettie Templeton (p. 51). Page numbers follow the Google Books pg=PA<n> parameter when the page was opened."
   },
   {
     "id": "decoz-numerology",
@@ -414,10 +414,10 @@
     "language": "en",
     "tier": "T3",
     "lineage": "decoz",
-    "edition": "Perigee 2001 (Google Books ghi tên: Numerology: A Complete Guide to Understanding and Using Your Numbers of Destiny)",
-    "access": "Google Books, bản xem trước có giới hạn (id IKC38ldPLakC), đọc qua Chrome 2026-11-23",
+    "edition": "Perigee 2001 (Google Books title: Numerology: A Complete Guide to Understanding and Using Your Numbers of Destiny)",
+    "access": "Google Books limited preview (id IKC38ldPLakC), read via Chrome 2026-11-23",
     "verified": true,
-    "note": "Chưa đối chiếu với ấn bản Avery 1994 mang tên Numerology: Key to Your Inner Self. Số trang ghi theo tham số pg=PA<n> của Google Books khi mở trang."
+    "note": "Not yet compared with the 1994 Avery edition titled Numerology: Key to Your Inner Self. Page numbers follow the Google Books pg=PA<n> parameter when the page was opened."
   },
   {
     "id": "goodwin-numerology",
@@ -451,33 +451,33 @@
     "tier": "T1",
     "lineage": "noaa",
     "edition": "PDF 2 tr., metadata CreationDate 2017-03-07",
-    "access": "https://gml.noaa.gov/grad/solcalc/solareqns.PDF; đọc 2026-11-23",
+    "access": "https://gml.noaa.gov/grad/solcalc/solareqns.PDF; read 2026-11-23",
     "verified": true,
-    "note": "Công thức phương trình thời gian và giờ mặt trời thực (tài liệu không ghi tác giả công thức)"
+    "note": "Formulas for the equation of time and true solar time (the document does not name the formula's author)"
   },
   {
     "id": "iana-tzdb",
     "title": "IANA Time Zone Database, file asia",
-    "author": "tz project (Paul Eggert và cộng sự)",
+    "author": "tz project (Paul Eggert et al.)",
     "language": "en",
     "tier": "T2",
     "lineage": "iana-tzdb",
     "edition": "2026f",
-    "access": "https://data.iana.org/time-zones/tzdb/asia; đọc 2026-11-23",
+    "access": "https://data.iana.org/time-zones/tzdb/asia; read 2026-11-23",
     "verified": true,
-    "note": "Trích dẫn thông báo chính phủ TQ về giờ mùa hè 1986–1991; zoneinfo của Python dùng cùng dữ liệu (không tính là nguồn độc lập)"
+    "note": "Quotes the Chinese government notice on daylight saving time 1986–1991; Python's zoneinfo uses the same data (not an independent source)"
   },
   {
     "id": "ytliu0-chinese-calendar",
     "title": "Rules for the Chinese Calendar / Calendar Calculation (ytliu0.github.io/ChineseCalendar)",
-    "author": "(trang không ghi tên tác giả)",
+    "author": "(the page names no author)",
     "language": "en",
     "tier": "T3",
     "lineage": "aslaksen",
     "edition": "rules.html, computation.html, examples.html",
-    "access": "https://ytliu0.github.io/ChineseCalendar/rules.html; đọc 2026-11-23",
+    "access": "https://ytliu0.github.io/ChineseCalendar/rules.html; read 2026-11-23",
     "verified": true,
-    "note": "Ghi là theo GB/T 33661-2017 cho 1912–2200, tính bằng ephemeris JPL DE441; dùng thuật ngữ và trích Aslaksen nên phần quy tắc không tính là độc lập với Aslaksen"
+    "note": "Says it follows GB/T 33661-2017 for 1912–2200, computed with the JPL DE441 ephemeris; it uses Aslaksen's terms and cites him, so its rules are not independent of Aslaksen"
   },
   {
     "id": "huang-zongxi-xiangshulun",
@@ -486,20 +486,20 @@
     "language": "zh",
     "tier": "T2",
     "lineage": "huangzongxi",
-    "edition": "Bản Wikisource",
-    "access": "https://zh.wikisource.org/wiki/易學象數論/占課; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy",
+    "access": "https://zh.wikisource.org/wiki/易學象數論/占課; raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Khảo cứu đời Thanh so sánh phép Kinh Phòng với phép của các nhà thuật số (火珠林)."
+    "note": "A Qing-dynasty study comparing Jing Fang's method with the practitioners' method (火珠林)."
   },
   {
     "id": "zhouyi-xugua",
     "title": "周易・序卦傳",
-    "author": "(truyền thống)",
+    "author": "(traditional)",
     "language": "zh",
     "tier": "T1",
     "lineage": "zhouyi",
-    "edition": "Bản Wikisource",
-    "access": "https://zh.wikisource.org/wiki/易傳/序卦; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy",
+    "access": "https://zh.wikisource.org/wiki/易傳/序卦; raw text downloaded 2026-11-23",
     "verified": true,
     "note": ""
   },
@@ -510,8 +510,8 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "shenfeng",
-    "edition": "Bản Wikisource",
-    "access": "https://zh.wikisource.org/wiki/神峰通考; tải bản raw 2026-11-23",
+    "edition": "Wikisource copy",
+    "access": "https://zh.wikisource.org/wiki/神峰通考; raw text downloaded 2026-11-23",
     "verified": true,
     "note": ""
   },
@@ -523,8 +523,8 @@
     "tier": "T1",
     "lineage": "yanyi",
     "edition": "四庫全書本, 卷1–4 (Wikisource)",
-    "access": "https://zh.wikisource.org/wiki/遁甲演義_(四庫全書本); tải bản raw 2026-11-23",
+    "access": "https://zh.wikisource.org/wiki/遁甲演義_(四庫全書本); raw text downloaded 2026-11-23",
     "verified": true,
-    "note": "Có chép lại bài 煙波釣叟歌; các ví dụ ở 卷2 là phần riêng của sách."
+    "note": "Quotes the 煙波釣叟歌 verse; the examples in 卷2 are the book's own."
   }
 ]
