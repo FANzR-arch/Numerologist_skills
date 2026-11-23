@@ -2086,9 +2086,20 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:37",
     "fingerprint": "388c13814b585b4b",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Dương độn từ 冬至 tới 芒种, âm độn từ 夏至 tới 大雪.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 八节 / 八卦定图; 卷一 超接诀 (芒种节后是夏至…大雪之后是冬至)",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1: 冬至十二氣…為陽遁九局，夏至十二氣…為隂遁九局",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false
@@ -2099,10 +2110,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:42",
     "fingerprint": "e10855c23e787534",
-    "claim": "",
-    "sources": [],
+    "claim": "Cục số thượng/trung/hạ nguyên của 24 tiết khí.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷一 阴阳二遁顺逆起例: 冬至惊蜇一七四，夏至白露九三六…立冬寒露六九三 (so tự động 24/24)",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷2: ví dụ 陽遁上元一局, 隂遁上元九局 (gián tiếp)",
+        "stance": "partial"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Bài cục số chỉ đọc được trong 統宗; 遁甲演義 chỉ có ví dụ, không có bài. Bản 煙波釣叟歌 trên Wikisource thiếu câu này.",
     "tests": [],
     "stale": false
   },
@@ -2112,9 +2134,20 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:73",
     "fingerprint": "9ab5176eec9d0cc0",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Địa bàn: dương độn thuận lục nghi nghịch tam kỳ, âm độn nghịch lục nghi thuận tam kỳ.",
+    "sources": [
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "陽遁順儀奇逆布，陰遁逆儀奇順行",
+        "stance": "agree"
+      },
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 阳遁 / 阴遁: ví dụ cục 1 và cục 9",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false
@@ -2138,10 +2171,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:83",
     "fingerprint": "9f3c3eff3eafdaa4",
-    "claim": "",
-    "sources": [],
+    "claim": "Cửu tinh và cung gốc: 蓬1 任8 冲3 辅4 英9 芮2 柱7 心6, 禽5.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 九星; 卷一 九星值符图",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1 時家竒門 (陽遁一局: 坎天蓬, 坤天芮, 震天沖, 巽天輔, 五天禽, 乾天心); 卷3 (艮任, 離英)",
+        "stance": "partial"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "8/9 sao có hai nguồn; 天柱 ở cung 7 chỉ thấy trong 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2151,10 +2195,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:86",
     "fingerprint": "13cd6dc932c2a0c5",
-    "claim": "",
-    "sources": [],
+    "claim": "Bát môn và cung gốc: 休1 生8 伤3 杜4 景9 死2 惊7 开6.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 八门: 坎休、艮生、震伤、巽杜、离景、坤死、兑惊、乾开; 卷一 八门值使图",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1 時家竒門: 休 (坎), 死 (坤, 五), 傷 (震), 杜 (巽), 開 (乾)",
+        "stance": "partial"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "生, 景, 驚 chỉ thấy trong 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2164,10 +2219,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:89",
     "fingerprint": "46169d94a1146115",
-    "claim": "",
-    "sources": [],
+    "claim": "Xem qimen.table.STAR_RING.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 九星; 卷一 九星值符图",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1 時家竒門 (陽遁一局: 坎天蓬, 坤天芮, 震天沖, 巽天輔, 五天禽, 乾天心); 卷3 (艮任, 離英)",
+        "stance": "partial"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "8/9 sao có hai nguồn; 天柱 ở cung 7 chỉ thấy trong 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2177,10 +2243,16 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:90",
     "fingerprint": "372047defbc374fd",
-    "claim": "",
-    "sources": [],
+    "claim": "Xem qimen.table.DOOR_RING.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷一 八门值使图",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Danh sách đủ chỉ ở 統宗.",
     "tests": [],
     "stale": false
   },
@@ -2203,10 +2275,26 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:95",
     "fingerprint": "a2ed64d19993314f",
-    "claim": "",
-    "sources": [],
+    "claim": "Bát thần dương độn: 值符, 螣蛇, 太阴, 六合, 白虎 (勾陈), 玄武 (朱雀), 九地, 九天.",
+    "sources": [
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "值符前三六合位，太陰之神在前二。後一宮中為九天，後二之神為九地",
+        "stance": "agree"
+      },
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 八神: 一值符、二腾蛇、三太阴、四六合、五勾陈、六朱雀、七九地、八九天（朱雀下有玄武，勾陈下又白虎）",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷2 例 陽遁上元一局",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Vị trí 值符, 太陰, 六合, 九天, 九地 có hai nguồn (煙波 hoặc 遁甲演義 卷2, cùng 統宗); 遁甲演義 chép lại 煙波 nên ví dụ của nó chỉ minh họa cùng quy tắc. 螣蛇 và hai vị trí 5, 6 chỉ có 統宗, và 統宗 gọi là 勾陈/朱雀, 白虎/玄武 chỉ là tên thay (code dùng tên thay).",
     "tests": [],
     "stale": false
   },
@@ -2216,10 +2304,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:96",
     "fingerprint": "69219facd10a21c4",
-    "claim": "",
-    "sources": [],
+    "claim": "Bát thần âm độn: 值符, 九天, 九地, 玄武 (朱雀), 白虎 (勾陈), 六合, 太阴, 螣蛇 (theo chiều ROTATION_RING).",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 八神: 阴遁则一值符、二九天、三九地、四朱雀、五勾陈、六六合、七太阴、八腾蛇",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷2 例 隂遁上元九局: 前一九天, 前二九地, 後二太隂, 後三六合",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Vị trí 值符, 太陰, 六合, 九天, 九地 có hai nguồn (煙波 hoặc 遁甲演義 卷2, cùng 統宗); 遁甲演義 chép lại 煙波 nên ví dụ của nó chỉ minh họa cùng quy tắc. 螣蛇 và hai vị trí 5, 6 chỉ có 統宗, và 統宗 gọi là 勾陈/朱雀, 白虎/玄武 chỉ là tên thay (code dùng tên thay).",
     "tests": [],
     "stale": false
   },
@@ -2229,9 +2328,20 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:98",
     "fingerprint": "124de4ba318f3742",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Lục giáp ẩn dưới lục nghi: 甲子戊, 甲戌己, 甲申庚, 甲午辛, 甲辰壬, 甲寅癸.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 六仪: 甲子遁于六戊…甲寅遁于六癸",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷3: 甲子戊在坤 甲戌己在震 甲申庚在巽 甲午辛… 甲辰壬… 甲寅癸…",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false
@@ -2333,9 +2443,20 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:161",
     "fingerprint": "ef995699d1a7c319",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Ngũ hành cửu tinh theo cung gốc.",
+    "sources": [
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "坎蓬水星離英火，中宮坤艮土為營，乾兌為金震巽木",
+        "stance": "agree"
+      },
+      {
+        "id": "qimen-tongzong",
+        "locator": "九星值符图: 天辅巽四木, 天英离九火, 天芮坤二土…",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false
@@ -2346,10 +2467,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:168",
     "fingerprint": "31399fefdf5f9017",
-    "claim": "",
-    "sources": [],
+    "claim": "Ngũ hành bát môn theo cung gốc.",
+    "sources": [
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "ngũ hành các cung (坎水 離火 坤艮土 乾兌金 震巽木)",
+        "stance": "agree"
+      },
+      {
+        "id": "qimen-tongzong",
+        "locator": "八门: cung gốc của từng môn",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Suy từ cung gốc; hai nguồn không ghi hành của từng môn.",
     "tests": [],
     "stale": false
   },
@@ -2359,9 +2491,20 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:174",
     "fingerprint": "f0bb9b0d73c89262",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Tam kỳ: 乙丙丁.",
+    "sources": [
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "三奇即是乙丙丁",
+        "stance": "agree"
+      },
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷一 三奇六仪",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false
@@ -2372,10 +2515,21 @@
     "kind": "table",
     "location": "qimen-dunjia/scripts/qimen_cli.py:176",
     "fingerprint": "21f85bf76e9fa6e1",
-    "claim": "",
-    "sources": [],
+    "claim": "Cát môn: 开, 休, 生.",
+    "sources": [
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "八門若遇開休生，諸事逢之總趁情",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷2 (chép 煙波 cùng câu)",
+        "stance": "partial"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "遁甲演義 chỉ chép lại 煙波 nên không tính là nguồn độc lập.",
     "tests": [],
     "stale": false
   },
@@ -2463,10 +2617,21 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:316",
     "fingerprint": "a2b4fa2b19c8fde7",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
+    "claim": "Tiết khí dùng để định cục là tiết khí ngay trước thời điểm xem (phép 拆補).",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷一 论超接之法 / 又法 (符头先到则从符头而行节气之先上元) / 超接诀 / 置闰法",
+        "stance": "disagree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1 超神接氣置閏訣: 拆補之局永為下之殘局…上局永無拆補借用之理",
+        "stance": "disagree"
+      }
+    ],
+    "verdict": "conflict",
+    "notes": "Cả 統宗 và 遁甲演義 dạy phép 超神接氣置閏 (theo phù đầu). 遁甲演義 dùng 拆補 như một phần của bước 'tiếp khí' và bác bỏ việc dùng 拆補 đứng riêng. Code thực tế là 拆補 đứng riêng: active_jie lấy tiết khí ngay trước thời điểm, compute_yuan theo ngày (qimen_cli.py dòng 316–327). Hai phép cho cục khác nhau khi phù đầu và tiết khí lệch nhau. Chưa sửa: cần quyết định phái mặc định hoặc thêm tham số.",
     "tests": [],
     "stale": false
   },
@@ -2476,11 +2641,24 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:325",
     "fingerprint": "c4f8f1987ee9db7a",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Tam nguyên theo phù đầu 甲/己: rơi vào 子午卯酉 là thượng, 寅申巳亥 trung, 辰戌丑未 hạ; mỗi nguyên 5 ngày.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 定三元法: 符头所临之支值子午卯酉则为上元；值寅申巳亥则为中元",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1 閏訣: 甲己二日號符頭，子午夘酉為上列，寅申巳亥配中元，辰戌丑未下元",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -2489,11 +2667,24 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:330",
     "fingerprint": "362ca6bf9f51e457",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Bày địa bàn từ cung cục số.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 阳遁 / 阴遁 (一局, 九局)",
+        "stance": "agree"
+      },
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "陽遁順儀奇逆布",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -2515,10 +2706,21 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:344",
     "fingerprint": "65e3eb095693ded3",
-    "claim": "",
-    "sources": [],
+    "claim": "Trung cung 5 gửi về Khôn 2 (cả hai độn).",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 九星: 天禽阳遁阴遁俱寄坤宫，一本阳遁寄坤宫阴遁寄艮宫",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1 時家竒門: 陽遁一局 甲辰在五天禽為直符死門為直使 (chỉ dương độn)",
+        "stance": "partial"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Dương độn gửi Khôn có hai nguồn; âm độn chỉ 統宗, và 統宗 ghi cả dị bản gửi Cấn. 遁甲演義 卷2 ví dụ ghi trực phù 'ở cung 5', code ghi cung 2.",
     "tests": [],
     "stale": false
   },
@@ -2632,10 +2834,21 @@
     "kind": "function",
     "location": "qimen-dunjia/scripts/qimen_cli.py:513",
     "fingerprint": "9dcd7d19441289c3",
-    "claim": "",
-    "sources": [],
+    "claim": "Ráp chart: trực phù theo tuần thủ, trực phù đến can giờ, trực sứ, bát thần.",
+    "sources": [
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷2: 3 ví dụ (陽遁七局, 陽遁上元一局, 隂遁上元九局)",
+        "stance": "agree"
+      },
+      {
+        "id": "yanbo-diaosou-ge",
+        "locator": "值符常遣加時干，值使順逆遁宮去",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "3 ca vàng khớp. Các cách cục (detect_patterns) chưa đối chiếu từng cái.",
     "tests": [],
     "stale": false
   },
@@ -2710,9 +2923,20 @@
     "kind": "ruleset",
     "location": "qimen-dunjia/scripts/qimen_cli.py:793",
     "fingerprint": "af973a984743dc9e",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Mô tả cách định tam nguyên.",
+    "sources": [
+      {
+        "id": "qimen-tongzong",
+        "locator": "卷二 定三元法: 符头所临之支值子午卯酉则为上元；值寅申巳亥则为中元",
+        "stance": "agree"
+      },
+      {
+        "id": "dunjia-yanyi",
+        "locator": "卷1 閏訣: 甲己二日號符頭，子午夘酉為上列，寅申巳亥配中元，辰戌丑未下元",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false

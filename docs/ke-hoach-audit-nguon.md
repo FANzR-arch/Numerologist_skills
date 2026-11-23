@@ -1,6 +1,6 @@
 # Kế hoạch audit logic theo nguồn tài liệu đáng tin cậy
 
-Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2 làm được phần đọc được trên Google Books 2026-11-23; A3 xong phần bảng 2026-11-23; A4 xong phần quy tắc tính 2026-11-23; A5 làm được phần 紫微斗數全書 2026-11-23; A6–A7 chưa bắt đầu.
+Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2 làm được phần đọc được trên Google Books 2026-11-23; A3 xong phần bảng 2026-11-23; A4 xong phần quy tắc tính 2026-11-23; A5 làm được phần 紫微斗數全書 2026-11-23; A6 xong phần định cục và bố bàn 2026-11-23; A7 chưa bắt đầu.
 
 ## Mục tiêu
 
@@ -169,7 +169,7 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 | A3. Lục Hào (phần bảng ✅) | Đã đọc nguyên văn trên Wikisource: 京氏易傳 (四庫), 增刪卜易 (ch. 1–7, 11, 12, 18, 28, 八宮圖), 火珠林, 黃宗羲《易學象數論・占課》, 序卦傳. Chưa đọc: 卜筮正宗, 易冒 | 12 `confirmed`: bảng 64 quẻ, 8 cung và thế ứng (đối chiếu tự động đủ 64 quẻ với cả 增刪 và 京氏), nạp giáp, lục thân, lục thần. 13 ca vàng. Còn `unverified`: thứ tự Văn Vương (mới có 序卦傳), quy ước mặt xu (nghi ngược với 單拆重交), tuần không/nguyệt phá, tên quẻ tiếng Việt, `yongshen.md` |
 | A4. Bát Tự (phần quy tắc tính ✅) | Đã đọc nguyên văn trên Wikisource: 淵海子平, 三命通會 卷一–四, 神峰通考, 滴天髓闡微, 穷通宝鉴. Chưa đọc: 子平真詮 (không có trên Wikisource), chú giải của 徐乐吾 | 3 `confirmed`: thiên can, ngũ hành thiên can, quy tắc đại vận. Tàng can (tập hợp) và thập thần khớp 淵海 + 神峰, có test; nằm trong mục tài liệu nên chờ A7. 416/502 chuỗi can chi trong 滴天髓闡微 có dãy vận liền kề trụ tháng (lọc bằng script). 5 ca vàng dựng lại từ ví dụ khởi vận (三命通會, 神峰通考). Chưa có câu nguồn: đổi năm tại lập xuân, đổi tháng tại tiết, giờ Tý muộn, hành của lục hợp |
 | A5. Tử Vi (phần 全書 ✅) | Đã đọc nguyên văn 紫微斗數全書 卷一–三 trên Wikisource. 續道藏《紫微斗數》 là hệ khác. Chưa đọc: 全集, 王亭之, Thái Thứ Lang | Khớp 全書: 14 chính tinh, phụ tinh, bảng miếu hãm (168/168 ô), ngũ hành cục (58/60 nạp âm), mệnh chủ thân chủ; 6 ca vàng. Chưa confirmed vì mới một dòng nguồn. 1 `conflict`: tứ hóa năm 壬 (全書 天府 hóa khoa, code 左辅). Dị bản cần quyết: tháng nhuận (全書 tính tháng sau), khôi việt 丙丁/辛, điểm khởi đại hạn |
-| A6. Kỳ Môn | 烟波钓叟歌, 统宗, 宝鉴, 神奇之门 | Mỗi điểm khác nhau giữa các phái thành tham số hoặc được ghi rõ |
+| A6. Kỳ Môn (định cục, bố bàn ✅) | Đã đọc nguyên văn trên Wikisource: 煙波釣叟歌, 奇門遁甲統宗, 遁甲演義 (四庫). Chưa đọc: 御定奇門寶鑑, 神奇之門 | 8 `confirmed`: dương/âm độn theo tiết, địa bàn, lục nghi, ngũ hành cửu tinh, tam kỳ, tam nguyên. Bát thần và cung gốc cửu tinh, bát môn mới đủ hai nguồn một phần. Cục số khớp 統宗 24/24 (một nguồn). 3 ca vàng từ ví dụ 遁甲演義. 1 `conflict`: code dùng 拆補 đứng riêng, cả hai sách dạy 超神接氣置閏. Dị bản ghi lại: 勾陈/朱雀 với 白虎/玄武, trung cung gửi Khôn hay Cấn |
 | A7. Diễn giải | `SKILL.md` và `references/` của cả 5 hệ: mỗi khẳng định về ý nghĩa có nguồn, hoặc bị gỡ | Không còn khẳng định diễn giải nào không có nguồn |
 
 Lịch pháp đi trước vì mọi engine đều dựa vào nó. Thần số học và Lục Hào đi ngay sau vì hiện hoàn toàn không có nguồn sách.

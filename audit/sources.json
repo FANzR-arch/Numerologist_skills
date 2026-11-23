@@ -281,11 +281,11 @@
     "author": "（传）赵普",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "yanbo",
+    "edition": "Bản Wikisource (thiếu bài cục số)",
+    "access": "https://zh.wikisource.org/wiki/煙波釣叟歌; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Bản này không có câu 冬至驚蟄一七四…; 統宗 và 遁甲演義 có chép lại toàn văn bài ca."
   },
   {
     "id": "qimen-tongzong",
@@ -293,10 +293,10 @@
     "author": "佚名",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
+    "lineage": "tongzong",
+    "edition": "Bản Wikisource (chữ giản thể)",
+    "access": "https://zh.wikisource.org/wiki/奇門遁甲統宗; tải bản raw 2026-11-23",
+    "verified": true,
     "note": ""
   },
   {
@@ -514,5 +514,17 @@
     "access": "https://zh.wikisource.org/wiki/神峰通考; tải bản raw 2026-11-23",
     "verified": true,
     "note": ""
+  },
+  {
+    "id": "dunjia-yanyi",
+    "title": "遁甲演義",
+    "author": "程道生",
+    "language": "zh",
+    "tier": "T1",
+    "lineage": "yanyi",
+    "edition": "四庫全書本, 卷1–4 (Wikisource)",
+    "access": "https://zh.wikisource.org/wiki/遁甲演義_(四庫全書本); tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Có chép lại bài 煙波釣叟歌; các ví dụ ở 卷2 là phần riêng của sách."
   }
 ]

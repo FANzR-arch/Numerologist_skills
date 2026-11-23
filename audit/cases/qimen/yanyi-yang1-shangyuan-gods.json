@@ -1,0 +1,23 @@
+{
+  "source": {
+    "id": "dunjia-yanyi",
+    "locator": "zh.wikisource 遁甲演義 (四庫全書本)/卷2: 假如陽遁上元一局甲巳日丙寅時此時天上直符臨八宫即後一九天臨一宫後二九地臨六宫前二太隂臨四宫前三六合臨九宫. Ngày giờ dựng lại có cùng cục và giờ"
+  },
+  "input": {
+    "time_input": "2024-01-01 03:30",
+    "location": {
+      "country": "cn"
+    }
+  },
+  "expect": {
+    "chart.dun_type": "阳遁",
+    "chart.yuan": "上元",
+    "chart.ju_number": 1,
+    "chart.zhifu.palace": 8,
+    "chart.palaces.0.god": "九天",
+    "chart.palaces.5.god": "九地",
+    "chart.palaces.3.god": "太阴",
+    "chart.palaces.8.god": "六合",
+    "chart.palaces.7.god": "值符"
+  }
+}
