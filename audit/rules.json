@@ -880,8 +880,8 @@
     "fingerprint": "1b421d58ef46f438",
     "claim": "",
     "sources": [],
-    "verdict": "unverified",
-    "notes": "",
+    "verdict": "not_applicable",
+    "notes": "Thứ tự 12 địa chi chuẩn, chỉ dùng để tính xung (cách 6 chi); không phải quy tắc riêng của Lục Hào.",
     "tests": [],
     "stale": false
   },
@@ -891,11 +891,24 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:19",
     "fingerprint": "b4be7351322fa5e9",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Ngũ hành địa chi: 寅卯 mộc, 巳午 hỏa, 申酉 kim, 亥子 thủy, 辰戌丑未 thổ.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 4 (mỗi chi kèm hành)",
+        "stance": "agree"
+      },
+      {
+        "id": "huozhu-lin",
+        "locator": "phần 財官輔助 (vượng tướng theo mùa)",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -904,11 +917,29 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:21",
     "fingerprint": "9497630208804690",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Nét quẻ đơn (dưới lên, 1 = dương) và ngũ hành: 乾兌 kim, 離 hỏa, 震巽 mộc, 坎 thủy, 艮坤 thổ. Không gồm tên tiếng Việt.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 2 卦象圖 (乾三連…巽下斷); ch. 5 六親歌 (ngũ hành từng cung)",
+        "stance": "agree"
+      },
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷上–卷中: nêu rõ hành của 乾 (屬金), 震 (木徳), 坤 (屬土), 兌 (純金), 離 (為火); 坎, 艮, 巽 không nêu trực tiếp",
+        "stance": "agree"
+      },
+      {
+        "id": "huozhu-lin",
+        "locator": "các ví dụ: 乾宮屬金, 艮宮屬土, 坤宮屬土, 震巽屬木, 離屬火",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -917,11 +948,24 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:31",
     "fingerprint": "205950845bd10682",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Tra ngược của TRIGRAMS.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 2",
+        "stance": "agree"
+      },
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷上–卷中",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Suy trực tiếp từ TRIGRAMS.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -930,11 +974,29 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:33",
     "fingerprint": "80644985fe06ce84",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Nạp giáp: can 乾 甲/壬, 坤 乙/癸, 震 庚, 巽 辛, 坎 戊, 離 己, 艮 丙, 兌 丁; chi nội/ngoại quái như bảng trong code.",
+    "sources": [
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷下: 乾坤配甲乙壬癸，震巽配庚辛，坎離配戊己，艮兌配丙丁 (chỉ ghép can với quẻ); 卷上: 乾 甲壬配外内; các đoạn từng quẻ ghi can chi hào thế cạnh câu 為飛伏: 63/64 khớp (師 ghi sai thứ tự)",
+        "stance": "agree"
+      },
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 4 渾天甲子章 (chi của 8 quẻ đơn, nội/ngoại); ch. 3 八宮圖 (64 quẻ)",
+        "stance": "agree"
+      },
+      {
+        "id": "huozhu-lin",
+        "locator": "ví dụ: 乾初爻甲子, 遁二爻丙午化辛亥 (姤), 世持辛丑 (姤), 壬申金, 既濟己亥持世",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Bảng ch. 3 có lỗi chép ở 困 hào 1 (卯, đúng là 寅 theo ch. 4); xem sources.json.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -943,10 +1005,21 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:44",
     "fingerprint": "59cfa3c05ff87e22",
-    "claim": "",
-    "sources": [],
+    "claim": "Thứ tự Văn Vương 1–64 và tên đủ của 64 quẻ (tiếng Hán). Không gồm tên tiếng Việt.",
+    "sources": [
+      {
+        "id": "zhouyi-xugua",
+        "locator": "序卦傳, toàn văn: thứ tự 64 quẻ",
+        "stance": "agree"
+      },
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 3 八宮圖: tên đủ của 64 quẻ",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Thứ tự 1–64 chỉ có một dòng nguồn (序卦傳); 增刪 ch. 3 và 京氏 xếp theo cung nên chỉ xác nhận tên và quẻ đơn ghép thành. Tên tiếng Việt chưa đối chiếu.",
     "tests": [],
     "stale": false
   },
@@ -956,11 +1029,29 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:79",
     "fingerprint": "1fd4b9fbac992267",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "8 quẻ mỗi cung: thuần, nhất–ngũ thế (biến dần từ hào 1), du hồn (từ ngũ thế đổi lại hào 4), quy hồn (nội quái trở về quẻ thuần). Thế: 6, 1–5, 4, 3.",
+    "sources": [
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷上–卷下: thứ tự 降入 và tước vị 元士/大夫/三公/諸侯/天子/宗廟 cho từng quẻ; đủ 64 quẻ",
+        "stance": "agree"
+      },
+      {
+        "id": "huang-zongxi-xiangshulun",
+        "locator": "曰世應: quy tắc dựng cung, 遊魂以四爻爲世，歸魂以三爻爲世",
+        "stance": "agree"
+      },
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 6 世應章; ch. 26又4 歸魂遊魂章",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -969,11 +1060,24 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:83",
     "fingerprint": "6e41f2a1aff37685",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Thứ tự lục thần: 青龍 朱雀 勾陳 螣蛇 白虎 玄武.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 18 六神章 (bảng; sách viết 滕蛇, 元武)",
+        "stance": "agree"
+      },
+      {
+        "id": "huang-zongxi-xiangshulun",
+        "locator": "術家又有青龍、朱雀、勾陳、騰蛇、白虎、玄武六神",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Hai ví dụ trong ch. 18 (剝之觀 ngày 戊子, 屯之震 ngày 甲辰) xếp 滕蛇 dưới 勾陳, ngược với bảng cùng chương và với 黃宗羲; có thể là lỗi chép. Code theo bảng.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -982,11 +1086,24 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:84",
     "fingerprint": "c567ab10807b16c6",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Khởi từ hào 1 theo can ngày: 甲乙 青龍, 丙丁 朱雀, 戊 勾陳, 己 螣蛇, 庚辛 白虎, 壬癸 玄武.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 18 六神章, bảng",
+        "stance": "agree"
+      },
+      {
+        "id": "huang-zongxi-xiangshulun",
+        "locator": "以所占之日，甲乙起青龍…壬癸起玄武",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Xem ghi chú ở liuyao.table.LIUSHEN.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -995,10 +1112,16 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:85",
     "fingerprint": "33b2493195707ee4",
-    "claim": "",
-    "sources": [],
+    "claim": "Tương sinh: 金生水，水生木，木生火，火生土，土生金.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 11 五行相生章",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chưa có nguồn thứ hai trong sổ (quy tắc ngũ hành phổ quát).",
     "tests": [],
     "stale": false
   },
@@ -1008,10 +1131,16 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:86",
     "fingerprint": "81d8cfaf3e53eb86",
-    "claim": "",
-    "sources": [],
+    "claim": "Tương khắc: 金克木，木克土，土克水，水克火，火克金.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 12 五行相克章",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chưa có nguồn thứ hai trong sổ (quy tắc ngũ hành phổ quát).",
     "tests": [],
     "stale": false
   },
@@ -1034,11 +1163,29 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:90",
     "fingerprint": "d5fbd97178a94495",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Dựng 64 quẻ theo 8 cung, kèm cung, ngũ hành cung, thế, ứng (cách thế 2 hào).",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 3 八宮圖: đủ 64 quẻ, đối chiếu tự động từng hào",
+        "stance": "agree"
+      },
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷上–卷下: 64 quẻ, thứ tự và vị trí thế",
+        "stance": "agree"
+      },
+      {
+        "id": "huang-zongxi-xiangshulun",
+        "locator": "曰世應: 世之對爲應，初與四、二與五、三與上",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Đối chiếu tự động bằng script; 3 chỗ lệch đều là lỗi chép của bản Wikisource.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -1047,11 +1194,24 @@
     "kind": "table",
     "location": "liuyao/scripts/liuyao_cli.py:107",
     "fingerprint": "11c5834d5bd48a16",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Bảng 64 quẻ sinh từ _build_hexagrams: cung, ngũ hành cung, thế, ứng. Số thứ tự xem liuyao.table.KING_WEN.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 3",
+        "stance": "agree"
+      },
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷上–卷下",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -1060,11 +1220,24 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:110",
     "fingerprint": "126cd00f5b8425cd",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Lục thân theo ngũ hành của cung: sinh ta 父母, ta sinh 子孫, khắc ta 官鬼, ta khắc 妻財, đồng hành 兄弟.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 5 六親歌章 (bảng theo từng cung)",
+        "stance": "agree"
+      },
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷下: 鬼為繫爻，財為制爻，天地為義爻（父母），福徳為寶爻（子孫），同氣為専爻",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -1073,11 +1246,24 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:122",
     "fingerprint": "bec10f6aac1fb45a",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Nạp giáp nội quái lấy phần nội, ngoại quái lấy phần ngoại của từng quẻ đơn.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 4: ví dụ 天風姤",
+        "stance": "agree"
+      },
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷下",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
-    "tests": [],
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -1086,10 +1272,10 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:127",
     "fingerprint": "fca3e44e7d6c9e58",
-    "claim": "",
+    "claim": "Gieo 3 xu: mặt chữ 3, mặt lưng 2; tổng 6/7/8/9.",
     "sources": [],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Chưa đọc được câu gốc. Quy ước 單/拆/重/交 phổ biến (một lưng là 單, ba lưng là 重 lão dương) cho ra lưng = 3, chữ = 2, ngược với code; đoạn 占卦法 trên Wikisource 增刪卜易 ch. 2 nói vậy nhưng bị đánh dấu là người chép thêm. Cần nguồn gốc (賈公彥《儀禮疏》, 卜筮正宗) trước khi sửa. Không ảnh hưởng khi người dùng tự đưa 6/7/8/9.",
     "tests": [],
     "stale": false
   },
@@ -1112,10 +1298,21 @@
     "kind": "function",
     "location": "liuyao/scripts/liuyao_cli.py:143",
     "fingerprint": "02d6cc8f9e8dc0c4",
-    "claim": "",
-    "sources": [],
+    "claim": "Ráp quẻ: quẻ biến, lục thân hào biến theo cung quẻ gốc, lục thần, phục thần, tuần không, nguyệt phá, nhật xung.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 7 動變章: 變出之爻安六親者仍照正卦而推; ch. 28 飛伏神章: phục thần lấy ở quẻ đầu cung, cùng vị trí",
+        "stance": "agree"
+      },
+      {
+        "id": "huozhu-lin",
+        "locator": "phần 出现伏藏 và hỏi đáp: 本宫之六亲在飞象之下…为之伏神",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Phần quẻ biến, lục thân hào biến, phục thần khớp nguồn (ca vàng ch. 7, 11, 12, 28). Tuần không, nguyệt phá, nhật xung chưa đối chiếu. Phục thần theo phép thuật số (增刪, 火珠林); Kinh Phòng dùng 飛伏 theo hào thế, khác cách này (黃宗羲, 曰飛伏).",
     "tests": [],
     "stale": false
   },
@@ -1125,11 +1322,34 @@
     "kind": "ruleset",
     "location": "liuyao/scripts/liuyao_cli.py:223",
     "fingerprint": "b1fa15b2d0efb118",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Mô tả hệ: thế ứng theo 8 cung, lục thân theo cung, lục thần theo can ngày, phục thần lấy hào cùng vị trí của quẻ thuần.",
+    "sources": [
+      {
+        "id": "zengshan-buyi",
+        "locator": "ch. 3, 5, 6, 18; ch. 28 飛伏神章 (phục thần lấy ở quẻ đầu cung)",
+        "stance": "agree"
+      },
+      {
+        "id": "huozhu-lin",
+        "locator": "hỏi đáp: 本宫之六亲在飞象之下…为之伏神",
+        "stance": "agree"
+      },
+      {
+        "id": "jingshi-yizhuan",
+        "locator": "卷上–卷下: thế ứng theo 8 cung (không gồm phục thần)",
+        "stance": "agree"
+      },
+      {
+        "id": "huang-zongxi-xiangshulun",
+        "locator": "曰世應; 六神 (không gồm phục thần: Kinh Phòng dùng 飛伏 khác)",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "Phục thần là phép thuật số, không phải 飛伏 của Kinh Phòng; xem liuyao.function.build_output.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -1337,7 +1557,7 @@
       }
     ],
     "verdict": "unverified",
-    "notes": "Luật phillips khớp Phillips; classic khớp Decoz. Luật vn (giữ 33) chưa có nguồn sách, chỉ là cách gọi phổ biến trên mạng. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed.",
+    "notes": "Luật phillips khớp Phillips; classic khớp Decoz. Luật vn (giữ 33) chưa có nguồn sách, chỉ là cách gọi phổ biến trên mạng. Thần số học chưa có nguồn T1/T2 trong sổ nên chưa thể confirmed. Quyết định 2026-11-23: giữ mặc định vn vì người dùng Việt Nam thường đối chiếu với app trong nước; ai theo sách thì dùng phillips.",
     "tests": [],
     "stale": false
   },

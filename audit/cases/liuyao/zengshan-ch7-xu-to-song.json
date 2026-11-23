@@ -1,0 +1,39 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/7 動變章第七: 水天需變天水訟; sách chỉ in địa chi, thiên can lấy theo bảng nạp giáp (liuyao.table.NAJIA)"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      9,
+      7,
+      9,
+      6,
+      7,
+      6
+    ]
+  },
+  "expect": {
+    "hexagram.name": "水天需",
+    "hexagram.palace": "坤",
+    "hexagram.shi": 4,
+    "hexagram.ying": 1,
+    "changed.name": "天水讼",
+    "lines.0.ganzhi": "甲子",
+    "lines.0.liuqin": "妻财",
+    "lines.0.changed.ganzhi": "戊寅",
+    "lines.0.changed.liuqin": "官鬼",
+    "lines.2.ganzhi": "甲辰",
+    "lines.2.liuqin": "兄弟",
+    "lines.2.changed.liuqin": "父母",
+    "lines.3.ganzhi": "戊申",
+    "lines.3.liuqin": "子孙",
+    "lines.3.changed.ganzhi": "壬午",
+    "lines.3.changed.liuqin": "父母",
+    "lines.5.ganzhi": "戊子",
+    "lines.5.liuqin": "妻财",
+    "lines.5.changed.ganzhi": "壬戌",
+    "lines.5.changed.liuqin": "兄弟"
+  }
+}

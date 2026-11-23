@@ -1,0 +1,26 @@
+{
+  "source": {
+    "id": "huozhu-lin",
+    "locator": "zh.wikisource 火珠林, 占天道晴雨: 如水火既濟，己亥持世；午火財伏在己亥水下"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      7,
+      8,
+      7,
+      8,
+      7,
+      8
+    ]
+  },
+  "expect": {
+    "hexagram.name": "水火既济",
+    "hexagram.palace": "坎",
+    "hexagram.shi": 3,
+    "lines.2.ganzhi": "己亥",
+    "lines.2.role": "世",
+    "lines.2.fushen.ganzhi": "戊午",
+    "lines.2.fushen.liuqin": "妻财"
+  }
+}

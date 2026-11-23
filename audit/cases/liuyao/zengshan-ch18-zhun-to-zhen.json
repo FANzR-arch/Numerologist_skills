@@ -1,0 +1,33 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/18 六神章第十八: 申月甲辰日占兄病，屯之震（只取納甲、六親、世應）; sách chỉ in địa chi, thiên can lấy theo bảng nạp giáp (liuyao.table.NAJIA)"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      7,
+      8,
+      8,
+      6,
+      9,
+      8
+    ]
+  },
+  "expect": {
+    "hexagram.name": "水雷屯",
+    "hexagram.palace": "坎",
+    "hexagram.shi": 2,
+    "hexagram.ying": 5,
+    "changed.name": "震为雷",
+    "lines.1.ganzhi": "庚寅",
+    "lines.1.liuqin": "子孙",
+    "lines.3.ganzhi": "戊申",
+    "lines.3.liuqin": "父母",
+    "lines.3.changed.ganzhi": "庚午",
+    "lines.3.changed.liuqin": "妻财",
+    "lines.4.ganzhi": "戊戌",
+    "lines.4.changed.ganzhi": "庚申",
+    "lines.4.changed.liuqin": "父母"
+  }
+}

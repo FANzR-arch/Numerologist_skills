@@ -1,0 +1,27 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/28 飛伏神章第二十八: 天風姤占妻財，乾為天二爻寅木伏於姤二爻亥水之下; sách chỉ in địa chi, thiên can lấy theo bảng nạp giáp (liuyao.table.NAJIA)"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      8,
+      7,
+      7,
+      7,
+      7,
+      7
+    ]
+  },
+  "expect": {
+    "hexagram.name": "天风姤",
+    "hexagram.shi": 1,
+    "lines.1.ganzhi": "辛亥",
+    "lines.1.fushen.ganzhi": "甲寅",
+    "lines.1.fushen.liuqin": "妻财",
+    "missing_liuqin": [
+      "妻财"
+    ]
+  }
+}

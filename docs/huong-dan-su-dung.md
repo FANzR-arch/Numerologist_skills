@@ -72,7 +72,7 @@ Cứ hỏi bằng lời thường, tiếng Việt hoặc tiếng Trung. Skill t�
 | Lục Hào | một việc cụ thể; kết quả 6 lần gieo xu từ dưới lên, hoặc nhờ gieo hộ | "Mình gieo được 7, 8, 9, 7, 6, 8 (từ dưới lên) lúc 10:00 hôm nay, hỏi phỏng vấn có đậu không." |
 | Thần số học | ngày sinh dương lịch, họ tên khai sinh | "Thần số học cho Nguyễn Văn An, sinh 15/05/1990: số chủ đạo, biểu đồ ngày sinh, năm cá nhân 2026." |
 
-Gieo xu Lục Hào: tung 3 đồng xu, mặt chữ (ngửa) tính 3, mặt lưng (sấp) tính 2, cộng lại. 6 và 9 là hào động. Ghi 6 lần từ dưới lên. Không có xu thì nói "gieo hộ mình", script gieo bằng số ngẫu nhiên an toàn và trả về từng lần gieo.
+Gieo xu Lục Hào: tung 3 đồng xu, mặt chữ (ngửa) tính 3, mặt lưng (sấp) tính 2, cộng lại (quy ước này chưa đối chiếu sách; có sách tính ngược lại). 6 và 9 là hào động. Ghi 6 lần từ dưới lên. Không có xu thì nói "gieo hộ mình", script gieo bằng số ngẫu nhiên an toàn và trả về từng lần gieo.
 
 ## 3. Các lựa chọn cách tính
 

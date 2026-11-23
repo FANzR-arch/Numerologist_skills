@@ -1,0 +1,21 @@
+{
+  "source": {
+    "id": "huozhu-lin",
+    "locator": "zh.wikisource 火珠林, 占地理（姤之鼎）: 世持辛丑"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      8,
+      7,
+      7,
+      7,
+      7,
+      7
+    ]
+  },
+  "expect": {
+    "lines.0.ganzhi": "辛丑",
+    "lines.0.role": "世"
+  }
+}

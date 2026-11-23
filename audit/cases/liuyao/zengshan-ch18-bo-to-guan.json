@@ -1,0 +1,31 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/18 六神章第十八: 戊子日占生產，山地剝變風地觀（只取納甲、六親、世應；例中六神見 notes）; sách chỉ in địa chi, thiên can lấy theo bảng nạp giáp (liuyao.table.NAJIA)"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      8,
+      8,
+      8,
+      8,
+      6,
+      7
+    ]
+  },
+  "expect": {
+    "hexagram.name": "山地剥",
+    "hexagram.shi": 5,
+    "hexagram.ying": 2,
+    "changed.name": "风地观",
+    "lines.4.ganzhi": "丙子",
+    "lines.4.liuqin": "子孙",
+    "lines.4.changed.ganzhi": "辛巳",
+    "lines.4.changed.liuqin": "官鬼",
+    "lines.0.ganzhi": "乙未",
+    "lines.0.liuqin": "父母",
+    "lines.5.ganzhi": "丙寅",
+    "lines.5.liuqin": "妻财"
+  }
+}

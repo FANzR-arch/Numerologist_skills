@@ -1,0 +1,35 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/12 五行相克章第十二: 卯月戊寅日，澤地萃變天火同人; sách chỉ in địa chi, thiên can lấy theo bảng nạp giáp (liuyao.table.NAJIA)"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      6,
+      8,
+      6,
+      7,
+      7,
+      6
+    ]
+  },
+  "expect": {
+    "hexagram.name": "泽地萃",
+    "hexagram.palace": "兑",
+    "hexagram.shi": 2,
+    "hexagram.ying": 5,
+    "changed.name": "天火同人",
+    "lines.0.ganzhi": "乙未",
+    "lines.0.changed.ganzhi": "己卯",
+    "lines.0.changed.liuqin": "妻财",
+    "lines.2.ganzhi": "乙卯",
+    "lines.2.liuqin": "妻财",
+    "lines.2.changed.ganzhi": "己亥",
+    "lines.2.changed.liuqin": "子孙",
+    "lines.5.ganzhi": "丁未",
+    "lines.5.changed.ganzhi": "壬戌",
+    "lines.5.changed.liuqin": "父母",
+    "lines.1.liuqin": "官鬼"
+  }
+}

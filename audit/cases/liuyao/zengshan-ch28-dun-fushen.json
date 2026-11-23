@@ -1,0 +1,24 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/28 飛伏神章第二十八: 天山遁占子孫，乾為天初爻子水伏於遁初爻辰土之下; sách chỉ in địa chi, thiên can lấy theo bảng nạp giáp (liuyao.table.NAJIA)"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      8,
+      8,
+      7,
+      7,
+      7,
+      7
+    ]
+  },
+  "expect": {
+    "hexagram.name": "天山遁",
+    "hexagram.shi": 2,
+    "lines.0.ganzhi": "丙辰",
+    "lines.0.fushen.ganzhi": "甲子",
+    "lines.0.fushen.liuqin": "子孙"
+  }
+}

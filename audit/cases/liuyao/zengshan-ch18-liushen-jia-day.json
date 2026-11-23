@@ -1,0 +1,25 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/18 六神章第十八, bảng 甲日 (sách viết 滕蛇, 元武)"
+  },
+  "input": {
+    "time": "2024-03-01 10:00",
+    "lines": [
+      7,
+      7,
+      7,
+      7,
+      7,
+      7
+    ]
+  },
+  "expect": {
+    "lines.0.liushen": "青龙",
+    "lines.1.liushen": "朱雀",
+    "lines.2.liushen": "勾陈",
+    "lines.3.liushen": "螣蛇",
+    "lines.4.liushen": "白虎",
+    "lines.5.liushen": "玄武"
+  }
+}

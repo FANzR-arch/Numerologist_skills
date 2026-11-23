@@ -1,0 +1,31 @@
+{
+  "source": {
+    "id": "zengshan-buyi",
+    "locator": "zh.wikisource 增刪卜易/11 五行相生章第十一: 卯月己卯日，復之震; sách chỉ in địa chi, thiên can lấy theo bảng nạp giáp (liuyao.table.NAJIA)"
+  },
+  "input": {
+    "time": "2024-03-05 10:00",
+    "lines": [
+      7,
+      8,
+      8,
+      6,
+      8,
+      8
+    ]
+  },
+  "expect": {
+    "hexagram.name": "地雷复",
+    "hexagram.palace": "坤",
+    "hexagram.shi": 1,
+    "hexagram.ying": 4,
+    "changed.name": "震为雷",
+    "lines.0.ganzhi": "庚子",
+    "lines.0.liuqin": "妻财",
+    "lines.3.ganzhi": "癸丑",
+    "lines.3.liuqin": "兄弟",
+    "lines.3.changed.ganzhi": "庚午",
+    "lines.3.changed.liuqin": "父母",
+    "lines.5.liuqin": "子孙"
+  }
+}

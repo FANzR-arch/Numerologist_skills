@@ -341,11 +341,11 @@
     "author": "京房",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "jingfang",
+    "edition": "四庫全書本，卷上、卷中、卷下",
+    "access": "https://zh.wikisource.org/wiki/京氏易傳_(四庫全書本); tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Bản Wikisource có chỗ gộp đoạn (vài quẻ nằm chung một đoạn) nhưng thứ tự 降入 vẫn đúng."
   },
   {
     "id": "huozhu-lin",
@@ -353,11 +353,11 @@
     "author": "（传）麻衣道者",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "huozhulin",
+    "edition": "Bản Wikisource (chữ giản thể)",
+    "access": "https://zh.wikisource.org/wiki/火珠林; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Không có bảng nạp giáp hay quy tắc khởi lục thần; chỉ dùng các ví dụ quẻ có nêu can chi."
   },
   {
     "id": "zengshan-buyi",
@@ -365,11 +365,11 @@
     "author": "野鹤老人",
     "language": "zh",
     "tier": "T2",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "yehe",
+    "edition": "Bản Wikisource do 原劍 chép (Textquality 50%)",
+    "access": "https://zh.wikisource.org/wiki/增刪卜易; tải các chương 1–7, 11, 12, 18, 26又4, 28 bản raw 2026-11-23",
+    "verified": true,
+    "note": "Phần đầu trang (納甲歌, 起六神訣, 安世應要領…) do người chép thêm, không dùng làm nguồn. Đoạn 占卦法 ở chương 2 bị chính người biên tập nghi là thêm vào. Có lỗi chép: ch. 4 '辰在內' là 艮; bảng ch. 3 quẻ 困 hào 1 ghi 卯 (theo ch. 4 là 寅), 明夷 hào 4 ghi '五上' (丑土), 夬 hào 4 thiếu nét."
   },
   {
     "id": "bushi-zhengzong",
@@ -478,5 +478,29 @@
     "access": "https://ytliu0.github.io/ChineseCalendar/rules.html; đọc 2026-11-23",
     "verified": true,
     "note": "Ghi là theo GB/T 33661-2017 cho 1912–2200, tính bằng ephemeris JPL DE441; dùng thuật ngữ và trích Aslaksen nên phần quy tắc không tính là độc lập với Aslaksen"
+  },
+  {
+    "id": "huang-zongxi-xiangshulun",
+    "title": "易學象數論・占課",
+    "author": "黃宗羲",
+    "language": "zh",
+    "tier": "T2",
+    "lineage": "huangzongxi",
+    "edition": "Bản Wikisource",
+    "access": "https://zh.wikisource.org/wiki/易學象數論/占課; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Khảo cứu đời Thanh so sánh phép Kinh Phòng với phép của các nhà thuật số (火珠林)."
+  },
+  {
+    "id": "zhouyi-xugua",
+    "title": "周易・序卦傳",
+    "author": "(truyền thống)",
+    "language": "zh",
+    "tier": "T1",
+    "lineage": "zhouyi",
+    "edition": "Bản Wikisource",
+    "access": "https://zh.wikisource.org/wiki/易傳/序卦; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": ""
   }
 ]
