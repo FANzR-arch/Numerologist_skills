@@ -1,5 +1,7 @@
 # Numerologist Skills (你的赛博命理师)
 
+中文 | [English](README.en.md) | [Tiếng Việt](README.vi.md)
+
 本项目把传统术数相关的 AI skill 拆成可审计、可复用、可逐步扩展的工程模块。目标不是把模型包装成“更会玄学”，而是尽量减少它在排盘、流派口径、步骤顺序和解释链路上的幻觉。
 
 ## 当前包含的 Skills
@@ -41,7 +43,7 @@ Claude Code 2.1.275 以前的版本分两步：
 /plugin install numerologist-skills@numerologist-skills
 ```
 
-装好后，三个 skill 在对话中按需自动加载。排盘脚本依赖 Python 3.11+ 与 `lunar_python`、`tzdata`（Thần số học只需 Python 标准库）；首次排盘缺依赖时，skill 会请你确认后运行 `pip install -r <skill 目录>/scripts/requirements.txt`。fork 后请把命令里的 `FANzR-arch/Numerologist_skills` 换成你的仓库。
+装好后，五个 skill 在对话中按需自动加载。排盘脚本依赖 Python 3.11+ 与 `lunar_python`、`tzdata`（Thần số học只需 Python 标准库）；首次排盘缺依赖时，skill 会请你确认后运行 `pip install -r <skill 目录>/scripts/requirements.txt`。fork 后请把命令里的 `FANzR-arch/Numerologist_skills` 换成你的仓库。
 
 本地试用（只对当前会话生效，不改全局配置）：
 
