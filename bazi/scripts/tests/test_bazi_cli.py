@@ -144,6 +144,13 @@ class TestReferenceConsistency:
             assert set(hide) == set(table[zhi]), zhi
             assert hide[0] == table[zhi][0], f"{zhi} 本气"
 
+    def test_reference_matches_yuanhai_ziping(self):
+        # 《淵海子平》又地支藏遁歌（只给藏干集合，不分本气中气余气）
+        yuanhai = {"子": "癸", "丑": "癸辛己", "寅": "甲丙戊", "卯": "乙", "辰": "乙戊癸", "巳": "庚丙戊",
+                   "午": "丁己", "未": "乙己丁", "申": "庚壬戊", "酉": "辛", "戌": "辛丁戊", "亥": "壬甲"}
+        table = self._hidden_table()
+        assert {z: set(v) for z, v in table.items()} == {z: set(v) for z, v in yuanhai.items()}
+
     def test_shishen_matches_reference_rule(self):
         relation = {}
         for line in re.findall(r"^\| (生我|同我|我生|我克|克我) \| (\S+) \| (\S+) \|$", REFERENCE, re.M):

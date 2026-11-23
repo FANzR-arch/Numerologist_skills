@@ -1,0 +1,18 @@
+{
+  "source": {
+    "id": "shenfeng-tongkao",
+    "locator": "zh.wikisource 神峰通考, 起大运法 阴男阳女: 甲子年正月丙寅, nữ sinh sau lập xuân 9 ngày, 逆数至立春, 三三得九, 三岁运逆行. Ngày giờ dựng lại: 9 ngày sau lập xuân 1924-02-05 09:49"
+  },
+  "input": {
+    "birth_time": "1924-02-14 09:49",
+    "gender": "女"
+  },
+  "expect": {
+    "pillars.year.ganzhi": "甲子",
+    "pillars.month.ganzhi": "丙寅",
+    "dayun.direction": "逆排",
+    "dayun.start.years": 3,
+    "dayun.start.months": 0,
+    "dayun.periods.1.ganzhi": "乙丑"
+  }
+}

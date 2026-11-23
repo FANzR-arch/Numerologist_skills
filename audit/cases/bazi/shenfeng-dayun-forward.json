@@ -1,0 +1,18 @@
+{
+  "source": {
+    "id": "shenfeng-tongkao",
+    "locator": "zh.wikisource 神峰通考, 起大运法 阳男阴女: 甲子年正月丙寅, nam sinh sau lập xuân, đếm thuận tới kinh trập, 折除三日为一岁, vận đầu 丁卯. Sách giả định tháng 30 ngày nên ra 10 tuổi; thực tế lập xuân→kinh trập năm 1924 chưa tới 30 ngày, nên ca dựng lại dùng 27 ngày → 9 tuổi (1924-02-08 04:12, kinh trập 1924-03-06 04:12)"
+  },
+  "input": {
+    "birth_time": "1924-02-08 04:12",
+    "gender": "男"
+  },
+  "expect": {
+    "pillars.year.ganzhi": "甲子",
+    "pillars.month.ganzhi": "丙寅",
+    "dayun.direction": "顺排",
+    "dayun.start.years": 9,
+    "dayun.start.months": 0,
+    "dayun.periods.1.ganzhi": "丁卯"
+  }
+}

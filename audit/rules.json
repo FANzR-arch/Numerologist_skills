@@ -592,9 +592,20 @@
     "kind": "table",
     "location": "bazi/scripts/bazi_cli.py:29",
     "fingerprint": "20ad319adfcd324e",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Thứ tự 10 thiên can; can lẻ (甲丙戊庚壬) là dương, can chẵn là âm.",
+    "sources": [
+      {
+        "id": "sanming-tonghui",
+        "locator": "卷二 论天干阴阳生死: 十干五阳五阴; 甲 阳木, 乙 阴木…",
+        "stance": "agree"
+      },
+      {
+        "id": "yuanhai-ziping",
+        "locator": "基础: 五干属阳 (lấy 甲 làm ví dụ), 五干属阴 (lấy 乙 làm ví dụ); không liệt kê đủ",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false
@@ -605,9 +616,20 @@
     "kind": "table",
     "location": "bazi/scripts/bazi_cli.py:30",
     "fingerprint": "25dc3ca37e409286",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
+    "claim": "Ngũ hành thiên can: 甲乙 mộc, 丙丁 hỏa, 戊己 thổ, 庚辛 kim, 壬癸 thủy.",
+    "sources": [
+      {
+        "id": "sanming-tonghui",
+        "locator": "卷二 论天干阴阳生死 và 论十干合 (甲乙木, 丙丁火, 戊己土, 庚辛金, 壬癸水)",
+        "stance": "agree"
+      },
+      {
+        "id": "yuanhai-ziping",
+        "locator": "络绎赋: 甲乙之木…壬癸之水…丙丁火…庚辛金…戊己两干之土",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
     "notes": "",
     "tests": [],
     "stale": false
@@ -696,11 +718,24 @@
     "kind": "function",
     "location": "bazi/scripts/bazi_cli.py:90",
     "fingerprint": "5750ec5df24a13a4",
-    "claim": "",
-    "sources": [],
+    "claim": "Mỗi trụ: can chi, ngũ hành, âm dương, thập thần của can, tàng can kèm thập thần (lấy từ lunar_python).",
+    "sources": [
+      {
+        "id": "yuanhai-ziping",
+        "locator": "又地支藏遁歌; 基础 (thập thần)",
+        "stance": "agree"
+      },
+      {
+        "id": "shenfeng-tongkao",
+        "locator": "thập thần: 甲见庚为杀，辛为官，见丙为食，丁为伤; 食神者，我生彼之谓也。阳见阳干",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "notes": "Tàng can khớp về tập hợp với 淵海子平; thứ tự trong output là của lunar_python, sách không nói thứ tự. Thập thần khớp 淵海 (甲, 乙) và 神峰. Nạp âm, trường sinh (địa thế), tuần không chưa đối chiếu.",
+    "tests": [
+      "bazi/scripts/tests/test_bazi_cli.py::TestReferenceConsistency"
+    ],
     "stale": false
   },
   {
@@ -709,10 +744,26 @@
     "kind": "function",
     "location": "bazi/scripts/bazi_cli.py:115",
     "fingerprint": "d274477ee7e4443d",
-    "claim": "",
-    "sources": [],
+    "claim": "Ráp tứ trụ, cảnh báo, đại vận (dãy 60 hoa giáp tính từ trụ tháng; trước khi giao vận lấy trụ tháng), lưu niên.",
+    "sources": [
+      {
+        "id": "sanming-tonghui",
+        "locator": "卷二 论大运: vận trước khi giao là 丁丑 (trụ tháng) trong ví dụ",
+        "stance": "agree"
+      },
+      {
+        "id": "shenfeng-tongkao",
+        "locator": "起大运法",
+        "stance": "agree"
+      },
+      {
+        "id": "ditian-sui-chanwei",
+        "locator": "lọc bằng script: 416/502 chuỗi ≥10 can chi trong sách có dãy sau 4 trụ liền kề trụ tháng (thuận hoặc nghịch); không phải mọi lá số, 86 chuỗi còn lại chưa xem",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
+    "notes": "Phần đại vận khớp nguồn. Mốc đổi năm tại lập xuân, đổi tháng tại tiết, giờ Tý muộn, lưu niên chưa có câu nguồn trực tiếp.",
     "tests": [],
     "stale": false
   },
@@ -774,11 +825,24 @@
     "kind": "ruleset",
     "location": "bazi/scripts/bazi_cli.py:173",
     "fingerprint": "70462bbf00f27a6b",
-    "claim": "",
-    "sources": [],
-    "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "claim": "Đại vận: dương nam âm nữ thuận, âm nam dương nữ nghịch; khởi vận = số ngày tới tiết kế tiếp (thuận) hoặc tiết trước (nghịch) ÷ 3 (3 ngày 1 năm, 1 canh giờ 10 ngày).",
+    "sources": [
+      {
+        "id": "sanming-tonghui",
+        "locator": "卷二 论大运: 阳男阴女…顺而行之；阴男阳女…逆而行之; 折除以三日为年, 三千六百日为一辰之十岁; ví dụ 甲子 dương nam 1 tuổi 9 tháng",
+        "stance": "agree"
+      },
+      {
+        "id": "shenfeng-tongkao",
+        "locator": "起大运法 阳男阴女 / 阴男阳女: 折除三日为一岁; 4 ví dụ (甲子 nam 丁卯, 乙丑 nữ 四岁 己卯, 乙丑 nam 五岁 逆, 甲子 nữ 三岁 逆)",
+        "stance": "agree"
+      }
+    ],
+    "verdict": "confirmed",
+    "notes": "5 ca vàng dựng lại từ ví dụ trong sách (audit/cases/bazi); ngày giờ do dựng lại, không có trong sách.",
+    "tests": [
+      "audit/tests/test_golden_cases.py"
+    ],
     "stale": false
   },
   {
@@ -852,11 +916,34 @@
     "kind": "doc",
     "location": "bazi/references/tiangan-dizhi.md",
     "fingerprint": "e8754611069e05de",
-    "claim": "",
-    "sources": [],
+    "claim": "Bảng thiên can, địa chi, tàng can, thập thần, ngũ hổ độn, ngũ thử độn, đại vận, xung hình hợp.",
+    "sources": [
+      {
+        "id": "yuanhai-ziping",
+        "locator": "又地支藏遁歌 (tàng can đủ 12 chi); 基础 (thập thần của 甲, 乙)",
+        "stance": "agree"
+      },
+      {
+        "id": "sanming-tonghui",
+        "locator": "卷二: 论遁月时 (甲己之年丙作首…; 甲己还加甲…), 论大运, 论支元六合, 论支元三合, 论三刑, 论冲击",
+        "stance": "agree"
+      },
+      {
+        "id": "shenfeng-tongkao",
+        "locator": "起八字诀 (年上遁月, 日上遁时); thập thần: 甲见庚为杀，辛为官，见丙为食，丁为伤; 偏官为阳见阳",
+        "stance": "agree"
+      },
+      {
+        "id": "ditian-sui-chanwei",
+        "locator": "lời bình: 辰中癸水, 丑中蓄水含金, 未中木火, 寅中丙火, 申中壬水",
+        "stance": "agree"
+      }
+    ],
     "verdict": "unverified",
-    "notes": "",
-    "tests": [],
+    "notes": "Tàng can (tập hợp), thập thần, ngũ hổ độn, ngũ thử độn, đại vận, lục xung, tam hình, tam hợp, các cặp lục hợp đều khớp nguồn. Chưa có nguồn: hành của lục hợp (子丑合土…), thứ tự bản khí/trung khí/dư khí, giờ của từng chi. 三命通會 'nhân nguyên tư sự' là bảng khác (theo ngày lệnh tháng: 卯 có 甲, 辰 có 壬…), không dùng cho tàng can. Để nguyên unverified cho tới A7 (phần diễn giải).",
+    "tests": [
+      "bazi/scripts/tests/test_bazi_cli.py::TestReferenceConsistency"
+    ],
     "stale": false
   },
   {

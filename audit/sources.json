@@ -101,11 +101,11 @@
     "author": "徐大升",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "yuanhai",
+    "edition": "Bản Wikisource (楊淙 biên, chữ giản thể, {{No source}})",
+    "access": "https://zh.wikisource.org/wiki/淵海子平; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Bản Wikisource không ghi bản gốc."
   },
   {
     "id": "sanming-tonghui",
@@ -113,10 +113,10 @@
     "author": "万民英",
     "language": "zh",
     "tier": "T1",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
+    "lineage": "sanming",
+    "edition": "Bản Wikisource, 卷一–卷四 (bản không chú thích, không phải bản 四庫)",
+    "access": "https://zh.wikisource.org/wiki/三命通會; tải 卷一–卷四 bản raw 2026-11-23",
+    "verified": true,
     "note": ""
   },
   {
@@ -173,11 +173,11 @@
     "author": "任铁樵 注",
     "language": "zh",
     "tier": "T2",
-    "lineage": null,
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": ""
+    "lineage": "ditiansui-ren",
+    "edition": "Bản Wikisource (任鐵樵 增注)",
+    "access": "https://zh.wikisource.org/wiki/滴天髓闡微; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": "Không có bảng tàng can; chỉ nhắc rải rác trong lời bình mệnh lệ."
   },
   {
     "id": "abe-taizan",
@@ -500,6 +500,18 @@
     "lineage": "zhouyi",
     "edition": "Bản Wikisource",
     "access": "https://zh.wikisource.org/wiki/易傳/序卦; tải bản raw 2026-11-23",
+    "verified": true,
+    "note": ""
+  },
+  {
+    "id": "shenfeng-tongkao",
+    "title": "神峰通考",
+    "author": "張楠",
+    "language": "zh",
+    "tier": "T1",
+    "lineage": "shenfeng",
+    "edition": "Bản Wikisource",
+    "access": "https://zh.wikisource.org/wiki/神峰通考; tải bản raw 2026-11-23",
     "verified": true,
     "note": ""
   }

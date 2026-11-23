@@ -1,0 +1,18 @@
+{
+  "source": {
+    "id": "shenfeng-tongkao",
+    "locator": "zh.wikisource 神峰通考, 起大运法 阴男阳女: 乙丑年正月戊寅, nam sinh sau lập xuân 15 ngày, 逆数至立春, 五三十五, 五岁运逆行. Ngày giờ dựng lại: 15 ngày sau lập xuân 1925-02-04 15:36"
+  },
+  "input": {
+    "birth_time": "1925-02-19 15:36",
+    "gender": "男"
+  },
+  "expect": {
+    "pillars.year.ganzhi": "乙丑",
+    "pillars.month.ganzhi": "戊寅",
+    "dayun.direction": "逆排",
+    "dayun.start.years": 5,
+    "dayun.start.months": 0,
+    "dayun.periods.1.ganzhi": "丁丑"
+  }
+}
