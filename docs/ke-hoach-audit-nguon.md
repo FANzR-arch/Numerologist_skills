@@ -1,6 +1,6 @@
 # Kế hoạch audit logic theo nguồn tài liệu đáng tin cậy
 
-Ngày: 2026-11-22. Trạng thái: A0 xong 2026-11-23 (xem `audit/README.md`); A1 làm được phần nguồn công khai 2026-11-23; A2 làm được phần đọc được trên Google Books 2026-11-23; A3 xong phần bảng 2026-11-23; A4 xong phần quy tắc tính 2026-11-23; A5 làm được phần 紫微斗數全書 2026-11-23; A6 xong phần định cục và bố bàn 2026-11-23; A7 xong việc gắn nhãn nguồn 2026-11-23. Quyết định phái mặc định 2026-11-23: Kỳ Môn giữ 拆補; Tử Vi năm 壬 giữ Tả phụ, thêm sihua_rule=quanshu; tháng nhuận giữ split_15.
+Bắt đầu 2026-11-22. Trạng thái (2026-11-23): đã làm A0–A7; kết quả từng giai đoạn ở mục 8, việc còn mở ở mục 10.
 
 ## Mục tiêu
 
@@ -8,18 +8,19 @@ Mỗi quy tắc tính toán và mỗi đoạn diễn giải trong repo phải tr
 
 Kết quả cuối cùng là một sổ đăng ký quy tắc máy đọc được. CI kiểm sổ này, và mỗi quy tắc nối tới test dùng ví dụ in trong sách.
 
-## 1. Hiện trạng: phần nào đang thiếu nguồn
+## 1. Hiện trạng sau audit
 
-| Phần | Nguồn hiện tại | Mức rủi ro |
-|---|---|---|
-| Thần số học: cách rút gọn, mũi tên, ý nghĩa số (`numerology/`) | Blog Việt Nam và trang tổng hợp tiếng Anh | Cao: toàn bộ chưa đối chiếu sách |
-| Lục Hào: bảng 64 quẻ, bát cung, nạp giáp, lục thân, lục thần, phục thần, `yongshen.md` | Kiến thức của mô hình, được một mô hình khác soát lại | Cao: hai mô hình đồng ý không phải là nguồn |
-| Bảng thuật ngữ Hán Việt (`thuat-ngu-*.md`), tên 64 quẻ tiếng Việt | Kiến thức của mô hình | Trung bình |
-| Bát Tự: tàng can, thập thần, khởi vận (`tiangan-dizhi.md`, `bazi_cli.py`) | Bảng tham chiếu có sẵn trong repo (chưa ghi nguồn), `lunar_python` | Trung bình |
-| Tử Vi: an sao, tứ hóa, miếu hãm | `calculation.md`, iztro, 《紫微斗數全書》 cho bảng miếu hãm | Trung bình; phần miếu hãm đã có nguồn |
-| Kỳ Môn: định cục, trực phù/trực sử, cách cục | Quy tắc do người viết upstream đặt (`ruleset-mainline.md`) | Cao: phái khác nhau nhiều, chưa ghi nguồn |
-| Âm lịch Việt Nam, tiết khí, giờ mặt trời thực | Ephemeris của `lunar_python` + Meeus + mốc Tết lịch sử | Thấp; vẫn cần nguồn chuẩn để trích |
-| Phần diễn giải trong `SKILL.md` và `references/` | Tác giả upstream và mô hình | Trung bình–cao |
+Số mục trong `audit/rules.json` theo kết quả (chạy `python3 tools/audit.py check` để xem bảng mới nhất):
+
+| Phần | Đã đối chiếu với | Kết quả chính | Còn thiếu |
+|---|---|---|---|
+| Lịch pháp (`core/`) | Aslaksen, bảng HKO, NOAA, tzdb, Hồ Ngọc Đức | 6 `confirmed`; 1 `conflict` (âm lịch Việt Nam trước 1967) | GB/T 33661 nguyên văn |
+| Lục Hào | 京氏易傳, 增刪卜易, 火珠林, 黃宗羲 | 12 `confirmed` (64 quẻ, 8 cung, thế ứng, nạp giáp, lục thân, lục thần) | quy ước mặt xu, thứ tự Văn Vương (một nguồn) |
+| Bát Tự | 淵海子平, 三命通會, 神峰通考, 滴天髓闡微 | 3 `confirmed`; tàng can và thập thần có nguồn và test | đổi năm/tháng theo tiết, giờ Tý muộn (chưa có câu nguồn) |
+| Kỳ Môn | 煙波釣叟歌, 奇門遁甲統宗, 遁甲演義 | 8 `confirmed`; 1 `conflict` (拆補 với 置閏) | bát thần, cung gốc sao/môn mới một phần có hai nguồn |
+| Tử Vi | 紫微斗數全書 | an sao, miếu hãm, ngũ hành cục khớp sách, nhưng mới một dòng nguồn | sách thứ hai (全集, 王亭之, Thái Thứ Lang) |
+| Thần số học | Phillips, Decoz (bản xem trước) | tên mũi tên, luật `phillips`; 1 `conflict` (số trưởng thành) | ý nghĩa từng số, quy tắc chữ Y; mọi nguồn đều là T3 |
+| Diễn giải (`references/`) | các sách trên | mỗi mục có nhãn nguồn, 部分, hoặc chưa đối chiếu | phần lớn lời giải thích chi tiết |
 
 ## 2. Phân tầng nguồn
 
@@ -109,7 +110,7 @@ audit/
   language: zh
   tier: T1
   edition: "<nhà xuất bản, năm, ISBN>"
-  access: "ctext.org / bản giấy / ảnh chụp do người dùng cung cấp"
+  access: "ctext.org / bản giấy / ảnh chụp do maintainer cung cấp"
 ```
 
 `rules.json`, mỗi quy tắc một mục:
@@ -141,12 +142,12 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 
 1. **Trích**: lấy danh sách quy tắc tự động từ code (các bảng hằng số, các trường `ruleset`) bằng `python3 tools/audit.py sync`. Không liệt kê bằng tay.
 2. **Tìm nguồn**:
-   - Sách cổ thuộc phạm vi công cộng: agent tìm trên ctext.org và zh.wikisource, ghi vị trí.
-   - Sách còn bản quyền: người dùng cung cấp ảnh chụp các trang liên quan; agent đọc, đối chiếu và ghi vị trí.
+   - Sách cổ thuộc phạm vi công cộng: tìm trên ctext.org và zh.wikisource, ghi vị trí.
+   - Sách còn bản quyền: maintainer cung cấp ảnh chụp các trang liên quan; người thực hiện đọc, đối chiếu và ghi vị trí.
 3. **Đối chiếu**: so từng ô của bảng, không chỉ so ý chung chung.
 4. **Ghi kết luận** vào `rules.json`. Nếu mâu thuẫn: biến quy tắc thành tham số, hoặc ghi mặc định kèm lý do.
 5. **Thêm ca vàng** nếu sách có ví dụ.
-6. **Review**: một agent khác kiểm lại vị trí trích dẫn trên đúng tài liệu đó, không kiểm bằng trí nhớ. Mỗi engine thêm một vòng người am hiểu đọc lại.
+6. **Review**: một reviewer khác kiểm lại vị trí trích dẫn trên đúng tài liệu đó, không kiểm bằng trí nhớ. Mỗi engine thêm một vòng người am hiểu đọc lại.
 
 ## 7. Công cụ và kiểm tự động
 
@@ -159,7 +160,7 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 - Báo cáo độ phủ: tỷ lệ quy tắc `confirmed` / `variant` / `conflict` / `unverified` theo từng engine, in trong CI và ghi vào lộ trình.
 - Tận dụng những gì đã có: các test oracle số học, đối chiếu iztro (ghi rõ là T4, cùng dòng dõi với `lunar_python`), bộ eval (thêm ca kiểm diễn giải theo đúng nguồn).
 
-## 8. Thứ tự làm (theo rủi ro và mức phụ thuộc)
+## 8. Các giai đoạn và kết quả
 
 | Giai đoạn | Nội dung | Xong khi |
 |---|---|---|
@@ -170,26 +171,28 @@ Ví dụ in sẵn trong sách là oracle mạnh nhất, vì nó độc lập v�
 | A4. Bát Tự (phần quy tắc tính ✅) | Đã đọc nguyên văn trên Wikisource: 淵海子平, 三命通會 卷一–四, 神峰通考, 滴天髓闡微, 穷通宝鉴. Chưa đọc: 子平真詮 (không có trên Wikisource), chú giải của 徐乐吾 | 3 `confirmed`: thiên can, ngũ hành thiên can, quy tắc đại vận. Tàng can (tập hợp) và thập thần khớp 淵海 + 神峰, có test; nằm trong mục tài liệu nên chờ A7. 416/502 chuỗi can chi trong 滴天髓闡微 có dãy vận liền kề trụ tháng (lọc bằng script). 5 ca vàng dựng lại từ ví dụ khởi vận (三命通會, 神峰通考). Chưa có câu nguồn: đổi năm tại lập xuân, đổi tháng tại tiết, giờ Tý muộn, hành của lục hợp |
 | A5. Tử Vi (phần 全書 ✅) | Đã đọc nguyên văn 紫微斗數全書 卷一–三 trên Wikisource. 續道藏《紫微斗數》 là hệ khác. Chưa đọc: 全集, 王亭之, Thái Thứ Lang | Khớp 全書: 14 chính tinh, phụ tinh, bảng miếu hãm (168/168 ô), ngũ hành cục (58/60 nạp âm), mệnh chủ thân chủ; 6 ca vàng. Chưa confirmed vì mới một dòng nguồn. 1 `conflict`: tứ hóa năm 壬 (全書 天府 hóa khoa, code 左辅). Dị bản cần quyết: tháng nhuận (全書 tính tháng sau), khôi việt 丙丁/辛, điểm khởi đại hạn |
 | A6. Kỳ Môn (định cục, bố bàn ✅) | Đã đọc nguyên văn trên Wikisource: 煙波釣叟歌, 奇門遁甲統宗, 遁甲演義 (四庫). Chưa đọc: 御定奇門寶鑑, 神奇之門 | 8 `confirmed`: dương/âm độn theo tiết, địa bàn, lục nghi, ngũ hành cửu tinh, tam kỳ, tam nguyên. Bát thần và cung gốc cửu tinh, bát môn mới đủ hai nguồn một phần. Cục số khớp 統宗 24/24 (một nguồn). 3 ca vàng từ ví dụ 遁甲演義. 1 `conflict`: code dùng 拆補 đứng riêng, cả hai sách dạy 超神接氣置閏. Dị bản ghi lại: 勾陈/朱雀 với 白虎/玄武, trung cung gửi Khôn hay Cấn |
-| A7. Diễn giải (gắn nhãn ✅) | `SKILL.md` và `references/` của cả 5 hệ. Người dùng chọn (2026-11-23) giữ nội dung và gắn nhãn thay vì gỡ | Mỗi mục trong references ghi 出处 cụ thể, 部分, hoặc 未核对古籍 / chưa đối chiếu sách; mỗi SKILL.md dặn mô hình nói rõ khi dùng phần chưa có nguồn. Phát hiện thêm: nhãn 北斗/南斗 trong stars.md khác 全書; 命無正曜 trong 全書 có lời đoán nặng hơn tài liệu. Còn lại: phần lớn lời giải thích chi tiết chưa có nguồn, cần sách in hoặc chuyên gia |
+| A7. Diễn giải (gắn nhãn ✅) | `SKILL.md` và `references/` của cả 5 hệ. Maintainer chọn (2026-11-23) giữ nội dung và gắn nhãn thay vì gỡ | Mỗi mục trong references ghi 出处 cụ thể, 部分, hoặc 未核对古籍 / chưa đối chiếu sách; mỗi SKILL.md dặn mô hình nói rõ khi dùng phần chưa có nguồn. Phát hiện thêm: nhãn 北斗/南斗 trong stars.md khác 全書; 命無正曜 trong 全書 có lời đoán nặng hơn tài liệu. Còn lại: phần lớn lời giải thích chi tiết chưa có nguồn, cần sách in hoặc chuyên gia |
 
-Lịch pháp đi trước vì mọi engine đều dựa vào nó. Thần số học và Lục Hào đi ngay sau vì hiện hoàn toàn không có nguồn sách.
+Thứ tự làm: lịch pháp trước vì mọi engine dựa vào nó; Thần số học và Lục Hào kế tiếp vì lúc bắt đầu chưa có nguồn sách nào.
 
 ## 9. Phân vai
 
-- **Agent**:
-  - Trích quy tắc từ code.
-  - Tìm sách cổ trên ctext.org và Wikisource.
-  - Đọc ảnh chụp trang sách người dùng cung cấp.
-  - Điền sổ, viết test và ca vàng.
-  - Đối chiếu từng ô bảng.
-  - Agent không được ghi vị trí trích dẫn mà nó chưa thực sự đọc.
-- **Người dùng / chuyên gia**:
+- **Người thực hiện** (người hoặc công cụ AI):
+  - Trích quy tắc từ code bằng `tools/audit.py sync`.
+  - Tìm sách cổ thuộc phạm vi công cộng trên ctext.org và Wikisource.
+  - Đọc ảnh chụp trang sách còn bản quyền do maintainer cung cấp.
+  - Điền sổ, viết test và ca vàng; đối chiếu từng ô bảng.
+  - Không ghi vị trí trích dẫn mà mình chưa thực sự đọc.
+- **Reviewer**: kiểm lại vị trí trích dẫn trên đúng tài liệu được dẫn, không kiểm bằng trí nhớ.
+- **Maintainer / chuyên gia**:
   - Mua hoặc mượn sách còn bản quyền và chụp các trang cần thiết.
   - Chốt mặc định khi các phái khác nhau.
   - Đọc duyệt phần diễn giải tiếng Việt.
 
-## 10. Cần bạn quyết định trước khi bắt đầu A0
+## 10. Việc còn mở
 
-1. Mặc định cho người dùng Việt Nam: giữ `calendar_locale: cn` hay đổi sang `vn` khi người dùng nói tiếng Việt? Có làm phái Tử Vi Việt Nam (`school: vn`) ở A5 không?
-2. Sách giấy nào bạn có hoặc mua được, nhất là bản tiếng Việt của Thiệu Vĩ Hoa, Thái Thứ Lang, Phillips và các bản dịch Lục Hào?
-3. Có người am hiểu từng hệ để duyệt phần kết luận không? Hay chỉ dựa trên nguồn sách và review chéo giữa các agent?
+1. Mặc định âm lịch cho người dùng tiếng Việt: hiện vẫn là `calendar_locale: cn`; SKILL.md dặn mô hình truyền `vn` khi người dùng nói ngày âm theo lịch Việt Nam.
+2. Phái Tử Vi Việt Nam (an Tuần, Triệt…): chưa làm.
+3. Sách in còn thiếu: 紫微斗數全集, sách của 王亭之, Thái Thứ Lang, 子平真詮, bản đầy đủ của Phillips, bản dịch tiếng Việt.
+4. Chưa có chuyên gia từng hệ đọc duyệt kết luận; hiện mới dựa trên nguồn sách và review chéo.
+5. Các `conflict` chưa sửa: âm lịch Việt Nam trước 1967, số trưởng thành (Thần số học). Quy ước mặt xu Lục Hào vẫn `unverified`.

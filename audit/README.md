@@ -1,12 +1,14 @@
 # Sổ audit theo nguồn
 
+> **English summary.** This directory checks every calculation rule and reference section against books and standards. `rules.json` holds one entry per audit unit (constant table, function, `ruleset` field, doc file), extracted automatically by `python3 tools/audit.py sync`, with a verdict (`unverified`, `confirmed`, `variant`, `conflict`, `not_applicable`), cited sources and locators. `confirmed` requires at least one T1/T2 source and two independent lineages; blogs never count. `sources.json` lists the sources with tier, lineage and edition. `cases/<engine>/*.json` are golden cases copied from worked examples in those books and run by `audit/tests/test_golden_cases.py`. CI runs `python3 tools/audit.py check`, which fails when the registry is out of sync with the code or malformed. The rest of this file is in Vietnamese.
+
 Kế hoạch tổng: `docs/ke-hoach-audit-nguon.md`.
 
 | File | Nội dung | Ai sửa |
 |---|---|---|
-| `rules.json` | Mỗi đơn vị audit một mục: bảng hằng số, hàm, mục `ruleset`, file tài liệu | `tools/audit.py sync` sinh khung; người/agent điền `claim`, `sources`, `verdict`, `notes`, `tests` |
-| `sources.json` | Thư mục nguồn: tầng T1–T4, ngôn ngữ, dòng dõi (`lineage`), ấn bản | Người/agent |
-| `cases/<engine>/<id>.json` | Ca vàng chép từ ví dụ in trong sách | Người/agent |
+| `rules.json` | Mỗi đơn vị audit một mục: bảng hằng số, hàm, mục `ruleset`, file tài liệu | `tools/audit.py sync` sinh khung; người thực hiện điền `claim`, `sources`, `verdict`, `notes`, `tests` |
+| `sources.json` | Thư mục nguồn: tầng T1–T4, ngôn ngữ, dòng dõi (`lineage`), ấn bản | Người thực hiện |
+| `cases/<engine>/<id>.json` | Ca vàng chép từ ví dụ in trong sách | Người thực hiện |
 
 ## Lệnh
 
