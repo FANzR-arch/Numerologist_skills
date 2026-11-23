@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "ho-ngoc-duc-amlich",
+    "locator": "calrules_en.html (Wayback 2008-08-03), mục Comparison with Chinese calendar: Tết 2007 VN 17/02, TQ 18/02"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "2007-02-17 12:00",
+    "gender": "男",
+    "calendar_locale": "vn"
+  },
+  "expect": {
+    "calendar.lunar_month": 1,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}

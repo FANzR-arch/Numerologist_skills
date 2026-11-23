@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "ho-ngoc-duc-amlich",
+    "locator": "calrules_en.html (Wayback 2008-08-03), mục Comparison with Chinese calendar: tháng TQ 23/11–21/12/1984 là tháng nhuận; số tháng 10 khớp HKO T1984e.txt (10th Lunar month lặp ở 1984/10/24 và 1984/11/23)"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "1984-11-23 12:00",
+    "gender": "男",
+    "calendar_locale": "cn"
+  },
+  "expect": {
+    "calendar.lunar_month": 10,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": true
+  }
+}

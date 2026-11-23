@@ -102,10 +102,15 @@
         "id": "aslaksen-chinese-calendar",
         "locator": "Draft 2010-07-17, tr. 29: Việt Nam theo truyền thống dùng lịch TQ theo kinh tuyến Bắc Kinh (116°25′Đ); chính phủ miền Bắc duyệt lịch UTC+7 ngày 8/8/1967",
         "stance": "disagree"
+      },
+      {
+        "id": "ho-ngoc-duc-amlich",
+        "locator": "calrules_en.html (Wayback 2008-08-03), mục Vietnamese calendar rules, quy tắc cuối: tính theo kinh tuyến 105°Đ (chỉ xác nhận 105°Đ, không nói năm áp dụng hay giai đoạn trước 1967)",
+        "stance": "partial"
       }
     ],
     "verdict": "conflict",
-    "notes": "Mâu thuẫn: trước 1967 Việt Nam dùng kinh tuyến Bắc Kinh, không phải 120°Đ, nên có thể lệch một ngày. Mốc 'tuế 1967' là suy ra từ ngày duyệt 8/8/1967 và Tết 1968, nguồn không ghi trực tiếp. Chưa sửa code vì mới có 1 nguồn; cần nguồn thứ hai (văn bản 1967, Hồ Ngọc Đức) trước khi đổi sang kinh tuyến Bắc Kinh.",
+    "notes": "Hồ Ngọc Đức xác nhận lịch Việt Nam tính theo 105°Đ (UTC+7) nhưng không nói từ năm nào và không nói gì về trước 1967. Mâu thuẫn còn nguyên: Aslaksen tr. 29 nói trước 1967 Việt Nam dùng kinh tuyến Bắc Kinh, không phải 120°Đ, nên có thể lệch một ngày. Mốc 'tuế 1967' suy ra từ ngày duyệt 8/8/1967 và Tết 1968, nguồn không ghi trực tiếp. Chưa sửa code: phần trước 1967 vẫn chỉ có 1 nguồn.",
     "tests": [
       "audit/tests/test_golden_cases.py"
     ],
@@ -406,10 +411,15 @@
         "id": "hko-calendar-tables",
         "locator": "T2033e.txt: 11th Lunar Month lặp ở 2033/11/22 và 2033/12/22",
         "stance": "agree"
+      },
+      {
+        "id": "ho-ngoc-duc-amlich",
+        "locator": "calrules_en.html (Wayback 2008-08-03), mục Vietnamese calendar rules, quy tắc 3–4; mục Why 1985 has a leap lunar month",
+        "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Ca vàng 2033 (nhuận tháng 11) khớp HKO; ytliu0 examples.html 'Example 2: N2033' cùng kết quả.",
+    "notes": "Ca vàng 2033 (nhuận tháng 11) khớp HKO; ytliu0 examples.html 'Example 2: N2033' cùng kết quả. Hồ Ngọc Đức: ca nhuận tháng 2 năm 1985 (lịch VN) và tháng nhuận TQ 23/11–21/12/1984 khớp; số tháng 10 lấy từ HKO T1984e.txt.",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar",
       "audit/tests/test_golden_cases.py"
@@ -438,6 +448,11 @@
         "id": "hko-calendar-tables",
         "locator": "T1985e.txt, T2007e.txt, T2024e.txt",
         "stance": "agree"
+      },
+      {
+        "id": "ho-ngoc-duc-amlich",
+        "locator": "calrules_en.html (Wayback 2008-08-03), mục Vietnamese calendar rules, quy tắc 1",
+        "stance": "agree"
       }
     ],
     "verdict": "confirmed",
@@ -454,7 +469,7 @@
     "kind": "function",
     "location": "core/calendar_core.py:235",
     "fingerprint": "6d552d7f46b91378",
-    "claim": "calendar_locale=cn trả âm lịch Trung Quốc (kinh tuyến 120°Đ) khớp bảng HKO.",
+    "claim": "calendar_locale=cn trả âm lịch Trung Quốc (kinh tuyến 120°Đ) khớp bảng HKO. calendar_locale=vn tính theo UTC+7 (105°Đ), khớp lịch miền Bắc từ 1967 và các ngày Tết, tháng nhuận Việt Nam do Hồ Ngọc Đức nêu (1985, 2007, 2030, 2053).",
     "sources": [
       {
         "id": "hko-calendar-tables",
@@ -463,12 +478,17 @@
       },
       {
         "id": "aslaksen-chinese-calendar",
-        "locator": "Draft 2010-07-17, tr. 18–23 (Rule 1, 3, 4, 5)",
+        "locator": "Draft 2010-07-17, tr. 18–23 (Rule 1, 3, 4, 5); tr. 29 (lịch Việt Nam UTC+7 từ 1967)",
+        "stance": "agree"
+      },
+      {
+        "id": "ho-ngoc-duc-amlich",
+        "locator": "calrules_en.html (Wayback 2008-08-03), mục Comparison with Chinese calendar và Why 1985 has a leap lunar month (các ca trong audit/cases/ziwei)",
         "stance": "agree"
       }
     ],
     "verdict": "confirmed",
-    "notes": "Chỉ xác nhận nhánh cn. Nhánh vn xem core.table.VN_UTC7_FROM_SUI.",
+    "notes": "Nhánh vn chỉ xác nhận cho lịch miền Bắc từ 1967 và lịch cả nước sau thống nhất. Miền Nam 1967–1975 không thuộc phạm vi này (xem core.function.calendar_locale_warnings); trước 1967 xem core.table.VN_UTC7_FROM_SUI (conflict). Hai nguồn cho nhánh vn: Hồ Ngọc Đức (105°Đ, các ví dụ) và Aslaksen tr. 29 (miền Bắc duyệt lịch UTC+7 ngày 8/8/1967, Tết 1968 miền Bắc). Chưa kiểm Aslaksen có dựa trên Explanatory Supplement hay không; nếu có thì hai nguồn kém độc lập hơn.",
     "tests": [
       "core/tests/test_calendar_core.py::TestLunarCalendar",
       "audit/tests/test_golden_cases.py"

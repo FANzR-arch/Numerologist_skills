@@ -37,15 +37,15 @@
   },
   {
     "id": "ho-ngoc-duc-amlich",
-    "title": "Âm lịch Việt Nam (bài viết và chương trình tính)",
+    "title": "Computing the Vietnamese lunar calendar (calrules_en.html)",
     "author": "Hồ Ngọc Đức",
-    "language": "vi",
+    "language": "en",
     "tier": "T2",
-    "lineage": "ho-ngoc-duc-amlich",
-    "edition": null,
-    "access": null,
-    "verified": false,
-    "note": "Các trang informatik.uni-leipzig.de/~duc/amlich/ (index, calrules.html, calrules_en.html) trả 404 ngày 2026-11-23; cần bản lưu trữ hoặc nguồn khác"
+    "lineage": "explanatory-supplement",
+    "edition": "Bản lưu Wayback Machine ngày 2008-08-03",
+    "access": "https://web.archive.org/web/20080803075933/http://www.informatik.uni-leipzig.de/~duc/amlich/calrules_en.html; đọc qua Chrome 2026-11-23",
+    "verified": true,
+    "note": "Bản gốc Leipzig trả 404. Trang ghi quy tắc phỏng theo Explanatory Supplement to the Astronomical Almanac (Seidelmann), nên lineage ghi theo nguồn đó. Trang không nói về giai đoạn trước 1967."
   },
   {
     "id": "hko-calendar-tables",
@@ -54,7 +54,7 @@
     "language": "zh",
     "tier": "T1",
     "lineage": "hko",
-    "edition": "Bảng text năm 1985, 2007, 2024, 2033",
+    "edition": "Bảng text năm 1984, 1985, 2007, 2024, 2033",
     "access": "https://www.hko.gov.hk/en/gts/time/calendar/text/files/T<năm>e.txt; đọc 2026-11-23",
     "verified": true,
     "note": ""

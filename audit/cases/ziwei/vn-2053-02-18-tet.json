@@ -1,0 +1,17 @@
+{
+  "source": {
+    "id": "ho-ngoc-duc-amlich",
+    "locator": "calrules_en.html (Wayback 2008-08-03), mục Comparison with Chinese calendar: Tết 2053 VN 18/02, TQ 19/02"
+  },
+  "input": {
+    "calendar_type": "solar",
+    "birth_time": "2053-02-18 12:00",
+    "gender": "男",
+    "calendar_locale": "vn"
+  },
+  "expect": {
+    "calendar.lunar_month": 1,
+    "calendar.lunar_day": 1,
+    "calendar.is_leap_month": false
+  }
+}
