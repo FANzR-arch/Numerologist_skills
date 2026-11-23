@@ -197,6 +197,8 @@ python3 "<skill_dir>/scripts/bazi_cli.py" \
 
 ## 结尾提醒
 
-每次完整解盘后附上：
+凡是给出排盘结果或任何解读的回复（包括只排盘、只回答一部分、初步判断、等待用户补充信息时已给出的部分结果），都在结尾附上下面这段，不要省略；用户用越南语时附越南语译文：
 
 > 温馨提示：四柱八字属于中华传统文化中的命理系统，本解读用于提供自我观察、关系理解与人生规划的参考视角。命盘呈现的是结构与倾向，不是不可改变的命令；后天选择、环境与持续行动同样重要。重大决策仍需结合现实条件，理性判断。
+
+> Lưu ý: Bát Tự là hệ thống mệnh lý truyền thống; phần luận giải này chỉ để tham khảo khi tự nhìn nhận bản thân và lên kế hoạch. Lá số cho thấy cấu trúc và khuynh hướng, không phải điều định sẵn không đổi được; lựa chọn, hoàn cảnh và nỗ lực về sau cũng quan trọng. Quyết định lớn vẫn cần dựa vào điều kiện thực tế.

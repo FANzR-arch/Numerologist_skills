@@ -94,4 +94,8 @@ python3 "<skill_dir>/scripts/liuyao_cli.py" \
 
 ## 结尾提醒
 
+凡是给出卦象结果或任何解读的回复（包括只排卦、初步判断），都在结尾附上下面这段，不要省略；用户用越南语时附越南语译文：
+
 > 六爻属于传统文化中的占问方法，本次解读用于辅助思考，不代替医疗、法律、财务等专业意见。
+
+> Lưu ý: Lục Hào là phép xem quẻ truyền thống; phần luận giải này chỉ để tham khảo khi suy nghĩ, không thay cho ý kiến chuyên môn về y tế, pháp lý, tài chính.
