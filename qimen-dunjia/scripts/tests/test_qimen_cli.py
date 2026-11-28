@@ -1157,8 +1157,9 @@ class TestMenpoDirection:
         assert self._names(self._palace(7, "金", "杜门")) == [("门受制", "中")]
 
     def test_no_relation(self):
-        # 休门(水)落坎一(水)：比和
-        assert self._names(self._palace(1, "水", "休门")) == []
+        # 开门(金)落兑七(金)：比和，既不在本宫也不在对冲宫（休门落坎一虽也比和，但属门伏吟）
+        assert self._names(self._palace(7, "金", "开门")) == []
+        assert self._names(self._palace(1, "水", "休门")) == [("门伏吟", "凶")]
 
 
 class TestChartInvariants:
@@ -1285,3 +1286,56 @@ class TestTrueSolarTime:
     def test_single_hour_string_is_parsed(self):
         # 旧实现把 "2026-01-05 10" 当成 00:00
         assert _chart("2026-01-05 10")["calendar"]["solar"]["ymd_hms"] == "2026-01-05 10:00:00"
+
+
+class TestFuyin:
+    """「天蓬加著地天蓬」为伏吟，「八門返伏皆如此」为门伏吟（《烟波钓叟歌》）；星、门各自判断"""
+
+    def test_jiazi_hour_star_and_door_fuyin(self):
+        # 阳一局甲子时：星门都在本宫，天地盘干相同
+        patterns = _chart("2026-01-05 00:30")["chart"]["detected_patterns"]
+        assert {p["palace"] for p in patterns if p["name"] == "伏吟"} == {1, 2, 3, 4, 6, 7, 8, 9}
+        assert {p["palace"] for p in patterns if p["name"] == "门伏吟"} == {1, 2, 3, 4, 6, 7, 8, 9}
+
+    def test_door_fuyin_without_star_fuyin(self):
+        # 阳一局癸酉时：值使休门从一宫顺行九步回到一宫，门盘伏吟；值符随时干癸离开本宫，星不伏吟
+        patterns = _chart("2026-01-05 18:30")["chart"]["detected_patterns"]
+        assert {p["palace"] for p in patterns if p["name"] == "门伏吟"} == {1, 2, 3, 4, 6, 7, 8, 9}
+        assert not any(p["name"] == "伏吟" for p in patterns)
+
+    def test_single_palace_door_fuyin(self):
+        palace = {
+            "palace": 8, "name": "8宫", "element": "土", "is_center": False,
+            "sky_stem": "戊", "earth_stem": "乙", "door": "生门", "star": None,
+        }
+        names = {p["name"] for p in detect_patterns([palace], {"star": "天英", "palace": 9}, 1, {}, {})}
+        assert "门伏吟" in names
+        palace["door"] = "休门"
+        names = {p["name"] for p in detect_patterns([palace], {"star": "天英", "palace": 9}, 1, {}, {})}
+        assert "门伏吟" not in names
+
+
+class TestShiganRumu:
+    """时干入墓：钓叟歌与统宗所列时辰不同，分开标注"""
+
+    def _rumu(self, time_input):
+        return [p for p in _chart(time_input)["chart"]["detected_patterns"] if p["name"] == "时干入墓"]
+
+    def test_diaosou_hours(self):
+        hit = self._rumu("2026-01-07 20:30")  # 戊戌时
+        assert len(hit) == 1 and "戊戌" in hit[0]["detail"] and "统宗" not in hit[0]["detail"]
+        assert hit[0]["palace"] == _chart("2026-01-07 20:30")["chart"]["zhifu"]["palace"]
+        assert self._rumu("2026-01-06 02:30")  # 丁丑时
+
+    def test_tongzong_only_hours_are_labelled(self):
+        for t in ("2026-01-07 14:30", "2026-01-08 02:30"):  # 乙未、辛丑时
+            hit = self._rumu(t)
+            assert len(hit) == 1 and "仅《奇门遁甲统宗》列入" in hit[0]["detail"]
+
+    def test_other_hours(self):
+        assert not self._rumu("2026-01-05 00:30")  # 甲子时
+
+    def test_rule_tables(self):
+        from qimen_cli import SHIGAN_RUMU, SHIGAN_RUMU_TONGZONG_ONLY
+        assert set(SHIGAN_RUMU) == {"丙戌", "戊戌", "壬辰", "丁丑", "癸未"}
+        assert set(SHIGAN_RUMU_TONGZONG_ONLY) == {"乙未", "辛丑"}
