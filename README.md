@@ -49,6 +49,10 @@ python ziwei-doushu/scripts/ziwei_cli.py --input tmp/ziwei_input.json --output t
 
 这样至少能让过程更透明，错误更容易暴露，版本边界也更清楚。
 
+## License
+
+[MIT](LICENSE)。转载、改编或用于其他项目时请保留版权声明。
+
 ## Disclaimer
 
 本仓库内容用于传统术数的工程化表达与 AI 约束实验，不构成医疗、法律、财务或其他现实决策建议。
