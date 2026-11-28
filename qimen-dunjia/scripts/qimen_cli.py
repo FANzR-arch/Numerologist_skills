@@ -80,6 +80,21 @@ STAR_HOME = dict(zip(STAR_RING, ROTATION_RING))
 DOOR_HOME = dict(zip(DOOR_RING, ROTATION_RING))
 OPPOSITE_PALACE = {1: 9, 9: 1, 8: 2, 2: 8, 3: 7, 7: 3, 4: 6, 6: 4}
 
+# 时干入墓：时干落在自己的墓库时支。两部古籍所列时辰不同，分开标注
+# 《烟波钓叟歌》「戊戌壬辰與壬癸，癸未丁丑亦同凶」；《奇门遁甲统宗》「乙未壬辰兼丙戌，辛丑都来尽是凶」
+# 丙戌两书都认（钓叟歌三奇入墓句「丙奇屬火火墓戌」，统宗明列）
+SHIGAN_RUMU = {
+    "丙戌": "丙火墓在戌",
+    "戊戌": "戊土墓在戌",
+    "壬辰": "壬水墓在辰",
+    "丁丑": "丁火墓在丑（阴干逆行取墓）",
+    "癸未": "癸水墓在未（阴干逆行取墓）",
+}
+SHIGAN_RUMU_TONGZONG_ONLY = {
+    "乙未": "乙木随甲墓在未",
+    "辛丑": "辛金随庚墓在丑",
+}
+
 # 八神：阳遁顺布，阴遁逆布；值符始终为第一位
 # 两个序列都按顺时针（ROTATION_RING 方向）列出：阴遁逆布时，值符顺时针方向的下一位是九天
 GOD_RING_YANG = ["值符", "螣蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"]
@@ -422,9 +437,26 @@ def compute_element_relation(a_element: str | None, b_element: str | None) -> st
 
 
 def detect_patterns(palaces: list[dict[str, Any]], zhifu: dict, xunshou_palace: int,
-                    earth_plate: dict[int, str], sky_map: dict[int, str]) -> list[dict[str, Any]]:
+                    earth_plate: dict[int, str], sky_map: dict[int, str],
+                    time_ganzhi: str | None = None) -> list[dict[str, Any]]:
     """检测盘面常见格局"""
     patterns: list[dict[str, Any]] = []
+
+    # 0. 时干入墓：整盘格局，标在时干（随值符）所落之宫
+    if time_ganzhi in SHIGAN_RUMU:
+        patterns.append({
+            "name": "时干入墓",
+            "palace": zhifu["palace"],
+            "detail": f"{time_ganzhi}时，{SHIGAN_RUMU[time_ganzhi]}",
+            "nature": "凶",
+        })
+    elif time_ganzhi in SHIGAN_RUMU_TONGZONG_ONLY:
+        patterns.append({
+            "name": "时干入墓",
+            "palace": zhifu["palace"],
+            "detail": f"{time_ganzhi}时，{SHIGAN_RUMU_TONGZONG_ONLY[time_ganzhi]}；仅《奇门遁甲统宗》列入，《烟波钓叟歌》未列",
+            "nature": "凶",
+        })
 
     for p in palaces:
         if p["is_center"]:
@@ -447,12 +479,20 @@ def detect_patterns(palaces: list[dict[str, Any]], zhifu: dict, xunshou_palace: 
                     "nature": "吉",
                 })
 
-        # 2. 伏吟：天盘干 == 地盘干（同干同宫）
+        # 2. 伏吟：星（连同天盘干）回到本宫，天地盘干相同，「天蓬加著地天蓬」（《烟波钓叟歌》）
         if sky_stem and earth_stem and sky_stem == earth_stem:
             patterns.append({
                 "name": "伏吟",
                 "palace": palace_no,
-                "detail": f"天地盘同为{sky_stem}",
+                "detail": f"{star}在本宫，天地盘同为{sky_stem}" if star else f"天地盘同为{sky_stem}",
+                "nature": "凶",
+            })
+        #    门回到本宫为门伏吟，「八門返伏皆如此，生在生兮死在死」（《烟波钓叟歌》）；门与星分别移宫，各自判断
+        if door in DOOR_HOME and DOOR_HOME[door] == palace_no:
+            patterns.append({
+                "name": "门伏吟",
+                "palace": palace_no,
+                "detail": f"{door}在本宫{palace_no}宫",
                 "nature": "凶",
             })
 
@@ -694,7 +734,7 @@ def build_chart(normalized: NormalizedInput, solar: Solar, lunar: Any) -> dict[s
     star_index["天禽"] = tianrui_palace
 
     # 格局自动检测
-    detected_patterns = detect_patterns(palaces, zhifu, xunshou_palace, earth_plate, sky_map)
+    detected_patterns = detect_patterns(palaces, zhifu, xunshou_palace, earth_plate, sky_map, time_ganzhi)
 
     return {
         "dun_type": dun_type,

@@ -208,7 +208,7 @@ python "qimen-dunjia/scripts/qimen_cli.py" \
 - `chart.time_stem_visible` 是时干的明干（显干），用于判断所问之事在盘中的代表位置。
 - `chart.day_stem.palace` 是日干落宫，代表求测者本人的位置。
 - `chart.door_index` 可直接用 `chart.door_index["开门"]` 快速找到事业用神所在宫。
-- `chart.detected_patterns` 中 `nature: "凶"` 的格局（伏吟、反吟、门反吟、门迫、吉门受制）需要在解读中重点提示。反吟、门反吟是整盘翻转，八宫会同时出现，解读时合并成一句说。
+- `chart.detected_patterns` 中 `nature: "凶"` 的格局（伏吟、反吟、门反吟、门迫、吉门受制）需要在解读中重点提示，`门伏吟`、`时干入墓` 同样标凶。伏吟、门伏吟、反吟、门反吟是整盘格局，八宫会同时出现，解读时合并成一句说。`时干入墓` 的 `detail` 注明只出自《奇门遁甲统宗》时，要告诉用户这是一家之说。
 - 八神阳遁顺布、阴遁逆布，`god` 字段已按此排好。
 - 如果 `warnings` 里出现边界提示、中宫寄宫提示，要在解读里明确说明。
 
