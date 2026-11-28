@@ -37,8 +37,8 @@ Read:
 
 ### 默认口径
 
-- 子时处理：默认 23:00 起换日，日柱取次日（早晚子不分），与本仓库紫微斗数（`late_zi_rule=next_day`）、奇门遁甲脚本口径一致。
-- 用户明确沿用"夜子时"口径（23:00-00:00 日柱仍取当日）时可改用，但必须在输出中注明。
+- 子时处理：默认采用"夜子时"口径（23:00-00:00 日柱仍取当日，时柱按次日日干起子时）。注意这与本仓库紫微斗数、奇门遁甲脚本的默认（23:00 起换日）不同，同一个人交叉对照时要说明。
+- 用户明确采用 23:00 换日口径（早晚子不分）时传 `late_zi_rule=next_day`，并在输出中注明。
 - 如用户有其他口径偏好，优先沿用并说明。
 
 ## 工作流程
@@ -81,7 +81,7 @@ python "bazi/scripts/bazi_cli.py" \
 
 - `birth_time`、`gender` 必填；出生时间或性别缺失时脚本直接报错，不代填。
 - `calendar_type=lunar` 时 `birth_time` 写农历年月日，闰月出生同时传 `"is_leap_month": true`。
-- `late_zi_rule` 默认 `next_day`；只有用户明确沿用夜子时口径时才传 `same_day`。
+- `late_zi_rule` 默认 `same_day`（夜子时）；用户明确采用 23:00 换日口径时才传 `next_day`。
 - `query_year` 可选，填公历年份（与紫微斗数脚本的农历年不同），脚本给出该年立春后的流年干支、虚岁与所在大运。虚岁按公历年计，立春前出生者会有 `warnings` 提示少 1 岁。
 - `true_solar_time` 可选，默认不校正。用户要求真太阳时（或出生地远离时区中央经线，如新疆、西藏）时传 `true`，并必须给出生地经度 `location.longitude`（东经为正）；时区 `location.timezone` 默认 `Asia/Shanghai`。脚本按时区（含夏令时）换回 UTC，再加经度时差与均时差，明细见输出 `normalized_input.true_solar_time`。
 - 出生时间处于 `location.timezone`（默认 `Asia/Shanghai`）的夏令时期间（如中国 1986-1991 年夏季），或落在拨钟空档/重叠时，输出 `warnings` 会提示；向用户确认报的是钟表时间还是标准时间，必要时开启 `true_solar_time` 重排。

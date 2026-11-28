@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import argparse
+import calendar
 import json
 import math
 from datetime import datetime, timedelta, timezone
@@ -92,10 +93,11 @@ def clock_warnings(payload: dict[str, Any], civil: datetime) -> list[str]:
     return warnings
 
 
-def equation_of_time_minutes(moment: datetime) -> float:
-    """均时差（真太阳时 − 平太阳时，分钟），Spencer (1971) 傅里叶级数，误差约半分钟。"""
-    day_of_year = moment.timetuple().tm_yday
-    gamma = 2 * math.pi / 365 * (day_of_year - 1 + (moment.hour - 12) / 24)
+def equation_of_time_minutes(utc: datetime) -> float:
+    """均时差（真太阳时 − 平太阳时，分钟），按 NOAA GML《General Solar Position Calculations》公式：
+    γ 取 UTC 时刻的年内分数，闰年分母为 366。"""
+    days_in_year = 366 if calendar.isleap(utc.year) else 365
+    gamma = 2 * math.pi / days_in_year * (utc.timetuple().tm_yday - 1 + (utc.hour - 12) / 24)
     return 229.18 * (0.000075 + 0.001868 * math.cos(gamma) - 0.032077 * math.sin(gamma)
                      - 0.014615 * math.cos(2 * gamma) - 0.040849 * math.sin(2 * gamma))
 
@@ -105,9 +107,10 @@ def true_solar_time(civil: datetime, longitude: float, timezone_name: str = DEFA
     if not -180 <= longitude <= 180:
         raise ValueError("经度 longitude 需在 -180 到 180 之间（东经为正）")
     offset = civil.replace(tzinfo=get_zone(timezone_name)).utcoffset()
-    mean_solar = civil - offset + timedelta(minutes=longitude * 4)
-    eot = equation_of_time_minutes(mean_solar)
-    true_dt = (mean_solar + timedelta(minutes=eot)).replace(microsecond=0)
+    utc = civil - offset
+    eot = equation_of_time_minutes(utc)
+    # NOAA：time_offset = eqtime + 4·longitude − 60·timezone
+    true_dt = (utc + timedelta(minutes=longitude * 4 + eot)).replace(microsecond=0)
     detail = {
         "civil_datetime": civil.isoformat(sep=" "),
         "timezone": timezone_name,

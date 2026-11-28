@@ -41,7 +41,7 @@ def _near_jie(d):
     return any(abs((d - date(d.year, m, day)).days) <= 3 for m, day, _ in NOMINAL_JIE)
 
 
-def _expected_pillars(dt, late_zi_rule="next_day"):
+def _expected_pillars(dt, late_zi_rule="same_day"):
     """纯算术四柱：立春换年、节换月；next_day 23:00 换日，same_day 日柱不换、时干按次日起。"""
     d = dt.date()
     year = d.year if (d.month, d.day) >= (2, 4) else d.year - 1
@@ -81,14 +81,14 @@ class TestPillarsAgainstArithmetic:
             assert _pillars(_chart(dt.strftime("%Y-%m-%d %H:%M"))) == _expected_pillars(dt), dt
             checked += 1
 
-    def test_random_late_zi_same_day(self):
+    def test_random_late_zi_next_day(self):
         rng = random.Random(23)
         for _ in range(200):
             dt = datetime(1901, 1, 1, 23, rng.randrange(60)) + timedelta(days=rng.randrange(199 * 365))
             if _near_jie(dt.date()):
                 continue
-            output = _chart(dt.strftime("%Y-%m-%d %H:%M"), late_zi_rule="same_day")
-            assert _pillars(output) == _expected_pillars(dt, "same_day"), dt
+            output = _chart(dt.strftime("%Y-%m-%d %H:%M"), late_zi_rule="next_day")
+            assert _pillars(output) == _expected_pillars(dt, "next_day"), dt
 
     def test_known_chart(self):
         assert _pillars(_chart("1990-05-15 10:00")) == ["庚午", "辛巳", "庚辰", "辛巳"]
@@ -113,17 +113,18 @@ class TestJieBoundary:
 
 
 class TestLateZi:
-    def test_next_day_is_default(self):
+    def test_same_day_is_default(self):
         output = _chart("1990-05-10 23:30")
-        assert _pillars(output)[2:] == ["丙子", "戊子"]
-        assert output["calendar"]["day_rollover_applied"] is True
-        assert output["normalized_input"]["late_zi_rule"] == "next_day"
-
-    def test_same_day(self):
-        output = _chart("1990-05-10 23:30", late_zi_rule="same_day")
         # 夜子时：日柱仍取当日乙亥，时柱按次日日干起子时
         assert _pillars(output)[2:] == ["乙亥", "戊子"]
         assert output["calendar"]["day_rollover_applied"] is False
+        assert output["normalized_input"]["late_zi_rule"] == "same_day"
+        assert any("夜子时" in w for w in output["warnings"])
+
+    def test_next_day(self):
+        output = _chart("1990-05-10 23:30", late_zi_rule="next_day")
+        assert _pillars(output)[2:] == ["丙子", "戊子"]
+        assert output["calendar"]["day_rollover_applied"] is True
 
     def test_before_23_unaffected(self):
         assert _pillars(_chart("1990-05-10 22:59"))[2] == "乙亥"

@@ -27,8 +27,8 @@ STEM_WUXING = "木木火火土土金金水水"
 
 # lunar_python EightChar 的 sect：1 = 23:00 起日柱取次日；2 = 夜子时，日柱仍取当日
 LATE_ZI_RULES = {
-    "next_day": (1, "23:00 起换日，日柱取次日（早晚子不分），与紫微斗数、奇门遁甲脚本一致"),
-    "same_day": (2, "夜子时：23:00-00:00 日柱仍取当日，时柱按次日日干起子时（沿用用户既定口径时使用）"),
+    "next_day": (1, "23:00 起换日，日柱取次日（早晚子不分），与本仓库紫微斗数、奇门遁甲脚本口径相同（用户口径为 23 点换日时使用）"),
+    "same_day": (2, "夜子时（默认）：23:00-00:00 日柱仍取当日，时柱按次日日干起子时"),
 }
 MISSING_TIME = "缺少出生时间：八字时柱需要出生时辰，请先向用户确认"
 JIE_WARNING_HOURS = 24
@@ -63,7 +63,7 @@ def normalize_input(payload: dict[str, Any]) -> dict[str, Any]:
     else:
         raise ValueError(f"不支持的 calendar_type: {calendar_type}（只接受 solar 或 lunar）")
 
-    late_zi_rule = payload.get("late_zi_rule") or "next_day"
+    late_zi_rule = payload.get("late_zi_rule") or "same_day"
     if late_zi_rule not in LATE_ZI_RULES:
         raise ValueError(f"late_zi_rule 只接受 {sorted(LATE_ZI_RULES)}")
 
@@ -122,6 +122,8 @@ def build_output(payload: dict[str, Any]) -> dict[str, Any]:
     day_rollover = birth.hour == 23 and info["late_zi_rule"] == "next_day"
     if day_rollover:
         warnings.append("出生于 23 点后，已按次日排日柱；若用户既定口径为夜子时，请改用 late_zi_rule=same_day 重排。")
+    elif birth.hour == 23:
+        warnings.append("出生于 23 点后，按夜子时口径日柱仍取当日、时柱按次日日干起子时；若用户口径为 23 点换日，请改用 late_zi_rule=next_day 重排。")
     if lunar.getYearGanIndexExact() != (birth.year - 4) % 10:
         warnings.append(f"出生于 {birth.year} 年立春前，年柱属上一年；大运与流年的虚岁按公历年计，比按立春/农历年算的虚岁少 1 岁，向用户报年龄时请说明。")
 
