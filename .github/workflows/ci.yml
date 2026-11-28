@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -r requirements-dev.txt
+      - run: pytest -q
+      - run: python tools/sync_core.py --check
+
+  # 用 iztro 重新生成紫微对照盘例，fixture 必须保持不变
+  iztro-fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --no-save --prefix "$RUNNER_TEMP/iztro" iztro@2.6.2
+      - run: NODE_PATH="$RUNNER_TEMP/iztro/node_modules" node ziwei-doushu/scripts/tests/fixtures/gen_iztro_cases.cjs ziwei-doushu/scripts/tests/fixtures/iztro_cases.json
+      - run: git diff --exit-code

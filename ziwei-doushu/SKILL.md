@@ -137,7 +137,9 @@ python "ziwei-doushu/scripts/ziwei_cli.py" \
   "gender": "男|女",
   "late_zi_rule": "next_day|same_day",
   "leap_month_rule": "current|next|split_15",
-  "query_year": 2026
+  "query_year": 2026,
+  "true_solar_time": false,
+  "location": {"longitude": 116.4, "timezone": "Asia/Shanghai"}
 }
 ```
 
@@ -146,6 +148,8 @@ python "ziwei-doushu/scripts/ziwei_cli.py" \
 - `late_zi_rule` 默认 `next_day`（23:00 起算次日子时）；只有用户明确沿用不换日的口径时才传 `same_day`。
 - `leap_month_rule` 只在出生于闰月时起作用。不传时默认 `split_15`（闰月十五日及以前按本月，十六日起按下月）；用户已有既定口径时改传 `current`（整月按本月）或 `next`（整月按下月）。输出里 `normalized_input.leap_month_rule_source` 标明是默认（`default`）还是指定（`explicit`），给用户讲口径时照实说明用了哪种算法。
 - `query_year` 可选，填要看的农历年份，脚本会算出该年虚岁、所在大限及大限四化、流年命宫及流年四化。
+- `true_solar_time` 可选，默认不校正。用户要求真太阳时（或出生地远离时区中央经线，如新疆、西藏）时传 `true`，并必须给出生地经度 `location.longitude`（东经为正）；时区 `location.timezone` 默认 `Asia/Shanghai`。脚本按时区（含夏令时）换回 UTC，再加经度时差与均时差，明细见输出 `normalized_input.true_solar_time`。
+- 出生时间处于 `location.timezone`（默认 `Asia/Shanghai`）的夏令时期间（如中国 1986-1991 年夏季），或落在拨钟空档/重叠时，输出 `warnings` 会提示；向用户确认报的是钟表时间还是标准时间，必要时开启 `true_solar_time` 重排。
 - 时辰不确定时，按候选时辰分别跑脚本，对比差异盘，不要硬定。
 - 输出 `warnings` 提示出生时间靠近时辰交界、子时换日、闰月口径时，要把这些写进给用户的口径说明。
 
